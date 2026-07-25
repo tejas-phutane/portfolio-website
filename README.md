@@ -1,202 +1,157 @@
 # Tejas Phutane - Senior Robotics Engineer Portfolio
 
 [![Vercel](https://img.shields.io/badge/Vercel-Deployment-black?style=flat&logo=vercel)](https://vercel.com/)
-[![Firebase](https://img.shields.io/badge/Firebase-Hosting-orange)](https://firebase.google.com/)
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Next.js](https://img.shields.io/badge/Next.js-15.0-black?style=flat&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.0-blue?style=flat&logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://linkedin.com/in/tejas-phutane)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=flat&logo=github&logoColor=white)](https://github.com/TejasPhutane)
 
 ## Overview
 
-This is a professional portfolio website showcasing the work and expertise of Tejas Phutane, a Senior Robotics Engineer specializing in autonomous waste management systems. The site features a comprehensive overview of his background, technical skills, professional experience, notable projects, and services offered.
+This is a modern, professional portfolio website showcasing the work and expertise of Tejas Phutane, a Senior Robotics Engineer specializing in autonomous waste management systems. Built with **Next.js (App Router)** and **TypeScript**, the site highlights his technical skills, professional experience, key projects, and robotic systems development.
 
-The portfolio highlights Tejas's extensive experience in robotics, computer vision, AI/ML deployment, and production-grade system development. It demonstrates his contributions to India's first Robotic Gallery at Gujarat Science City and his current role leading perception and motion control for autonomous waste sorting robots.
+It features custom-crafted interactive React components, dynamic states, scroll-active navigation, an asynchronous image perception search API (Tavily), and custom email contact routing.
+
+---
 
 ## Key Features
 
-- **Responsive Design**: Fully responsive layout that works seamlessly across desktop, tablet, and mobile devices
-- **Interactive Navigation**: Smooth scrolling navigation with active section highlighting
-- **Project Showcase**: Detailed project cards with metrics, technologies, and expandable details
-- **Skills Overview**: Comprehensive technical skills categorized by domain (Robotics, Computer Vision, Programming, etc.)
-- **Experience Timeline**: Chronological display of professional experience with key achievements
-- **Contact Integration**: Functional contact form with professional contact information
-- **Accessibility**: Keyboard navigation support and screen reader friendly
-- **Performance Optimized**: Fast loading with optimized images and efficient JavaScript
+- **Next.js App Router**: Built with a modern, file-based routing architecture.
+- **Dynamic React States**: Interactive project details, modal popups, and category expansion states.
+- **Responsive Navigation**: Smooth scrolling navigation with automatic active-section highlighting.
+- **Project Metrics Grid**: Project cards featuring success rates, computational metrics, and hardware stacks.
+- **Technical Skills Matrix**: Comprehensive skills categorization spanning Robotics & Control, Computer Vision & AI, Programming, and Deployments.
+- **Contact API Handler**: Clean contact form forwarding emails via Next.js Route Handler and the Resend API.
+- **Accessibility & Custom 404**: Clean keyboard accessibility support and a customized dark-mode 404 error page.
+
+---
 
 ## Technologies Used
 
-### Frontend
-- **HTML5**: Semantic markup and structure
-- **CSS3**: Modern styling with CSS Grid and Flexbox
-- **JavaScript (ES6+)**: Interactive functionality and DOM manipulation
-- **Lucide Icons**: Beautiful, consistent iconography
+### Frontend & Core
+- **Next.js (v16)**: React framework with App Router, server-rendered components, and route optimization.
+- **React (v19)**: State management, Hooks, and client-side page interactivity.
+- **TypeScript**: Full static type-checking and code completion.
+- **Lucide Icons**: Beautiful, lightweight utility iconography.
+- **CSS3 (Vanilla)**: High-fidelity premium dark-mode styling utilizing variables and responsive flexbox layouts.
 
-### Hosting & Deployment
-- **Vercel**: Modern hosting platform with Serverless functions and global Edge CDN
-- **Firebase Hosting**: Fast, secure web hosting with CDN
-- **Firebase CLI**: Command-line tools for deployment
+### API & Integrations
+- **Resend SDK**: For serverless email dispatch on form submission.
+- **Tavily API**: Used for fetching contextually rich project-related search images dynamically.
 
-### Development Tools
-- **Git**: Version control
-- **VS Code**: Development environment
+---
 
 ## Project Structure
 
-```
-├── api/
-│   └── contact.js          # Vercel serverless contact form handler
-├── tejas-portfolio-final/
-│   ├── index.html          # Main portfolio page
-│   ├── style.css           # Stylesheet with responsive design
-│   ├── app.js              # JavaScript for interactivity
-│   └── images/             # Project images and assets
-│       ├── profile.png
-│       └── project images...
+```text
+├── app/
+│   ├── api/
+│   │   └── contact/
+│   │       └── route.ts        # Next.js Route Handler for contact form
+│   ├── globals.css             # Main stylesheet (design system, transitions, variables)
+│   ├── layout.tsx              # Root layout with Google font loading & SEO metadata
+│   ├── page.tsx                # Main portfolio React page (UI states, modal, features)
+│   └── not-found.tsx           # Custom 404 page in premium dark theme
+├── public/
+│   └── images/                 # Profile & project images/GIFs
 ├── content/
-│   └── about-tejas-phutane.md  # Detailed about content
-├── vercel.json             # Vercel configuration
-├── .firebaserc             # Firebase project configuration
-├── .gitignore              # Git ignore rules
-└── tejas-portfolio-final.zip  # Backup/archive
+│   └── about-tejas-phutane.md  # Detailed markdown source files
+├── package.json                # NPM dependencies & scripts
+├── tsconfig.json               # TypeScript configuration
+├── next.config.ts              # Next.js configuration
+├── eslint.config.mjs           # ESLint configuration
+└── .gitignore                  # Git ignore rules
 ```
+
+---
 
 ## Getting Started
 
 ### Prerequisites
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- Git (for cloning the repository)
-- Node.js and npm (for Firebase CLI, optional for local development)
+- Node.js (v18.17.0 or higher recommended)
+- npm or yarn
 
 ### Local Development
 
 1. **Clone the repository:**
    ```bash
    git clone <repository-url>
-   cd tejas-portfolio
+   cd portfolio-website
    ```
 
-2. **Open the portfolio:**
-   - Simply open `tejas-portfolio-final/index.html` in your web browser
-   - For a better development experience, use a local server:
-
-3. **Using Python (recommended for simple hosting):**
+2. **Install dependencies:**
    ```bash
-   cd tejas-portfolio-final
-   python -m http.server 8000
+   npm install
    ```
-   Then open `http://localhost:8000` in your browser.
 
-4. **Using Node.js (if available):**
+3. **Run the development server:**
    ```bash
-   npx serve tejas-portfolio-final
+   npm run dev
    ```
+   Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-### Development Notes
-- The site is built with vanilla HTML/CSS/JS for maximum compatibility
-- No build process required - all files are ready to deploy
-- Images are optimized for web delivery
-- JavaScript is modular and follows modern ES6+ practices
-
-## Firebase Deployment Instructions
-
-### Prerequisites
-- Node.js installed (version 14 or higher)
-- Firebase account and project created
-- Firebase CLI installed globally
-
-### Installation
-
-1. **Install Firebase CLI:**
+4. **Build for production:**
    ```bash
-   npm install -g firebase-tools
+   npm run build
    ```
-
-2. **Login to Firebase:**
+   To preview the built production app locally:
    ```bash
-   firebase login
-   ```
-   Follow the browser authentication flow.
-
-3. **Initialize Firebase (if not already done):**
-   ```bash
-   firebase init hosting
-   ```
-   - Select the project: `tejas-phutane-portfolio`
-   - Choose `tejas-portfolio-final` as the public directory
-   - Configure as a single-page app: Yes
-   - Set up automatic builds: No
-
-### Deployment
-
-1. **Deploy to Firebase Hosting:**
-   ```bash
-   firebase deploy --only hosting
+   npm run start
    ```
 
-2. **Verify Deployment:**
-   - The command will output the hosting URL
-   - Visit the URL to see your live portfolio
-
-### Post-Deployment
-- The site will be available at: `https://tejas-phutane-portfolio.web.app`
-- Custom domain can be configured in Firebase Console if desired
-- SSL certificate is automatically provided by Firebase
-
-### Updating the Site
-1. Make your changes to the code
-2. Test locally
-3. Deploy again with: `firebase deploy --only hosting`
+---
 
 ## Vercel Deployment Instructions
+
+Next.js projects deploy out-of-the-box on Vercel with zero configuration required.
 
 ### Method 1: Git Integration (Recommended)
 1. Push your repository to **GitHub, GitLab, or Bitbucket**.
 2. Sign in to your Vercel Dashboard at [vercel.com](https://vercel.com/).
 3. Import your project repository.
-4. Vercel automatically detects `vercel.json` and configures the build settings (using `tejas-portfolio-final` as the served directory).
-5. **(Optional)** In Project Settings, add the environment variable `RESEND_API_KEY` to enable email forwarding.
-6. Click **Deploy**. Future updates pushed to your default branch will be built and deployed automatically.
+4. Vercel automatically detects Next.js, configures the build settings, and provisions your site.
+5. **(Optional)** Add the environment variable for email delivery:
+   - Go to your Vercel Project **Settings > Environment Variables**.
+   - Add `RESEND_API_KEY` containing your Resend API token.
+6. Click **Deploy**. Future updates pushed to your default branch will build and deploy automatically.
 
 ### Method 2: Vercel CLI
 1. Install Vercel CLI:
    ```bash
    npm install -g vercel
    ```
-2. Log in:
-   ```bash
-   vercel login
-   ```
-3. Run from the project root:
+2. Log in and deploy from the project root:
    ```bash
    vercel
    ```
-4. To release to production:
+3. To release to production:
    ```bash
    vercel --prod
    ```
+
+---
 
 ## Professional Information
 
 **Tejas Phutane**  
 Senior Robotics Engineer  
-Wastefull Insights, Vadodara, Gujarat, India  
-Open to global opportunities
+Mumbai, India (Open to global opportunities / relocation)  
 
 ### Contact
 - **Email:** [tejasphutane.work@gmail.com](mailto:tejasphutane.work@gmail.com)
 - **Phone:** +91-8484016205
 - **LinkedIn:** [linkedin.com/in/tejas-phutane](https://linkedin.com/in/tejas-phutane)
 - **GitHub:** [github.com/TejasPhutane](https://github.com/TejasPhutane)
-- **Location:** Mumbai, India (Open to relocation)
 
 ### Expertise Areas
 - Robotics & Control Systems
-- Computer Vision & AI
-- Production-Grade Vision Systems
-- Autonomous Systems Development
+- Computer Vision & AI Perception
+- Production-Grade Vision QC Systems
+- Autonomous Systems Development & ROS/ROS2
 - Technical Leadership & Mentorship
+
+---
 
 ## License
 
@@ -204,4 +159,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-*Built with ❤️ by Tejas Phutane | Last updated: November 2025*
+*Built with ❤️ by Tejas Phutane | Last updated: July 2026*
