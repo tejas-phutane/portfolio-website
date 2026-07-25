@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Tejas Phutane</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: linear-gradient(135deg, #0F1419 0%, #1A1F26 100%);
+            --bg-secondary: #1A1F26;
+            --text-primary: #E8EAED;
+            --text-secondary: #9AA0A6;
+            --accent-primary: #00D4FF;
+            --accent-hover: #33E0FF;
+            --accent-glow: rgba(0, 212, 255, 0.3);
+            --border-color: #2D333B;
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--accent-primary), transparent, var(--accent-primary));
+            border-radius: 14px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-size: 6rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            line-height: 1;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .btn-home {
+            display: inline-block;
+            background: var(--accent-primary);
+            color: #0F1419;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+
+        .btn-home:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <h2>Page Not Found</h2>
+        <p>The specified page was not found on this website. Please check the URL for mistakes and try again.</p>
+        <a href="/" class="btn-home">Return to Portfolio</a>
+    </div>
+</body>
+</html>

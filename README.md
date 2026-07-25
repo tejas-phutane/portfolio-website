@@ -1,5 +1,6 @@
 # Tejas Phutane - Senior Robotics Engineer Portfolio
 
+[![Vercel](https://img.shields.io/badge/Vercel-Deployment-black?style=flat&logo=vercel)](https://vercel.com/)
 [![Firebase](https://img.shields.io/badge/Firebase-Hosting-orange)](https://firebase.google.com/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -33,6 +34,7 @@ The portfolio highlights Tejas's extensive experience in robotics, computer visi
 - **Lucide Icons**: Beautiful, consistent iconography
 
 ### Hosting & Deployment
+- **Vercel**: Modern hosting platform with Serverless functions and global Edge CDN
 - **Firebase Hosting**: Fast, secure web hosting with CDN
 - **Firebase CLI**: Command-line tools for deployment
 
@@ -43,21 +45,21 @@ The portfolio highlights Tejas's extensive experience in robotics, computer visi
 ## Project Structure
 
 ```
-tejas-portfolio-final/
-├── index.html          # Main portfolio page
-├── style.css           # Stylesheet with responsive design
-├── app.js              # JavaScript for interactivity
-└── images/             # Project images and assets
-    ├── profile.png
-    ├── project images...
-    └── ...
-
-content/
-└── about-tejas-phutane.md  # Detailed about content
-
-.firebaserc              # Firebase project configuration
-.gitignore              # Git ignore rules
-tejas-portfolio-final.zip  # Backup/archive
+├── api/
+│   └── contact.js          # Vercel serverless contact form handler
+├── tejas-portfolio-final/
+│   ├── index.html          # Main portfolio page
+│   ├── style.css           # Stylesheet with responsive design
+│   ├── app.js              # JavaScript for interactivity
+│   └── images/             # Project images and assets
+│       ├── profile.png
+│       └── project images...
+├── content/
+│   └── about-tejas-phutane.md  # Detailed about content
+├── vercel.json             # Vercel configuration
+├── .firebaserc             # Firebase project configuration
+├── .gitignore              # Git ignore rules
+└── tejas-portfolio-final.zip  # Backup/archive
 ```
 
 ## Getting Started
@@ -146,6 +148,34 @@ tejas-portfolio-final.zip  # Backup/archive
 1. Make your changes to the code
 2. Test locally
 3. Deploy again with: `firebase deploy --only hosting`
+
+## Vercel Deployment Instructions
+
+### Method 1: Git Integration (Recommended)
+1. Push your repository to **GitHub, GitLab, or Bitbucket**.
+2. Sign in to your Vercel Dashboard at [vercel.com](https://vercel.com/).
+3. Import your project repository.
+4. Vercel automatically detects `vercel.json` and configures the build settings (using `tejas-portfolio-final` as the served directory).
+5. **(Optional)** In Project Settings, add the environment variable `RESEND_API_KEY` to enable email forwarding.
+6. Click **Deploy**. Future updates pushed to your default branch will be built and deployed automatically.
+
+### Method 2: Vercel CLI
+1. Install Vercel CLI:
+   ```bash
+   npm install -g vercel
+   ```
+2. Log in:
+   ```bash
+   vercel login
+   ```
+3. Run from the project root:
+   ```bash
+   vercel
+   ```
+4. To release to production:
+   ```bash
+   vercel --prod
+   ```
 
 ## Professional Information
 

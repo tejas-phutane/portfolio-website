@@ -693,11 +693,11 @@ class ContactFormManager {
         submitBtn.disabled = true;
 
         try {
-            // Simulate form submission (replace with actual API call)
-            await this.submitForm(data);
+            // Submit form to Vercel API
+            const result = await this.submitForm(data);
 
             // Show success message
-            this.showMessage('Message sent successfully! I\'ll get back to you soon.', 'success');
+            this.showMessage(result.message || 'Message sent successfully! I\'ll get back to you soon.', 'success');
 
             // Reset form
             this.form.reset();
@@ -714,17 +714,20 @@ class ContactFormManager {
     }
 
     async submitForm(data) {
-        // Simulate API call - replace with actual implementation
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // Simulate success (90% success rate)
-                if (Math.random() > 0.1) {
-                    resolve({ success: true });
-                } else {
-                    reject(new Error('Network error'));
-                }
-            }, 2000);
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
         });
+
+        if (!response.ok) {
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData.error || 'Network error');
+        }
+
+        return await response.json();
     }
 
     showMessage(message, type) {
