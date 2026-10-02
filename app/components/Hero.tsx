@@ -25,7 +25,7 @@ export default function Hero() {
           <div className="hero-editorial">
             <div className="hero-status-pill">
               <span className="status-indicator-dot" />
-              <span>Current Role: Senior Engineer L1 @ FEV India</span>
+              <span>Current Role: Senior Engineer L1 @ FEV India (Humanoids &amp; Sim-to-Real)</span>
             </div>
 
             <h1 className="hero-headline">
@@ -33,11 +33,11 @@ export default function Hero() {
             </h1>
 
             <p className="hero-subheading">
-              Senior Robotics &amp; Computer Vision Engineer specialized in end-to-end autonomous systems, real-time edge perception, and industrial digital twins.
+              Senior Robotics &amp; Computer Vision Engineer specialized in humanoid platforms, sim-to-real locomotion policies, and real-time edge perception.
             </p>
 
             <p className="hero-bio">
-              Over 4+ years architecting and shipping production-grade robotics — from deploying real-time vision pipelines processing 10,000+ items daily on factory floors to commissioning 7+ robotic platforms at India&apos;s First Robotics Gallery and engineering aerospace computer vision systems with DRDO/ADA. Focused on low-latency C++ optimization, sensor fusion, and sim-to-real transfer.
+              Over 4+ years architecting and shipping production-grade robotics — currently developing bipedal locomotion policies, safety layers, and sim-to-real transfer for the Unitree G1 humanoid at FEV India. Proven track record deploying vision pipelines processing 10,000+ daily items on factory floors, commissioning 7+ robotic platforms at Gujarat Science City, and engineering aerospace vision systems with DRDO/ADA.
             </p>
 
             {/* Executive Proof Points Strip (Replaces fake terminal) */}
@@ -118,7 +118,7 @@ export default function Hero() {
 
               <div className="frame-header-bar">
                 <span className="frame-index">SYS_ID // TP-ROB-01</span>
-                <span className="frame-tag">AUTONOMY &amp; SIM</span>
+                <span className="frame-tag">G1 HUMANOID // SIM-TO-REAL</span>
               </div>
 
               <div className="frame-image-container">
@@ -135,7 +135,7 @@ export default function Hero() {
                   <span className="status-pulse-live" />
                   <span className="footer-status-text">Available for Senior &amp; Staff Roles</span>
                 </div>
-                <span className="footer-spec">FEV India · Vadodara · Pune</span>
+                <span className="footer-spec">FEV India · Unitree G1 &amp; Inspire Hand · Pune</span>
               </div>
             </div>
           </div>

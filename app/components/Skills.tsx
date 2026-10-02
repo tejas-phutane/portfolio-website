@@ -6,8 +6,8 @@ const skillGroups = [
   {
     icon: <Cog size={20} />,
     title: "Robotics & Control",
-    skills: ["ROS/ROS2", "MoveIt", "Gazebo", "Isaac Sim", "Motion Planning", "Trajectory Control", "PID Control", "Sensor Fusion", "Kalman Filtering", "SLAM", "URDF/Xacro"],
-    note: "Platforms: Pepper, UR10, NAO, Da Vinci, SCARA, Mobile Robots, Quadrupeds",
+    skills: ["ROS/ROS2", "Isaac Sim / Lab", "MoveIt", "Gazebo", "Sim-to-Real", "Locomotion Policies", "Safety Layer & HAL", "Motion Planning", "Trajectory Control", "Sensor Fusion", "SLAM", "URDF/Xacro"],
+    note: "Platforms: Unitree G1, Inspire Hand, Pepper, UR10, NAO, Da Vinci, SCARA, AMRs, Quadrupeds",
   },
   {
     icon: <Eye size={20} />,
@@ -22,7 +22,7 @@ const skillGroups = [
   {
     icon: <Cpu size={20} />,
     title: "Hardware & Edge",
-    skills: ["NVIDIA Jetson Xavier", "Industrial Cameras", "3D LiDAR", "PLC (Omron)", "Arduino", "IMU Sensors", "Multi-axis Controllers"],
+    skills: ["Unitree G1", "Inspire Dexterous Hand", "NVIDIA Jetson Xavier", "Industrial Cameras", "3D LiDAR", "Omron PLC", "Arduino", "IMU Sensors", "Multi-axis Controllers"],
   },
   {
     icon: <Database size={20} />,

@@ -15,10 +15,10 @@ export default function About() {
           <div className="about-grid">
             <div className="about-body">
               <p>
-                I&apos;m a <strong>Senior Engineer</strong> currently at FEV India, working on humanoid robotic digital
-                twin systems for industrial applications. With 4+ years of hands-on experience, I design
-                production-grade vision systems, real-time perception pipelines, and end-to-end robotic solutions
-                that bridge hardware and software.
+                I&apos;m a <strong>Senior Engineer L1</strong> currently at FEV India, actively developing humanoid robotic
+                systems on platforms like the <strong>Unitree G1 with Inspire dexterous hands</strong>. With 4+ years of
+                hands-on experience, I design physics-accurate sim-to-real transfer workflows, bipedal locomotion policies,
+                and robust hardware abstraction/safety layers that bring complex robots reliably into reality.
               </p>
               <p>
                 My journey started at <strong>RGIT&apos;s Robotics Club</strong> in Mumbai, where I led simulation
@@ -53,7 +53,7 @@ export default function About() {
             <div className="highlight-card">
               <h3>Currently</h3>
               <p>Senior Engineer L1 at FEV India Pvt Ltd</p>
-              <p>Humanoid Digital Twin Systems</p>
+              <p>Unitree G1 Humanoid &amp; Inspire Hand</p>
             </div>
           </ScrollReveal>
           <ScrollReveal delay={3}>
@@ -167,8 +167,8 @@ export default function About() {
             <div className="exploring-card">
               <div className="exploring-icon"><Cpu size={22} /></div>
               <div>
-                <h4>Sim-to-Real Transfer</h4>
-                <p>Training in Isaac Sim and deploying policies on real hardware without constant retuning.</p>
+                <h4>Physical AI &amp; Synthetic Data</h4>
+                <p>Exploring simulation environments like Isaac Sim Arena, RoboStudio, GenieSim, and Lightwheel AI (RoboFinals) to generate physics-grounded synthetic data for humanoid policy training.</p>
               </div>
             </div>
           </ScrollReveal>
@@ -176,8 +176,8 @@ export default function About() {
             <div className="exploring-card">
               <div className="exploring-icon"><Eye size={22} /></div>
               <div>
-                <h4>Vision Language Models</h4>
-                <p>Moving beyond class-specific detectors to systems that understand context — &quot;pick the red box left of the machine.&quot;</p>
+                <h4>Egocentric Data Collection Pipelines</h4>
+                <p>Developing first-person multimodal demonstration pipelines (egocentric vision, tactile, proprioception) on platforms like RoboLab for dexterous manipulation and imitation learning.</p>
               </div>
             </div>
           </ScrollReveal>
@@ -185,8 +185,8 @@ export default function About() {
             <div className="exploring-card">
               <div className="exploring-icon"><Brain size={22} /></div>
               <div>
-                <h4>LLMs for Task Planning</h4>
-                <p>Translating high-level warehouse instructions into executable robot workflows and sequences.</p>
+                <h4>Model Training &amp; Validation Layers</h4>
+                <p>Engineering closed-loop verification benchmarks and diagnostic safety boundaries to evaluate policy stability before running on physical humanoid hardware.</p>
               </div>
             </div>
           </ScrollReveal>
@@ -194,8 +194,8 @@ export default function About() {
             <div className="exploring-card">
               <div className="exploring-icon"><Layers size={22} /></div>
               <div>
-                <h4>Behavior Cloning</h4>
-                <p>Recording expert demonstrations and distilling them into policies that work at scale.</p>
+                <h4>G1 &amp; Inspire Hand Dexterity</h4>
+                <p>Scaling whole-body coordination on the Unitree G1 bipedal platform with Inspire multi-finger dexterous hands, coupling locomotion policies with compliant manipulation.</p>
               </div>
             </div>
           </ScrollReveal>
