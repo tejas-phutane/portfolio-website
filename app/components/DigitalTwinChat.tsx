@@ -27,7 +27,7 @@ export default function DigitalTwinChat() {
       id: "welcome-1",
       role: "assistant",
       content: "Hi! I'm Tejas's **AI Digital Twin**, grounded in his real hardware deployments, humanoid robotics research, and production vision systems.\n\nAsk me anything about my work on the **Unitree G1**, industrial automation at **Wastefull Insights**, exhibits at the **Robotics Gallery**, or get in touch for collaboration!",
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      timestamp: "Active",
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
