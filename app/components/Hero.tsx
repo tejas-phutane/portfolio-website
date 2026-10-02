@@ -33,11 +33,11 @@ export default function Hero() {
             </h1>
 
             <p className="hero-subheading">
-              Robotics &amp; Computer Vision Engineer specialized in autonomous systems, perception pipelines, and digital twin simulation.
+              Senior Robotics &amp; Computer Vision Engineer specialized in end-to-end autonomous systems, real-time edge perception, and industrial digital twins.
             </p>
 
             <p className="hero-bio">
-              Over 4+ years architecting and scaling production robotics — from deploying real-time perception models on factory conveyor sorting lines to engineering multi-robot exhibits at India&apos;s First Robotics Gallery. Focused on high-throughput sensor fusion, C++ runtime optimization, and humanoid simulation.
+              Over 4+ years architecting and shipping production-grade robotics — from deploying real-time vision pipelines processing 10,000+ items daily on factory floors to commissioning 7+ robotic platforms at India&apos;s First Robotics Gallery and engineering aerospace computer vision systems with DRDO/ADA. Focused on low-latency C++ optimization, sensor fusion, and sim-to-real transfer.
             </p>
 
             {/* Executive Proof Points Strip (Replaces fake terminal) */}

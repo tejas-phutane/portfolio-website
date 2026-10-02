@@ -825,6 +825,94 @@ strong { color: var(--text-primary); }
   margin: 0;
 }
 
+/* ─── Production Delivery Tenets ─── */
+.tenets-section {
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tenets-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .tenets-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.tenet-card {
+  background: #0d111a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.tenet-card:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.5);
+}
+
+.tenet-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.tenet-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tenet-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin: 0 0 2px 0;
+}
+
+.tenet-tagline {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--accent-primary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tenet-body {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.tenet-metric-callout {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #f59e0b;
+}
 
 /* ─── Skills Section ─── */
 .skills-grid {
