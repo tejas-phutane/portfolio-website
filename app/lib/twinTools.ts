@@ -24,7 +24,7 @@ export interface ToolResult {
  */
 function getSafeStoragePath(filename: string): string | null {
   const candidateDirs = [
-    path.join(process.cwd(), 'data'),
+    path.join(/*turbopackIgnore: true*/ process.cwd(), 'data'),
     path.join('/tmp', 'portfolio-data'),
   ];
 
