@@ -84,7 +84,7 @@ test.describe('Portfolio Website End-to-End Tests', () => {
     await page.waitForTimeout(500);
 
     // Verify modal is open
-    const modal = page.locator('div[role="dialog"]');
+    const modal = page.locator('.modal-overlay[role="dialog"]');
     await expect(modal).toBeVisible();
     await expect(modal).toContainText(/Problem/i);
     await expect(modal).toContainText(/Approach/i);
