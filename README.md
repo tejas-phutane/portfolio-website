@@ -17,13 +17,44 @@ It features custom-crafted interactive React components, dynamic states, scroll-
 
 ## Key Features
 
-- **Next.js App Router**: Built with a modern, file-based routing architecture.
+- **Local Portfolio Studio (`/studio`)**: Private no-code visual dashboard for editing projects, career experience, services, bio, AI Twin memory, and uploading project images directly in your browser.
+- **AI Digital Twin Assistant**: Grounded conversational AI powered by OpenRouter `openai/gpt-oss-120b` with multi-turn tool calling and lead capture.
+- **Next.js App Router**: Built with a modern, file-based routing architecture with static prerendering.
 - **Dynamic React States**: Interactive project details, modal popups, and category expansion states.
 - **Responsive Navigation**: Smooth scrolling navigation with automatic active-section highlighting.
 - **Project Metrics Grid**: Project cards featuring success rates, computational metrics, and hardware stacks.
 - **Technical Skills Matrix**: Comprehensive skills categorization spanning Robotics & Control, Computer Vision & AI, Programming, and Deployments.
 - **Contact API Handler**: Clean contact form forwarding emails via Next.js Route Handler and the Resend API.
 - **Accessibility & Custom 404**: Clean keyboard accessibility support and a customized dark-mode 404 error page.
+
+---
+
+## 🎨 Local Portfolio Studio (No-Code Editing)
+
+You can manage all portfolio content, images, and AI memory visually without editing code:
+
+1. **Start the local development server:**
+   ```bash
+   npm run dev
+   ```
+2. **Open the Studio in your browser:**
+   ```
+   http://localhost:3000/studio
+   ```
+3. **Features:**
+   - 📂 **Projects:** Add new projects, edit deep-dive problem/approach formulations, and upload project images directly to `public/images/`.
+   - 💼 **Experience:** Add/edit career positions, metrics, and skill tags.
+   - ⚡ **Services:** Add/edit consulting offerings and select Lucide icons.
+   - 📖 **About & Bio:** Edit narrative paragraphs, engineering tenets, and exploration cards.
+   - 🧠 **AI Twin Memory:** Update the system prompt to teach your AI Digital Twin about your newest deployments or hardware milestones.
+4. **Publish your edits:**
+   Click **"Save Changes"** in the Studio, then commit and push to GitHub:
+   ```bash
+   git add .
+   git commit -m "content: update projects and experience"
+   git push origin master
+   ```
+   *Vercel will automatically build and deploy your updated static site in ~30 seconds.*
 
 ---
 

@@ -5,6 +5,7 @@ import ProjectModal from "./ProjectModal";
 import { ArrowRight, Layers, Cpu, Eye, ExternalLink } from "lucide-react";
 
 import { getProjectsData, Project } from "../lib/content";
+export type { Project };
 
 const projectsData: Project[] = getProjectsData();
 

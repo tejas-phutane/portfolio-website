@@ -18,12 +18,33 @@
       "REST APIs serving analytics to factory line managers"
     ],
     "results": [
-      { "metric": "99.2%", "description": "detection accuracy" },
-      { "metric": "42ms", "description": "inference latency" },
-      { "metric": "4 streams", "description": "concurrent GPU feeds" },
-      { "metric": "85%", "description": "manual labor reduction" }
+      {
+        "metric": "99.2%",
+        "description": "detection accuracy"
+      },
+      {
+        "metric": "42ms",
+        "description": "inference latency"
+      },
+      {
+        "metric": "4 streams",
+        "description": "concurrent GPU feeds"
+      },
+      {
+        "metric": "85%",
+        "description": "manual labor reduction"
+      }
     ],
-    "stack": ["Python", "C++", "DeepStream", "TensorRT", "YOLO", "Kafka", "TimescaleDB", "Docker"]
+    "stack": [
+      "Python",
+      "C++",
+      "DeepStream",
+      "TensorRT",
+      "YOLO",
+      "Kafka",
+      "TimescaleDB",
+      "Docker"
+    ]
   },
   {
     "id": "waste-sorting-robot",
@@ -44,12 +65,32 @@
       "Dynamic pick queue scheduling to optimize multi-arm duty cycles"
     ],
     "results": [
-      { "metric": "10K+", "description": "daily objects sorted" },
-      { "metric": "80%", "description": "compute overhead reduced" },
-      { "metric": "40%", "description": "cycle speed improvement" },
-      { "metric": "<500ms", "description": "end-to-end response" }
+      {
+        "metric": "10K+",
+        "description": "daily objects sorted"
+      },
+      {
+        "metric": "80%",
+        "description": "compute overhead reduced"
+      },
+      {
+        "metric": "40%",
+        "description": "cycle speed improvement"
+      },
+      {
+        "metric": "<500ms",
+        "description": "end-to-end response"
+      }
     ],
-    "stack": ["ROS2", "C++", "Python", "YOLOv8", "DeepStream", "OpenCV", "TensorRT"]
+    "stack": [
+      "ROS2",
+      "C++",
+      "Python",
+      "YOLOv8",
+      "DeepStream",
+      "OpenCV",
+      "TensorRT"
+    ]
   },
   {
     "id": "robo-cafe",
@@ -70,12 +111,32 @@
       "Gazebo dynamic simulation to validate workspace envelopes before commissioning"
     ],
     "results": [
-      { "metric": "7-Axis", "description": "coordinated motion" },
-      { "metric": "60%", "description": "commissioning time saved" },
-      { "metric": "100%", "description": "collision-free operation" },
-      { "metric": "Sub-mm", "description": "placement accuracy" }
+      {
+        "metric": "7-Axis",
+        "description": "coordinated motion"
+      },
+      {
+        "metric": "60%",
+        "description": "commissioning time saved"
+      },
+      {
+        "metric": "100%",
+        "description": "collision-free operation"
+      },
+      {
+        "metric": "Sub-mm",
+        "description": "placement accuracy"
+      }
     ],
-    "stack": ["UR10", "ROS", "MoveIt", "Omron PLC", "Gazebo", "Python", "Stereo Vision"]
+    "stack": [
+      "UR10",
+      "ROS",
+      "MoveIt",
+      "Omron PLC",
+      "Gazebo",
+      "Python",
+      "Stereo Vision"
+    ]
   },
   {
     "id": "air-hockey",
@@ -96,12 +157,31 @@
       "Interactive PyQt GUI for visitor speed and difficulty calibration"
     ],
     "results": [
-      { "metric": "240fps", "description": "vision processing speed" },
-      { "metric": "95%", "description": "interception rate" },
-      { "metric": "<50ms", "description": "total system latency" },
-      { "metric": "500+", "description": "daily human matches" }
+      {
+        "metric": "240fps",
+        "description": "vision processing speed"
+      },
+      {
+        "metric": "95%",
+        "description": "interception rate"
+      },
+      {
+        "metric": "<50ms",
+        "description": "total system latency"
+      },
+      {
+        "metric": "500+",
+        "description": "daily human matches"
+      }
     ],
-    "stack": ["Python", "OpenCV", "Kalman Filter", "SCARA Robot", "Modbus/TCP", "PyQt"]
+    "stack": [
+      "Python",
+      "OpenCV",
+      "Kalman Filter",
+      "SCARA Robot",
+      "Modbus/TCP",
+      "PyQt"
+    ]
   },
   {
     "id": "atol-vision",
@@ -121,12 +201,32 @@
       "Synthetic flight trajectory validation in Unity / FlightGear simulation environments"
     ],
     "results": [
-      { "metric": "Vision-only", "description": "GPS-denied navigation" },
-      { "metric": "6-DOF", "description": "real-time pose tracking" },
-      { "metric": "<10cm", "description": "threshold error margin" },
-      { "metric": "Sub-30ms", "description": "frame compute" }
+      {
+        "metric": "Vision-only",
+        "description": "GPS-denied navigation"
+      },
+      {
+        "metric": "6-DOF",
+        "description": "real-time pose tracking"
+      },
+      {
+        "metric": "<10cm",
+        "description": "threshold error margin"
+      },
+      {
+        "metric": "Sub-30ms",
+        "description": "frame compute"
+      }
     ],
-    "stack": ["Python", "C++", "ORB-SLAM3", "YOLOv8-Pose", "OpenCV", "PnP", "ROS"]
+    "stack": [
+      "Python",
+      "C++",
+      "ORB-SLAM3",
+      "YOLOv8-Pose",
+      "OpenCV",
+      "PnP",
+      "ROS"
+    ]
   },
   {
     "id": "store-separation",
@@ -146,12 +246,31 @@
       "Validation against simulation ground truth and calibrated TrackEye datasets"
     ],
     "results": [
-      { "metric": "6-DOF", "description": "metric trajectory tracking" },
-      { "metric": "90%", "description": "analysis time reduction" },
-      { "metric": "<2mm", "description": "spatial accuracy limit" },
-      { "metric": "Multi-view", "description": "camera triangulation" }
+      {
+        "metric": "6-DOF",
+        "description": "metric trajectory tracking"
+      },
+      {
+        "metric": "90%",
+        "description": "analysis time reduction"
+      },
+      {
+        "metric": "<2mm",
+        "description": "spatial accuracy limit"
+      },
+      {
+        "metric": "Multi-view",
+        "description": "camera triangulation"
+      }
     ],
-    "stack": ["Python", "OpenCV", "PnP", "Unity 3D", "C#", "NumPy"]
+    "stack": [
+      "Python",
+      "OpenCV",
+      "PnP",
+      "Unity 3D",
+      "C#",
+      "NumPy"
+    ]
   },
   {
     "id": "grinding-wheel-qc",
@@ -172,12 +291,32 @@
       "TensorRT engine optimization for deterministic cycle times"
     ],
     "results": [
-      { "metric": "97.4%", "description": "defect detection rate" },
-      { "metric": "<1.8%", "description": "false positive rate" },
-      { "metric": "Zero", "description": "defective samples needed for training" },
-      { "metric": "Real-time", "description": "line speed inspection" }
+      {
+        "metric": "97.4%",
+        "description": "defect detection rate"
+      },
+      {
+        "metric": "<1.8%",
+        "description": "false positive rate"
+      },
+      {
+        "metric": "Zero",
+        "description": "defective samples needed for training"
+      },
+      {
+        "metric": "Real-time",
+        "description": "line speed inspection"
+      }
     ],
-    "stack": ["Python", "Anomalib", "DeepStream", "TensorRT", "PatchCore", "PaDiM", "OCR"]
+    "stack": [
+      "Python",
+      "Anomalib",
+      "DeepStream",
+      "TensorRT",
+      "PatchCore",
+      "PaDiM",
+      "OCR"
+    ]
   },
   {
     "id": "pepper-robot",
@@ -197,12 +336,31 @@
       "Web-based kiosk dashboard for docents to control exhibition modes"
     ],
     "results": [
-      { "metric": "500+", "description": "daily visitor interactions" },
-      { "metric": "95%", "description": "face tracking accuracy" },
-      { "metric": "10+", "description": "autonomous behavioral modes" },
-      { "metric": "300+ hrs", "description": "uptime without crashes" }
+      {
+        "metric": "500+",
+        "description": "daily visitor interactions"
+      },
+      {
+        "metric": "95%",
+        "description": "face tracking accuracy"
+      },
+      {
+        "metric": "10+",
+        "description": "autonomous behavioral modes"
+      },
+      {
+        "metric": "300+ hrs",
+        "description": "uptime without crashes"
+      }
     ],
-    "stack": ["Python", "ROS", "NAOqi SDK", "OpenCV", "YOLOv3", "Linux"]
+    "stack": [
+      "Python",
+      "ROS",
+      "NAOqi SDK",
+      "OpenCV",
+      "YOLOv3",
+      "Linux"
+    ]
   },
   {
     "id": "robo-soccer",
@@ -222,12 +380,31 @@
       "Low-latency wireless RF command transmitter communicating with Arduino robots"
     ],
     "results": [
-      { "metric": "3v3", "description": "autonomous match coordination" },
-      { "metric": "60fps", "description": "central vision tracking" },
-      { "metric": "Dynamic", "description": "autonomous role reallocation" },
-      { "metric": "<80ms", "description": "perception-to-command latency" }
+      {
+        "metric": "3v3",
+        "description": "autonomous match coordination"
+      },
+      {
+        "metric": "60fps",
+        "description": "central vision tracking"
+      },
+      {
+        "metric": "Dynamic",
+        "description": "autonomous role reallocation"
+      },
+      {
+        "metric": "<80ms",
+        "description": "perception-to-command latency"
+      }
     ],
-    "stack": ["Python", "ROS", "OpenCV", "Color Fiducials", "rosserial", "Arduino"]
+    "stack": [
+      "Python",
+      "ROS",
+      "OpenCV",
+      "Color Fiducials",
+      "rosserial",
+      "Arduino"
+    ]
   },
   {
     "id": "da-vinci-robot",
@@ -247,12 +424,31 @@
       "Arduino Mega hardware interface driving actuator stages"
     ],
     "results": [
-      { "metric": "5 DOF", "description": "hand gesture teleoperation" },
-      { "metric": "<100ms", "description": "gesture-to-motion lag" },
-      { "metric": "Contactless", "description": "hygienic visitor operation" },
-      { "metric": "100%", "description": "safety boundary enforcement" }
+      {
+        "metric": "5 DOF",
+        "description": "hand gesture teleoperation"
+      },
+      {
+        "metric": "<100ms",
+        "description": "gesture-to-motion lag"
+      },
+      {
+        "metric": "Contactless",
+        "description": "hygienic visitor operation"
+      },
+      {
+        "metric": "100%",
+        "description": "safety boundary enforcement"
+      }
     ],
-    "stack": ["ROS", "Leap Motion", "Python", "C++", "Arduino Mega", "Kinematics"]
+    "stack": [
+      "ROS",
+      "Leap Motion",
+      "Python",
+      "C++",
+      "Arduino Mega",
+      "Kinematics"
+    ]
   },
   {
     "id": "valve-inspection",
@@ -272,12 +468,31 @@
       "Omron PLC pneumatic ejector integration for automatic reject binning"
     ],
     "results": [
-      { "metric": "96.3%", "description": "defect detection rate" },
-      { "metric": "3s", "description": "inspection cycle time" },
-      { "metric": "50µm", "description": "minimum defect resolution" },
-      { "metric": "Zero", "description": "defective parts shipped to OEM" }
+      {
+        "metric": "96.3%",
+        "description": "defect detection rate"
+      },
+      {
+        "metric": "3s",
+        "description": "inspection cycle time"
+      },
+      {
+        "metric": "50µm",
+        "description": "minimum defect resolution"
+      },
+      {
+        "metric": "Zero",
+        "description": "defective parts shipped to OEM"
+      }
     ],
-    "stack": ["CNN", "Triton", "PLC", "Python", "OpenCV", "Industrial Cameras"]
+    "stack": [
+      "CNN",
+      "Triton",
+      "PLC",
+      "Python",
+      "OpenCV",
+      "Industrial Cameras"
+    ]
   },
   {
     "id": "warehouse-automation",
@@ -297,12 +512,31 @@
       "Automated spreadsheet API integration for order status and logistics logging"
     ],
     "results": [
-      { "metric": "Zero", "description": "dual-arm collisions" },
-      { "metric": "100%", "description": "order fulfillment accuracy" },
-      { "metric": "2 Arms", "description": "synchronized parallel execution" },
-      { "metric": "Finalist", "description": "National Robotics Competition" }
+      {
+        "metric": "Zero",
+        "description": "dual-arm collisions"
+      },
+      {
+        "metric": "100%",
+        "description": "order fulfillment accuracy"
+      },
+      {
+        "metric": "2 Arms",
+        "description": "synchronized parallel execution"
+      },
+      {
+        "metric": "Finalist",
+        "description": "National Robotics Competition"
+      }
     ],
-    "stack": ["ROS", "MoveIt", "Gazebo", "MQTT", "Python", "URDF"],
+    "stack": [
+      "ROS",
+      "MoveIt",
+      "Gazebo",
+      "MQTT",
+      "Python",
+      "URDF"
+    ],
     "githubUrl": "https://github.com/TejasPhutane/Eyantra-2021-Vargi-Bots"
   }
 ]

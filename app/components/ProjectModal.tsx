@@ -1,6 +1,6 @@
 "use client";
 import { X } from "lucide-react";
-import type { Project } from "./Projects";
+import type { Project } from "../lib/content";
 
 interface Props {
   project: Project;
