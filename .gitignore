@@ -72,3 +72,8 @@ node_modules/
 .next/
 out/
 .env*.local
+
+# Playwright
+test-results/
+playwright-report/
+
