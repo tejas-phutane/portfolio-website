@@ -5,11 +5,10 @@ test.describe('Digital Twin AI Chat Assistant E2E Tests', () => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
   });
 
-  test('Digital Twin launcher renders with live beacon and 120B model tag', async ({ page }) => {
+  test('Digital Twin launcher renders with live beacon and Ask AI Twin label', async ({ page }) => {
     const launcher = page.locator('#digital-twin-launcher');
     await expect(launcher).toBeVisible();
     await expect(launcher).toContainText('Ask AI Twin');
-    await expect(launcher).toContainText('120B');
 
     const beacon = launcher.locator('.twin-pulse-beacon');
     await expect(beacon).toBeVisible();
@@ -27,7 +26,7 @@ test.describe('Digital Twin AI Chat Assistant E2E Tests', () => {
     const headerTitle = drawer.locator('.twin-header-title');
     await expect(headerTitle).toContainText('Tejas Phutane');
     const headerSub = drawer.locator('.twin-header-sub');
-    await expect(headerSub).toContainText('gpt-oss-120b');
+    await expect(headerSub).toContainText('Intelligence');
 
     // Verify welcome message content
     const welcomeMsg = drawer.locator('.twin-message-bubble').first();

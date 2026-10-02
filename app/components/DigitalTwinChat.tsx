@@ -164,7 +164,6 @@ export default function DigitalTwinChat() {
           <Bot size={18} />
         </span>
         <span className="twin-launcher-text">Ask AI Twin</span>
-        <span className="twin-model-tag">120B</span>
       </button>
 
       {/* Slide-Over Chat Drawer */}
@@ -182,7 +181,8 @@ export default function DigitalTwinChat() {
                 <span className="twin-header-pill">AI Twin</span>
               </div>
               <div className="twin-header-sub">
-                <span>OpenRouter · gpt-oss-120b</span>
+                <span className="twin-online-dot" />
+                <span>Hardware & Locomotion Intelligence</span>
               </div>
             </div>
           </div>
@@ -241,7 +241,7 @@ export default function DigitalTwinChat() {
                 <span className="dot" />
                 <span className="dot" />
                 <span className="dot" />
-                <span className="thinking-text">Thinking with gpt-oss-120b...</span>
+                <span className="thinking-text">Synthesizing response...</span>
               </div>
             </div>
           )}

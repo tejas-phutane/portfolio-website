@@ -70,7 +70,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const modelName = SITE_CONFIG.openRouterModel;
+    const primaryModel = SITE_CONFIG.openRouterModel || 'openai/gpt-oss-120b';
+    const fallbackModels = [
+      primaryModel,
+      'openrouter/free',
+      'nvidia/nemotron-3-super-120b-a12b:free',
+    ].filter(Boolean);
+
     const body = (await req.json()) as { messages?: ChatMessage[] };
     const userMessages: ChatMessage[] = body.messages || [];
 
@@ -94,32 +100,97 @@ export async function POST(req: NextRequest) {
     while (currentIteration < maxIterations) {
       currentIteration++;
 
-      const openRouterRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': SITE_CONFIG.siteUrl,
-          'X-Title': "Tejas Phutane's Digital Twin",
-        },
-        body: JSON.stringify({
-          model: modelName,
-          messages,
-          tools: TWIN_TOOLS,
-          temperature: 0.6,
-          max_tokens: 1000,
-        }),
-      });
+      let openRouterRes: Response | null = null;
+      let usedModel = primaryModel;
 
-      if (!openRouterRes.ok) {
-        const errorText = await openRouterRes.text();
-        console.error('[Digital Twin API] OpenRouter returned error:', openRouterRes.status, errorText);
+      // 1. First attempt: call OpenRouter with the models array and fallback routing
+      try {
+        openRouterRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${apiKey}`,
+            'Content-Type': 'application/json',
+            'HTTP-Referer': SITE_CONFIG.siteUrl,
+            'X-Title': "Tejas Phutane's Digital Twin",
+          },
+          body: JSON.stringify({
+            models: fallbackModels,
+            route: 'fallback',
+            messages,
+            tools: TWIN_TOOLS,
+            temperature: 0.6,
+            max_tokens: 1000,
+          }),
+        });
+      } catch (networkErr) {
+        console.warn('[Digital Twin API] Initial fetch error:', networkErr);
+      }
+
+      // 2. If initial attempt failed or returned non-ok, cycle sequentially through fallback models
+      if (!openRouterRes || !openRouterRes.ok) {
+        console.warn(
+          `[Digital Twin API] Primary request failed (status: ${openRouterRes?.status}). Attempting sequential fallbacks...`
+        );
+
+        for (const candidate of fallbackModels) {
+          try {
+            const fallbackRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json',
+                'HTTP-Referer': SITE_CONFIG.siteUrl,
+                'X-Title': "Tejas Phutane's Digital Twin",
+              },
+              body: JSON.stringify({
+                model: candidate,
+                messages,
+                tools: TWIN_TOOLS,
+                temperature: 0.6,
+                max_tokens: 1000,
+              }),
+            });
+
+            if (fallbackRes.ok) {
+              openRouterRes = fallbackRes;
+              usedModel = candidate;
+              console.log(`[Digital Twin API] Successfully recovered using fallback model: ${candidate}`);
+              break;
+            } else {
+              const errSnippet = await fallbackRes.text().catch(() => '');
+              console.warn(`[Digital Twin API] Fallback model ${candidate} failed: ${fallbackRes.status} ${errSnippet}`);
+            }
+          } catch (candErr) {
+            console.warn(`[Digital Twin API] Error trying candidate ${candidate}:`, candErr);
+          }
+        }
+      }
+
+      // 3. If OpenRouter is still unavailable, provide graceful knowledge response instead of 502 error
+      if (!openRouterRes || !openRouterRes.ok) {
+        console.error('[Digital Twin API] All OpenRouter models exhausted or unavailable.');
+        
+        // Intelligent contextual offline responder grounded in Tejas's actual engineering data
+        const latestUserMsg = userMessages[userMessages.length - 1]?.content?.toLowerCase() || '';
+        let gracefulContent = "I'm Tejas's AI Digital Twin. I can share details on his work across humanoid locomotion with the Unitree G1, C++ performance engineering, autonomous mobile robotics, and industrial vision deployments. Feel free to connect directly at " + SITE_CONFIG.targetEmail + "!";
+
+        if (latestUserMsg.includes('g1') || latestUserMsg.includes('humanoid') || latestUserMsg.includes('unitree')) {
+          gracefulContent = "Regarding the **Unitree G1 Humanoid**: At FEV India, Tejas is deploying RL-based locomotion policies, hardware-in-the-loop validation, and integrating ROS 2 with custom low-level C++ drivers for agile biped balance and disturbance rejection.";
+        } else if (latestUserMsg.includes('quadruped') || latestUserMsg.includes('dog')) {
+          gracefulContent = "Regarding **Quadruped Robotics**: Tejas developed trotting gait planners, inverse kinematics solvers, and whole-body controller interfaces running on embedded Linux platforms.";
+        } else if (latestUserMsg.includes('wastefull') || latestUserMsg.includes('vision') || latestUserMsg.includes('industrial')) {
+          gracefulContent = "At **Wastefull Insights**, Tejas engineered edge AI vision systems for automated material sorting, reducing compute overhead by over 80% through C++ optimizations and TensorRT acceleration.";
+        } else if (latestUserMsg.includes('contact') || latestUserMsg.includes('hire') || latestUserMsg.includes('email') || latestUserMsg.includes('reach')) {
+          gracefulContent = `You can reach Tejas directly at **${SITE_CONFIG.targetEmail}** or connect via LinkedIn. He is currently open to Senior/Staff Robotics and Physical AI engineering opportunities!`;
+        }
+
         return NextResponse.json(
           {
-            error: `OpenRouter API error: ${openRouterRes.status}`,
-            message: `I'm experiencing high traffic on my neural reasoning backend right now. Feel free to ask me again or connect with Tejas directly via ${SITE_CONFIG.targetEmail}!`,
+            message: gracefulContent,
+            toolsExecuted,
+            model: 'embedded-grounded-core',
           },
-          { status: 502, headers: rateLimitHeaders }
+          { headers: rateLimitHeaders }
         );
       }
 
@@ -172,13 +243,16 @@ export async function POST(req: NextRequest) {
       }
 
       // Final assistant response generated
+      const finalAssistantContent =
+        assistantMessage.content ||
+        assistantMessage.reasoning ||
+        "I'm here to chat about my robotics work, platforms, and career journey! What would you like to know?";
+
       return NextResponse.json(
         {
-          message:
-            assistantMessage.content ||
-            "I'm here to chat about my robotics work, platforms, and career journey! What would you like to know?",
+          message: finalAssistantContent,
           toolsExecuted,
-          model: modelName,
+          model: usedModel,
         },
         { headers: rateLimitHeaders }
       );
@@ -188,7 +262,7 @@ export async function POST(req: NextRequest) {
       {
         message: 'I processed your request and recorded the details. How else can I help?',
         toolsExecuted,
-        model: modelName,
+        model: primaryModel,
       },
       { headers: rateLimitHeaders }
     );
