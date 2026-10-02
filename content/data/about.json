@@ -1,0 +1,86 @@
+{
+  "heading": "From College Labs to Production Floors",
+  "paragraphs": [
+    "I'm a Senior Engineer L1 currently at FEV India, actively developing humanoid robotic systems on platforms like the Unitree G1 with Inspire dexterous hands. With 4+ years of hands-on experience, I design physics-accurate sim-to-real transfer workflows, bipedal locomotion policies, and robust hardware abstraction/safety layers that bring complex robots reliably into reality.",
+    "My journey started at RGIT's Robotics Club in Mumbai, where I led simulation and trained 50+ students. From there, I contributed to India's first Robotics Gallery at Gujarat Science City — working hands-on with Pepper humanoids, UR10 arms, Da Vinci surgical robots, SCARA systems, and autonomous mobile platforms.",
+    "At Wastefull Insights, I scaled from robotics engineer to senior engineer, architecting autonomous waste sorting systems that process 10,000+ objects daily. I refactored Python to C++ for 80% compute reduction, built multi-model YOLO pipelines with DeepStream, and developed analytics frameworks with 91% throughput prediction accuracy.",
+    "The theme has been consistent: take messy real-world problems and convert them into reliable, measurable systems."
+  ],
+  "highlights": [
+    {
+      "title": "Education",
+      "lines": [
+        "B.E. Electronics & Telecommunication",
+        "RGIT Mumbai (2017-2021) · CGPA: 7.04"
+      ]
+    },
+    {
+      "title": "Currently",
+      "lines": [
+        "Senior Engineer L1 at FEV India Pvt Ltd",
+        "Unitree G1 Humanoid & Inspire Hand"
+      ]
+    },
+    {
+      "title": "Key Achievements",
+      "items": [
+        "40% speed improvement in motion algorithms",
+        "80% computational reduction (Python → C++)",
+        "91% throughput prediction accuracy",
+        "99%+ detection accuracy in production"
+      ]
+    }
+  ],
+  "tenets": [
+    {
+      "iconName": "Zap",
+      "title": "Low-Latency Edge Determinism",
+      "tagline": "C++ / CUDA / TensorRT Engines",
+      "body": "Research prototypes in Python break down under sub-30ms industrial control cycles. I refactor critical perception bottlenecks to multithreaded C++ and serialize deep learning models into TensorRT FP16/INT8 engines on NVIDIA Jetson Xavier, slashing compute overhead by 80% while concurrently processing 4 RTSP feeds.",
+      "metricCallout": "⚡ 80% Compute Overhead Reduced · Sub-50ms Latency"
+    },
+    {
+      "iconName": "ShieldCheck",
+      "title": "Factory-Floor Ruggedness",
+      "tagline": "24/7 Optical, Thermal & Vibration Robustness",
+      "body": "True delivery means engineering for dust, camera vibration, and ambient factory lighting swings. I design industrial GigE line-scan vision setups, integrate synchronized strobe lighting, program Omron PLC safety interlocks, and architect watchdog auto-recovery loops ensuring 99.2%+ operational consistency.",
+      "metricCallout": "🛡️ 99.2% Detection Accuracy · PLC Safety Handshakes"
+    },
+    {
+      "iconName": "Activity",
+      "title": "Mechatronic & Motion Optimization",
+      "tagline": "Mathematical Cycle-Time Reduction",
+      "body": "In production pick-and-place, milliseconds directly dictate facility throughput. By mathematically modeling and refining 3-axis gantry acceleration and S-curve motion profiles, I eliminated inertial losses by 15% and boosted picking cycle speed by 40%, coordinating multi-robot cells sorting 10,000+ items daily.",
+      "metricCallout": "⚙️ 40% Cycle Speed Boost · 10,000+ Daily Objects"
+    },
+    {
+      "iconName": "Target",
+      "title": "Quantified Business ROI",
+      "tagline": "Fleet Telemetry & Predictive Analytics",
+      "body": "Robotics engineering must produce verifiable economic impact. I built end-to-end telemetry pipelines streaming real-time vision analytics through Kafka and TimescaleDB, training regression models that predict facility throughput with 91% accuracy and slashing manual quality inspection labor by 60%.",
+      "metricCallout": "📊 60% Labor Reduction · 91% Prediction Precision"
+    }
+  ],
+  "exploring": [
+    {
+      "iconName": "Cpu",
+      "title": "Physical AI & Synthetic Data",
+      "desc": "Exploring simulation environments like Isaac Sim Arena, RoboStudio, GenieSim, and Lightwheel AI (RoboFinals) to generate physics-grounded synthetic data for humanoid policy training."
+    },
+    {
+      "iconName": "Eye",
+      "title": "Egocentric Data Collection Pipelines",
+      "desc": "Developing first-person multimodal demonstration pipelines (egocentric vision, tactile, proprioception) on platforms like RoboLab for dexterous manipulation and imitation learning."
+    },
+    {
+      "iconName": "Brain",
+      "title": "Model Training & Validation Layers",
+      "desc": "Engineering closed-loop verification benchmarks and diagnostic safety boundaries to evaluate policy stability before running on physical humanoid hardware."
+    },
+    {
+      "iconName": "Layers",
+      "title": "G1 & Inspire Hand Dexterity",
+      "desc": "Scaling whole-body coordination on the Unitree G1 bipedal platform with Inspire multi-finger dexterous hands, coupling locomotion policies with compliant manipulation."
+    }
+  ]
+}

@@ -77,7 +77,7 @@ out/
 test-results/
 playwright-report/
 
-# Local visitor leads data
-data/
+# Local visitor leads data (top-level only)
+/data/
 
 

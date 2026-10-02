@@ -1,0 +1,44 @@
+[
+  {
+    "id": "robotics-consulting",
+    "iconName": "Cog",
+    "title": "Robotics Engineering Consulting",
+    "desc": "End-to-end design and development of autonomous robotic systems for industrial applications — motion planning, control systems, hardware integration, and production deployment."
+  },
+  {
+    "id": "computer-vision-ai",
+    "iconName": "Eye",
+    "title": "Computer Vision & AI Solutions",
+    "desc": "Custom vision systems, object detection, segmentation, and AI/ML deployment on edge devices. From training pipelines to TensorRT-optimized production inference."
+  },
+  {
+    "id": "digital-twin-dev",
+    "iconName": "Layers",
+    "title": "Digital Twin Development",
+    "desc": "Virtual representations of physical systems for simulation, testing, and optimization. Sim-to-real transfer techniques for seamless virtual-to-physical deployment."
+  },
+  {
+    "id": "workshops-training",
+    "iconName": "Users",
+    "title": "Technical Workshops & Training",
+    "desc": "Hands-on robotics and computer vision workshops for students, professionals, and organizations. Topics include ROS, computer vision, and embedded systems."
+  },
+  {
+    "id": "mentorship-code-review",
+    "iconName": "UserCheck",
+    "title": "Mentorship & Code Reviews",
+    "desc": "One-on-one mentorship for robotics projects, code reviews, and guidance on best practices in autonomous systems development."
+  },
+  {
+    "id": "conference-speaking",
+    "iconName": "Mic",
+    "title": "Conference Speaking",
+    "desc": "Technical presentations at robotics conferences sharing insights on production-grade vision systems and AI-accelerated development."
+  },
+  {
+    "id": "opensource-collab",
+    "iconName": "Code",
+    "title": "Open-Source Collaboration",
+    "desc": "Collaboration on open-source robotics projects, code contributions, and community-driven initiatives to advance robotics technology."
+  }
+]
