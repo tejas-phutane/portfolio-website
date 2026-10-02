@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { SITE_CONFIG } from './config';
 
 export interface UserDetailsArgs {
   email: string;
@@ -11,30 +12,64 @@ export interface UnknownQuestionArgs {
   question: string;
 }
 
-// Ensure data logging directory exists
-function ensureDataDir() {
-  const dataDir = path.join(process.cwd(), 'data');
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
+export interface ToolResult {
+  status: 'success' | 'error';
+  message: string;
+}
+
+/**
+ * Locate a writeable directory for data logging.
+ * In serverless environments (e.g. Vercel), the local filesystem may be read-only.
+ * We attempt process.cwd()/data first (local dev), then /tmp/portfolio-data, or gracefully degrade to structured stdout.
+ */
+function getSafeStoragePath(filename: string): string | null {
+  const candidateDirs = [
+    path.join(process.cwd(), 'data'),
+    path.join('/tmp', 'portfolio-data'),
+  ];
+
+  for (const dir of candidateDirs) {
+    try {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+      const testFile = path.join(dir, `.write_test_${Date.now()}`);
+      fs.writeFileSync(testFile, 'ok', 'utf-8');
+      fs.unlinkSync(testFile);
+      return path.join(dir, filename);
+    } catch {
+      // Writable test failed, try next candidate
+    }
   }
-  return dataDir;
+  return null;
 }
 
 /**
  * Record user details when a visitor wants to get in touch.
+ * Emits structured telemetry for serverless log aggregators (Vercel Log Drains)
+ * and forwards via email if RESEND_API_KEY is configured.
  */
-export async function recordUserDetails(args: UserDetailsArgs) {
+export async function recordUserDetails(args: UserDetailsArgs): Promise<ToolResult> {
   try {
-    const dataDir = ensureDataDir();
-    const filePath = path.join(dataDir, 'leads.jsonl');
     const entry = {
       timestamp: new Date().toISOString(),
       email: args.email,
       name: args.name || 'Not provided',
       notes: args.notes || 'Inquiry from Digital Twin Chat',
     };
-    fs.appendFileSync(filePath, JSON.stringify(entry) + '\n', 'utf-8');
-    console.log('[Digital Twin Tool] Recorded user details:', entry);
+
+    // Structured serverless telemetry
+    console.log('[LEAD_AUDIT]', JSON.stringify(entry));
+
+    // Best-effort write to local or /tmp filesystem
+    const targetFile = getSafeStoragePath('leads.jsonl');
+    if (targetFile) {
+      try {
+        fs.appendFileSync(targetFile, JSON.stringify(entry) + '\n', 'utf-8');
+      } catch (fsErr) {
+        console.warn('[Digital Twin Tool] Disk logging skipped (read-only filesystem):', fsErr);
+      }
+    }
 
     // Optional email notification via Resend if configured
     const resendApiKey = process.env.RESEND_API_KEY;
@@ -48,7 +83,7 @@ export async function recordUserDetails(args: UserDetailsArgs) {
           },
           body: JSON.stringify({
             from: 'Digital Twin <onboarding@resend.dev>',
-            to: ['tejasphutane.work@gmail.com'],
+            to: [SITE_CONFIG.targetEmail],
             subject: `[Digital Twin Lead] Inquiry from ${args.name || args.email}`,
             text: `New lead from your portfolio Digital Twin:\n\nEmail: ${args.email}\nName: ${args.name || 'Not provided'}\nNotes: ${args.notes || 'None'}\nTime: ${entry.timestamp}`,
           }),
@@ -64,50 +99,70 @@ export async function recordUserDetails(args: UserDetailsArgs) {
     };
   } catch (error) {
     console.error('[Digital Twin Tool] Error recording user details:', error);
-    return { status: 'error', message: 'Failed to record details to disk.' };
+    return {
+      status: 'error',
+      message: error instanceof Error ? error.message : 'Failed to record details.',
+    };
   }
 }
 
 /**
  * Record unanswered or non-public questions for Tejas's review.
  */
-export async function recordUnknownQuestion(args: UnknownQuestionArgs) {
+export async function recordUnknownQuestion(args: UnknownQuestionArgs): Promise<ToolResult> {
   try {
-    const dataDir = ensureDataDir();
-    const filePath = path.join(dataDir, 'unknown_questions.jsonl');
     const entry = {
       timestamp: new Date().toISOString(),
       question: args.question,
     };
-    fs.appendFileSync(filePath, JSON.stringify(entry) + '\n', 'utf-8');
-    console.log('[Digital Twin Tool] Recorded unknown question:', entry);
+
+    // Structured serverless telemetry
+    console.log('[QUESTION_AUDIT]', JSON.stringify(entry));
+
+    const targetFile = getSafeStoragePath('unknown_questions.jsonl');
+    if (targetFile) {
+      try {
+        fs.appendFileSync(targetFile, JSON.stringify(entry) + '\n', 'utf-8');
+      } catch (fsErr) {
+        console.warn('[Digital Twin Tool] Disk logging skipped (read-only filesystem):', fsErr);
+      }
+    }
 
     return {
       status: 'success',
-      message: `Recorded question for Tejas to review personally.`,
+      message: 'Recorded question for Tejas to review personally.',
     };
   } catch (error) {
     console.error('[Digital Twin Tool] Error recording unknown question:', error);
-    return { status: 'error', message: 'Failed to log question.' };
+    return {
+      status: 'error',
+      message: error instanceof Error ? error.message : 'Failed to log question.',
+    };
   }
 }
 
 /**
  * Dispatcher for tool calls
  */
-export async function executeTool(name: string, argsJson: string): Promise<Record<string, any>> {
-  let parsedArgs: Record<string, any> = {};
+export async function executeTool(name: string, argsJson: string): Promise<ToolResult> {
+  let parsedArgs: Record<string, unknown> = {};
   try {
     parsedArgs = JSON.parse(argsJson);
-  } catch (err) {
+  } catch {
     return { status: 'error', message: 'Invalid tool arguments JSON' };
   }
 
   switch (name) {
     case 'record_user_details':
-      return await recordUserDetails(parsedArgs as UserDetailsArgs);
+      return await recordUserDetails({
+        email: typeof parsedArgs.email === 'string' ? parsedArgs.email : '',
+        name: typeof parsedArgs.name === 'string' ? parsedArgs.name : undefined,
+        notes: typeof parsedArgs.notes === 'string' ? parsedArgs.notes : undefined,
+      });
     case 'record_unknown_question':
-      return await recordUnknownQuestion(parsedArgs as UnknownQuestionArgs);
+      return await recordUnknownQuestion({
+        question: typeof parsedArgs.question === 'string' ? parsedArgs.question : '',
+      });
     default:
       return { status: 'error', message: `Unknown tool name: ${name}` };
   }
