@@ -1,5 +1,6 @@
 "use client";
-import { Download, ArrowRight, ExternalLink } from "lucide-react";
+import React, { useState } from "react";
+import { Download, ArrowRight, Mail, MapPin, Copy, Check, Terminal, Cpu } from "lucide-react";
 
 const GithubIcon = ({ size = 18 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -16,16 +17,38 @@ const LinkedinIcon = ({ size = 18 }: { size?: number }) => (
   </svg>
 );
 
+const XTwitterIcon = ({ size = 18 }: { size?: number }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+  </svg>
+);
+
 export default function Hero() {
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText("tejasphutane.work@gmail.com");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2200);
+  };
+
   return (
     <section id="hero" className="hero-section">
       <div className="container">
         <div className="hero-layout">
           {/* Left Column: Authoritative Editorial Presentation */}
           <div className="hero-editorial">
-            <div className="hero-status-pill">
-              <span className="status-indicator-dot" />
-              <span>Current Role: Senior Engineer L1 @ FEV India (Humanoids &amp; Sim-to-Real)</span>
+            <div className="hero-meta-badges">
+              <div className="hero-status-pill">
+                <span className="status-indicator-dot" />
+                <span>Senior Engineer L1 @ FEV India (Humanoids &amp; Sim-to-Real)</span>
+              </div>
+              <div className="hero-location-pill">
+                <MapPin size={13} className="pill-icon" />
+                <span>Pune / Mumbai, India</span>
+              </div>
             </div>
 
             <h1 className="hero-headline">
@@ -37,10 +60,10 @@ export default function Hero() {
             </p>
 
             <p className="hero-bio">
-              Over 4+ years architecting and shipping production-grade robotics — currently developing bipedal locomotion policies, safety layers, and sim-to-real transfer for the Unitree G1 humanoid at FEV India. Proven track record deploying vision pipelines processing 10,000+ daily items on factory floors, commissioning 7+ robotic platforms at Gujarat Science City, and engineering aerospace vision systems with DRDO/ADA.
+              Over 4+ years architecting and shipping production-grade robotics — currently developing bipedal locomotion policies, safety layers, and sim-to-real transfer for the Unitree G1 humanoid at FEV India. Proven track record deploying sub-50ms TensorRT perception pipelines on factory floors, commissioning 7+ robotic platforms at Gujarat Science City, and engineering aerospace vision systems with DRDO/ADA.
             </p>
 
-            {/* Executive Proof Points Strip (Replaces fake terminal) */}
+            {/* Executive Proof Points Strip */}
             <div className="hero-metrics-strip">
               <div className="metric-box">
                 <span className="metric-number">4+</span>
@@ -55,12 +78,12 @@ export default function Hero() {
                 <span className="metric-label">Compute Overhead Reduced</span>
               </div>
               <div className="metric-box">
-                <span className="metric-number">10K+</span>
-                <span className="metric-label">Daily Objects Handled</span>
+                <span className="metric-number">Sub-50ms</span>
+                <span className="metric-label">Edge Perception Latency</span>
               </div>
             </div>
 
-            {/* Actions & Verified Links */}
+            {/* Actions & Verified Direct Contact Channels */}
             <div className="hero-actions-row">
               <a
                 href="#projects"
@@ -84,6 +107,28 @@ export default function Hero() {
                 <span>Resume / CV</span>
               </a>
 
+              {/* Direct Email Pill with One-Click Copy */}
+              <button
+                type="button"
+                className="hero-email-pill"
+                onClick={handleCopyEmail}
+                title="Click to copy email address"
+                aria-label="Copy email address"
+              >
+                <Mail size={15} />
+                <span className="email-text">tejasphutane.work@gmail.com</span>
+                {copiedEmail ? (
+                  <span className="copy-state copied">
+                    <Check size={13} />
+                    <span>Copied</span>
+                  </span>
+                ) : (
+                  <span className="copy-state">
+                    <Copy size={13} />
+                  </span>
+                )}
+              </button>
+
               <div className="hero-social-links">
                 <a
                   href="https://github.com/tejas-phutane"
@@ -91,6 +136,7 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   className="social-btn"
                   aria-label="GitHub Profile"
+                  title="GitHub"
                 >
                   <GithubIcon size={18} />
                 </a>
@@ -100,9 +146,45 @@ export default function Hero() {
                   rel="noopener noreferrer"
                   className="social-btn"
                   aria-label="LinkedIn Profile"
+                  title="LinkedIn"
                 >
                   <LinkedinIcon size={18} />
                 </a>
+                <a
+                  href="https://x.com/tejas_phutane"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-btn"
+                  aria-label="X / Twitter Profile"
+                  title="X (Twitter)"
+                >
+                  <XTwitterIcon size={17} />
+                </a>
+                <a
+                  href="mailto:tejasphutane.work@gmail.com"
+                  className="social-btn"
+                  aria-label="Send direct email"
+                  title="Direct Email"
+                >
+                  <Mail size={18} />
+                </a>
+              </div>
+            </div>
+
+            {/* Architectural Tech Stack Strip */}
+            <div className="hero-stack-strip">
+              <span className="stack-strip-label">
+                <Cpu size={13} />
+                <span>CORE HARDWARE &amp; COMPUTE STACK:</span>
+              </span>
+              <div className="stack-strip-pills">
+                <span className="stack-pill">ROS 2</span>
+                <span className="stack-pill">C++20</span>
+                <span className="stack-pill">Unitree G1</span>
+                <span className="stack-pill">NVIDIA Isaac Sim</span>
+                <span className="stack-pill">DeepStream</span>
+                <span className="stack-pill">TensorRT</span>
+                <span className="stack-pill">Jetson AGX</span>
               </div>
             </div>
           </div>

@@ -17,10 +17,11 @@ import {
   CheckCircle,
   AlertCircle,
   Sparkles,
+  BookOpen,
 } from "lucide-react";
-import { Project, ExperienceItem, ServiceItem, AboutData } from "../lib/content";
+import { Project, ExperienceItem, ServiceItem, AboutData, BlogItem } from "../lib/content";
 
-type TabType = "projects" | "experience" | "services" | "about" | "twin";
+type TabType = "projects" | "experience" | "services" | "about" | "blogs" | "twin";
 
 export default function StudioClient() {
   const [activeTab, setActiveTab] = useState<TabType>("projects");
@@ -41,6 +42,9 @@ export default function StudioClient() {
   const [about, setAbout] = useState<AboutData | null>(null);
   const [twinMemory, setTwinMemory] = useState<string>("");
 
+  const [blogs, setBlogs] = useState<BlogItem[]>([]);
+  const [selectedBlogSlug, setSelectedBlogSlug] = useState<string>("");
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Fetch current data on mount
@@ -57,6 +61,8 @@ export default function StudioClient() {
         setServices(data.services || []);
         setAbout(data.about || null);
         setTwinMemory(data.twinMemory || "");
+        setBlogs(data.blogs || []);
+        if (data.blogs?.length) setSelectedBlogSlug(data.blogs[0].slug);
       } catch (err) {
         showToast("error", "Error loading portfolio content from server.");
       } finally {
@@ -85,6 +91,8 @@ export default function StudioClient() {
         await saveSection("services", services);
       } else if (target === "about") {
         await saveSection("about", about);
+      } else if (target === "blogs") {
+        await saveSection("blogs", blogs);
       } else if (target === "twin") {
         await saveSection("twinMemory", twinMemory);
       }
@@ -228,6 +236,40 @@ export default function StudioClient() {
     setSelectedServiceIdx(0);
   };
 
+  // Active Blog Helpers
+  const currentBlog = blogs.find((b) => b.slug === selectedBlogSlug) || blogs[0];
+  const updateCurrentBlog = (patch: Partial<BlogItem>) => {
+    setBlogs((prev) =>
+      prev.map((b) => (b.slug === currentBlog?.slug ? { ...b, ...patch } : b))
+    );
+  };
+
+  const handleAddBlog = () => {
+    const newSlug = `article-${Date.now()}`;
+    const newBlog: BlogItem = {
+      id: newSlug,
+      slug: newSlug,
+      title: "New Robotics Engineering Log",
+      date: new Date().toISOString().split("T")[0],
+      readTime: "6 min read",
+      category: "Robotics Architecture",
+      summary: "Executive summary detailing the engineering bottleneck, technical architecture, and validated results.",
+      tags: ["ROS 2", "C++", "Hardware"],
+      contentMarkdown: "## Architectural Problem Statement\n\nDetail the exact engineering challenges encountered...",
+    };
+    setBlogs([newBlog, ...blogs]);
+    setSelectedBlogSlug(newSlug);
+    showToast("success", "Added new technical article draft.");
+  };
+
+  const handleDeleteBlog = (slug: string) => {
+    if (!confirm("Are you sure you want to delete this technical article?")) return;
+    const remaining = blogs.filter((b) => b.slug !== slug);
+    setBlogs(remaining);
+    if (remaining.length) setSelectedBlogSlug(remaining[0].slug);
+    showToast("success", "Article deleted.");
+  };
+
   if (loading) {
     return (
       <div className="studio-container" style={{ alignItems: "center", justifyContent: "center" }}>
@@ -293,6 +335,13 @@ export default function StudioClient() {
         >
           <User size={16} />
           <span>About & Bio</span>
+        </button>
+        <button
+          className={`studio-tab ${activeTab === "blogs" ? "active" : ""}`}
+          onClick={() => setActiveTab("blogs")}
+        >
+          <BookOpen size={16} />
+          <span>Articles ({blogs.length})</span>
         </button>
         <button
           className={`studio-tab ${activeTab === "twin" ? "active" : ""}`}
@@ -962,7 +1011,150 @@ export default function StudioClient() {
           </div>
         )}
 
-        {/* 5. AI TWIN MEMORY */}
+        {/* 5. ARTICLES & BLOGS MANAGER */}
+        {activeTab === "blogs" && (
+          <div className="studio-master-detail">
+            {/* Sidebar List */}
+            <aside className="studio-sidebar project-list-sidebar">
+              <div className="studio-sidebar-header">
+                <span className="studio-sidebar-title">Select Article</span>
+                <button className="studio-add-btn" onClick={handleAddBlog}>
+                  <Plus size={14} /> Add
+                </button>
+              </div>
+              <div className="studio-item-list">
+                {blogs.map((b) => (
+                  <button
+                    key={b.slug}
+                    className={`studio-sidebar-card project-sidebar-item ${
+                      b.slug === currentBlog?.slug ? "active" : ""
+                    }`}
+                    onClick={() => setSelectedBlogSlug(b.slug)}
+                  >
+                    <span className="card-primary-title">{b.title}</span>
+                    <span className="card-secondary-sub">
+                      {b.category} · {b.date}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </aside>
+
+            {/* Detail Form */}
+            <div className="studio-detail-area">
+              {currentBlog ? (
+                <div className="studio-form-container">
+                  <div className="studio-form-section">
+                    <div className="form-section-title">
+                      <span>Article Metadata</span>
+                      <button
+                        className="studio-delete-main-btn"
+                        onClick={() => handleDeleteBlog(currentBlog.slug)}
+                      >
+                        <Trash2 size={14} /> Delete Article
+                      </button>
+                    </div>
+
+                    <div className="studio-field-group">
+                      <label className="studio-label">Article Title</label>
+                      <input
+                        type="text"
+                        className="studio-input"
+                        value={currentBlog.title}
+                        onChange={(e) => updateCurrentBlog({ title: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="studio-grid-2">
+                      <div className="studio-field-group">
+                        <label className="studio-label">URL Slug</label>
+                        <input
+                          type="text"
+                          className="studio-input"
+                          value={currentBlog.slug}
+                          onChange={(e) => updateCurrentBlog({ slug: e.target.value })}
+                        />
+                      </div>
+                      <div className="studio-field-group">
+                        <label className="studio-label">Category</label>
+                        <input
+                          type="text"
+                          className="studio-input"
+                          value={currentBlog.category}
+                          onChange={(e) => updateCurrentBlog({ category: e.target.value })}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="studio-grid-2">
+                      <div className="studio-field-group">
+                        <label className="studio-label">Publication Date</label>
+                        <input
+                          type="text"
+                          className="studio-input"
+                          value={currentBlog.date}
+                          onChange={(e) => updateCurrentBlog({ date: e.target.value })}
+                        />
+                      </div>
+                      <div className="studio-field-group">
+                        <label className="studio-label">Read Time</label>
+                        <input
+                          type="text"
+                          className="studio-input"
+                          value={currentBlog.readTime}
+                          onChange={(e) => updateCurrentBlog({ readTime: e.target.value })}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="studio-field-group">
+                      <label className="studio-label">Tags (comma-separated)</label>
+                      <input
+                        type="text"
+                        className="studio-input"
+                        value={currentBlog.tags.join(", ")}
+                        onChange={(e) =>
+                          updateCurrentBlog({
+                            tags: e.target.value.split(",").map((t) => t.trim()).filter(Boolean),
+                          })
+                        }
+                      />
+                    </div>
+
+                    <div className="studio-field-group">
+                      <label className="studio-label">Technical Executive Summary</label>
+                      <textarea
+                        className="studio-textarea"
+                        style={{ minHeight: "80px" }}
+                        value={currentBlog.summary}
+                        onChange={(e) => updateCurrentBlog({ summary: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="studio-form-section">
+                    <div className="form-section-title">
+                      <span>Article Content (Markdown with Tables & Code)</span>
+                    </div>
+                    <textarea
+                      className="studio-textarea"
+                      style={{
+                        minHeight: "450px",
+                        fontFamily: "var(--font-mono)",
+                        fontSize: "0.82rem",
+                        lineHeight: "1.6",
+                      }}
+                      value={currentBlog.contentMarkdown}
+                      onChange={(e) => updateCurrentBlog({ contentMarkdown: e.target.value })}
+                    />
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        )}
+
+        {/* 6. AI TWIN MEMORY */}
         {activeTab === "twin" && (
           <div className="studio-detail-area twin-manager" style={{ width: "100%" }}>
             <div className="studio-form-container">

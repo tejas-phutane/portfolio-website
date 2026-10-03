@@ -17,12 +17,13 @@ test.describe('Local Portfolio Studio Dashboard UI', () => {
 
     // Check tabs
     const tabs = page.locator('.studio-tab');
-    await expect(tabs).toHaveCount(5);
+    await expect(tabs).toHaveCount(6);
     await expect(tabs.nth(0)).toContainText('Projects');
     await expect(tabs.nth(1)).toContainText('Experience');
     await expect(tabs.nth(2)).toContainText('Services');
     await expect(tabs.nth(3)).toContainText('About');
-    await expect(tabs.nth(4)).toContainText('AI Twin');
+    await expect(tabs.nth(4)).toContainText('Articles');
+    await expect(tabs.nth(5)).toContainText('AI Twin');
   });
 
   test('switches tabs and displays corresponding section editors', async ({ page }) => {

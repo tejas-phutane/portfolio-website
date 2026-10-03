@@ -17,7 +17,7 @@ const LinkedinIcon = ({ size = 20 }: { size?: number }) => (
   </svg>
 );
 
-const SECTIONS = ["about", "skills", "experience", "projects", "services", "contact"];
+const SECTIONS = ["about", "skills", "experience", "projects", "services", "blogs", "contact"];
 
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState("");
@@ -51,6 +51,9 @@ export default function Navbar() {
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "start" });
       setMobileOpen(false);
+    } else {
+      // If navigating from another page (like /blog or /blog/[slug])
+      window.location.href = `/#${id}`;
     }
   };
 
@@ -63,7 +66,7 @@ export default function Navbar() {
   return (
     <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="navbar-inner">
-        <a className="navbar-brand" href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+        <a className="navbar-brand" href="/" onClick={(e) => { e.preventDefault(); window.location.href = "/"; }}>
           Tejas Phutane<span className="brand-dot">.</span>
         </a>
 
@@ -72,11 +75,11 @@ export default function Navbar() {
             {SECTIONS.map((s) => (
               <li key={s}>
                 <a
-                  href={`#${s}`}
+                  href={`/#${s}`}
                   className={activeSection === s ? "active" : ""}
                   onClick={(e) => { e.preventDefault(); scrollTo(s); }}
                 >
-                  {s.charAt(0).toUpperCase() + s.slice(1)}
+                  {s === "blogs" ? "Articles" : s.charAt(0).toUpperCase() + s.slice(1)}
                 </a>
               </li>
             ))}
@@ -112,11 +115,11 @@ export default function Navbar() {
         {SECTIONS.map((s) => (
           <a
             key={s}
-            href={`#${s}`}
+            href={`/#${s}`}
             className={activeSection === s ? "active" : ""}
             onClick={(e) => { e.preventDefault(); scrollTo(s); }}
           >
-            {s.charAt(0).toUpperCase() + s.slice(1)}
+            {s === "blogs" ? "Articles" : s.charAt(0).toUpperCase() + s.slice(1)}
           </a>
         ))}
         <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">

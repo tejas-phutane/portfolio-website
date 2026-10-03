@@ -121,33 +121,164 @@ export default function DigitalTwinChat() {
     ]);
   };
 
-  // Helper to render markdown bold, bullet points and linebreaks cleanly
+  // Inline parser helper for bold and code tokens
+  const parseInline = (text: string) => {
+    const parts = text.split(/(\*\*.*?\*\*|`.*?`)/g);
+    return parts.map((part, pIdx) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <strong key={pIdx}>{part.slice(2, -2)}</strong>;
+      }
+      if (part.startsWith("`") && part.endsWith("`")) {
+        return <code key={pIdx} className="twin-inline-code">{part.slice(1, -1)}</code>;
+      }
+      return part;
+    });
+  };
+
+  // Robust Markdown and Table rendering engine
   const renderFormattedContent = (content: string) => {
     const lines = content.split("\n");
-    return lines.map((line, idx) => {
-      // Bold replacer
-      const parts = line.split(/(\*\*.*?\*\*)/g);
-      const formattedParts = parts.map((part, pIdx) => {
-        if (part.startsWith("**") && part.endsWith("**")) {
-          return <strong key={pIdx}>{part.slice(2, -2)}</strong>;
-        }
-        return part;
-      });
+    const elements: React.ReactNode[] = [];
+    let currentTable: string[][] = [];
+    let inTable = false;
+    let codeBlock: string[] = [];
+    let inCode = false;
 
-      if (line.startsWith("- ") || line.startsWith("• ") || line.startsWith("* ")) {
-        return (
-          <li key={idx} className="twin-list-item">
-            {formattedParts.slice(1)}
-          </li>
-        );
+    const flushTable = (key: number) => {
+      if (!currentTable.length) return null;
+      const headerRow = currentTable[0];
+      const dataRows = currentTable.slice(1).filter((r) => !r.every((c) => /^:?-+:?$/.test(c.trim())));
+
+      const tableNode = (
+        <div key={`tbl-${key}`} className="twin-markdown-table-wrapper">
+          <table className="twin-markdown-table">
+            <thead>
+              <tr>
+                {headerRow.map((cell, cIdx) => (
+                  <th key={cIdx}>{parseInline(cell.trim())}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {dataRows.map((row, rIdx) => (
+                <tr key={rIdx}>
+                  {row.map((cell, cIdx) => (
+                    <td key={cIdx}>{parseInline(cell.trim())}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+      currentTable = [];
+      inTable = false;
+      return tableNode;
+    };
+
+    const flushCode = (key: number) => {
+      const node = (
+        <pre key={`code-${key}`} className="twin-code-block">
+          <code>{codeBlock.join("\n")}</code>
+        </pre>
+      );
+      codeBlock = [];
+      inCode = false;
+      return node;
+    };
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
+      // Code blocks
+      if (line.trim().startsWith("```")) {
+        if (inCode) {
+          elements.push(flushCode(i));
+        } else {
+          if (inTable) elements.push(flushTable(i));
+          inCode = true;
+        }
+        continue;
       }
 
-      return (
-        <p key={idx} className="twin-message-paragraph">
-          {formattedParts}
+      if (inCode) {
+        codeBlock.push(line);
+        continue;
+      }
+
+      // Markdown Tables
+      if (line.trim().startsWith("|") && line.trim().endsWith("|")) {
+        inTable = true;
+        const cells = line.trim().slice(1, -1).split("|");
+        currentTable.push(cells);
+        continue;
+      } else if (inTable) {
+        elements.push(flushTable(i));
+      }
+
+      // Horizontal rule
+      if (line.trim() === "---") {
+        elements.push(<hr key={i} className="twin-divider" />);
+        continue;
+      }
+
+      // Headings
+      if (line.startsWith("#### ")) {
+        elements.push(<h4 key={i} className="twin-h4">{parseInline(line.slice(5))}</h4>);
+        continue;
+      }
+      if (line.startsWith("### ")) {
+        elements.push(<h3 key={i} className="twin-h3">{parseInline(line.slice(4))}</h3>);
+        continue;
+      }
+
+      // Blockquotes
+      if (line.startsWith("> ")) {
+        elements.push(<blockquote key={i} className="twin-blockquote">{parseInline(line.slice(2))}</blockquote>);
+        continue;
+      }
+
+      // Bullet items
+      if (line.trim().startsWith("- ") || line.trim().startsWith("• ") || line.trim().startsWith("* ")) {
+        const bulletText = line.trim().slice(2);
+        elements.push(
+          <div key={i} className="twin-list-item">
+            <span className="twin-bullet-pip" />
+            <span className="twin-list-text">{parseInline(bulletText)}</span>
+          </div>
+        );
+        continue;
+      }
+
+      // Numbered lists
+      const numMatch = line.trim().match(/^(\d+)\.\s+(.*)$/);
+      if (numMatch) {
+        elements.push(
+          <div key={i} className="twin-numbered-item">
+            <span className="twin-num-pip">{numMatch[1]}.</span>
+            <span className="twin-list-text">{parseInline(numMatch[2])}</span>
+          </div>
+        );
+        continue;
+      }
+
+      // Empty lines
+      if (!line.trim()) {
+        continue;
+      }
+
+      // Standard paragraphs
+      elements.push(
+        <p key={i} className="twin-message-paragraph">
+          {parseInline(line)}
         </p>
       );
-    });
+    }
+
+    if (inTable) elements.push(flushTable(lines.length));
+    if (inCode) elements.push(flushCode(lines.length));
+
+    return elements;
   };
 
   return (

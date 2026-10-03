@@ -25,6 +25,7 @@ export async function GET() {
     const servicesRaw = fs.readFileSync(getFilePath('services.json'), 'utf-8');
     const aboutRaw = fs.readFileSync(getFilePath('about.json'), 'utf-8');
     const twinRaw = fs.readFileSync(getFilePath('twin.json'), 'utf-8');
+    const blogsRaw = fs.readFileSync(getFilePath('blogs.json'), 'utf-8');
 
     return NextResponse.json({
       projects: JSON.parse(projectsRaw),
@@ -32,6 +33,7 @@ export async function GET() {
       services: JSON.parse(servicesRaw),
       about: JSON.parse(aboutRaw),
       twinMemory: JSON.parse(twinRaw).systemPrompt,
+      blogs: JSON.parse(blogsRaw),
     });
   } catch (error: unknown) {
     const errorMsg = error instanceof Error ? error.message : 'Failed to read content files.';
@@ -64,6 +66,9 @@ export async function POST(req: NextRequest) {
         break;
       case 'about':
         fs.writeFileSync(getFilePath('about.json'), JSON.stringify(content, null, 2), 'utf-8');
+        break;
+      case 'blogs':
+        fs.writeFileSync(getFilePath('blogs.json'), JSON.stringify(content, null, 2), 'utf-8');
         break;
       case 'twinMemory':
         fs.writeFileSync(

@@ -60,6 +60,21 @@ export interface AboutData {
   }>;
 }
 
+import blogsRaw from '../../content/data/blogs.json';
+
+export interface BlogItem {
+  id?: string;
+  slug: string;
+  title: string;
+  date: string;
+  readTime: string;
+  category: string;
+  summary: string;
+  tags: string[];
+  featured?: boolean;
+  contentMarkdown: string;
+}
+
 export function getProjectsData(): Project[] {
   return projectsRaw as Project[];
 }
@@ -74,4 +89,12 @@ export function getServicesData(): ServiceItem[] {
 
 export function getAboutData(): AboutData {
   return aboutRaw as AboutData;
+}
+
+export function getBlogsData(): BlogItem[] {
+  return blogsRaw as BlogItem[];
+}
+
+export function getBlogBySlug(slug: string): BlogItem | undefined {
+  return (blogsRaw as BlogItem[]).find((b) => b.slug === slug);
 }
