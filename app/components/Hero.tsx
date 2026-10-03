@@ -43,7 +43,7 @@ export default function Hero() {
             <div className="hero-meta-badges">
               <div className="hero-status-pill">
                 <span className="status-indicator-dot" />
-                <span>Senior Engineer L1 @ FEV India (Humanoids &amp; Sim-to-Real)</span>
+                <span>Senior Engineer L1 · FEV India (Humanoids &amp; Sim-to-Real)</span>
               </div>
               <div className="hero-location-pill">
                 <MapPin size={13} className="pill-icon" />
@@ -127,6 +127,9 @@ export default function Hero() {
                     <Copy size={13} />
                   </span>
                 )}
+                <span className="sr-only" aria-live="polite">
+                  {copiedEmail ? "Email address copied to clipboard" : ""}
+                </span>
               </button>
 
               <div className="hero-social-links">
