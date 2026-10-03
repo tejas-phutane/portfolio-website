@@ -25,16 +25,28 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
+    // If on blog route, keep Articles highlighted
+    if (typeof window !== "undefined" && window.location.pathname.startsWith("/blog")) {
+      setActiveSection("blogs");
+      return;
+    }
+
     const onScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const scrollPos = window.scrollY + 200;
+      // Clear active section if at top of page (Hero)
+      if (window.scrollY < 180) {
+        setActiveSection("");
+        return;
+      }
+
+      // Viewport-relative section tracking
       for (const id of SECTIONS) {
         const el = document.getElementById(id);
         if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
+          const rect = el.getBoundingClientRect();
+          // Active when section top is near upper viewport and bottom has not left
+          if (rect.top <= 250 && rect.bottom >= 150) {
             setActiveSection(id);
             break;
           }
@@ -43,6 +55,7 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // initialize on mount
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
