@@ -372,7 +372,7 @@ export default function DigitalTwinChat() {
                 <span className="dot" />
                 <span className="dot" />
                 <span className="dot" />
-                <span className="thinking-text">Synthesizing response...</span>
+                <span className="thinking-text">Synthesizing grounded answer...</span>
               </div>
             </div>
           )}

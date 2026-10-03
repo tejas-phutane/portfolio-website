@@ -2861,7 +2861,6 @@ textarea:focus-visible {
   transform: none;
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 640px) {
   .twin-drawer {
     bottom: 0;
@@ -2872,6 +2871,11 @@ textarea:focus-visible {
     max-height: 100dvh;
     border-radius: 0;
     border: none;
+    padding-bottom: env(safe-area-inset-bottom, 12px);
+  }
+
+  .twin-input-bar {
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
   }
 
   .twin-launcher {
