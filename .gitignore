@@ -80,4 +80,7 @@ playwright-report/
 # Local visitor leads data (top-level only)
 /data/
 
+# TypeScript build info
+*.tsbuildinfo
+
 
