@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { X } from "lucide-react";
 import type { Project } from "../lib/content";
+import HumanoidArchitectureDiagram from "./HumanoidArchitectureDiagram";
 
 interface Props {
   project: Project;
@@ -53,27 +54,92 @@ export default function ProjectModal({ project, onClose }: Props) {
           <p>{project.problem}</p>
         </div>
 
-        <div className="modal-section">
-          <h3>Approach</h3>
-          <p>{project.approach}</p>
-        </div>
+        {project.caseStudy ? (
+          <>
+            <div className="modal-section">
+              <h3>System Architecture</h3>
+              <p>{project.caseStudy.systemArchitecture}</p>
+              {project.caseStudy.hasArchitectureDiagram && (
+                <HumanoidArchitectureDiagram />
+              )}
+            </div>
+
+            <div className="modal-section">
+              <h3>Safety Design</h3>
+              <p>{project.caseStudy.safetyDesign}</p>
+            </div>
+
+            <div className="modal-section">
+              <h3>Simulation &amp; Validation</h3>
+              <p>{project.caseStudy.simulationValidation}</p>
+            </div>
+
+            <div className="modal-section">
+              <h3>Demo Capabilities</h3>
+              <ul className="modal-impl-list">
+                {project.caseStudy.demoCapabilities.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="modal-section">
+              <h3>Engineering Learnings</h3>
+              <ul className="modal-impl-list">
+                {project.caseStudy.engineeringLearnings.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            {project.caseStudy.visualPlaceholders && project.caseStudy.visualPlaceholders.length > 0 && (
+              <div className="modal-section">
+                <h3>Visual Placeholders</h3>
+                <div className="visual-placeholders-grid">
+                  {project.caseStudy.visualPlaceholders.map((ph, i) => (
+                    <div className="visual-placeholder-card" key={i}>
+                      <span className="placeholder-tag">{ph.tag}</span>
+                      <h4 className="placeholder-title">{ph.title}</h4>
+                      <p className="placeholder-caption">{ph.caption}</p>
+                      <div className="placeholder-frame-box">
+                        <span>TECHNICAL SCHEMATIC PLACEHOLDER</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <div className="modal-section">
+              <h3>Approach</h3>
+              <p>{project.approach}</p>
+            </div>
+
+            <div className="modal-section">
+              <h3>Technical Implementation</h3>
+              <ul className="modal-impl-list">
+                {project.implementation.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </>
+        )}
 
         <div className="modal-section">
-          <h3>Technical Implementation</h3>
-          <ul className="modal-impl-list">
-            {project.implementation.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="modal-section">
-          <h3>Results</h3>
+          <h3>Results &amp; Verification Evidence</h3>
           <div className="modal-metrics">
             {project.results.map((r, i) => (
               <div className="modal-metric" key={i}>
                 <span className="modal-metric-value">{r.metric}</span>
                 <span className="modal-metric-label">{r.description}</span>
+                {r.evidence && (
+                  <div className="modal-metric-evidence">
+                    <span className="evidence-pill">How measured:</span> {r.evidence}
+                  </div>
+                )}
               </div>
             ))}
           </div>

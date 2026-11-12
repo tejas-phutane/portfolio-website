@@ -13,7 +13,7 @@ I'm passionate about **leveraging GPT and advanced tech to streamline developmen
 
 **Contact:**
 - 📧 Email: tejasphutane.work@gmail.com
-- 📱 Phone: +91-8484016205
+- 📄 Resume & Direct Contact: Available on request via introduction form
 - 💼 LinkedIn: [linkedin.com/in/tejas-phutane](https://linkedin.com/in/tejas-phutane)
 - 💻 GitHub: [github.com/TejasPhutane](https://github.com/tejas-phutane)
 - 📍 Location: Mumbai, Maharashtra, India
@@ -502,7 +502,7 @@ I'm always interested in discussing:
 - Email: tejasphutane.work@gmail.com
 - LinkedIn: [linkedin.com/in/tejas-phutane](https://linkedin.com/in/tejas-phutane)
 - GitHub: [github.com/TejasPhutane](https://github.com/tejas-phutane)
-- Phone: +91-8484016205
+- Direct Contact: Available upon introduction request
 
 **Available for:**
 - Technical consulting

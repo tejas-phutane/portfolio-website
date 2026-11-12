@@ -4,15 +4,17 @@
     "role": "Senior Engineer L1",
     "company": "FEV India Pvt Ltd",
     "location": "Pune",
-    "period": "Feb 2026 – Present",
-    "description": "Leading humanoid robotics development focused on the Unitree G1 platform equipped with Inspire dexterous hands — architecting physics-accurate sim-to-real pipelines, locomotion policies, and mission-critical safety architectures.",
+    "period": "Feb 2026 - Present",
+    "description": "Humanoid robotics development for the Unitree G1 platform, focusing on system engineering, simulation environments, safety architecture, and Physical AI pipelines.",
     "achievements": [
-      { "metric": "Sim-to-Real", "text": "high-fidelity physics simulations and domain-randomized workflows for robust bipedal walking and locomotion policies on the G1 platform" },
-      { "metric": "Safety Layer", "text": "engineered modular safety architecture featuring 3D workspace bounding, manipulation safety constraints, and real-time hardware diagnostics" },
-      { "metric": "HAL Architecture", "text": "developed Hardware Abstraction Layer (HAL) decoupling high-level policy planners from low-level actuator and sensor communication buses" },
-      { "metric": "Physical AI", "text": "building egocentric multimodal data collection pipelines and synthetic data validation layers (evaluating Isaac Lab / Arena, RoboStudio, GenieSim, Lightwheel AI)" }
+      { "metric": "", "text": "Developing end-to-end humanoid robotics use cases for the Unitree G1: system engineering, digital twins, simulation-first validation, autonomy, interaction, manipulation, and real-robot deployment." },
+      { "metric": "", "text": "Built a G1 simulation environment demonstrating locomotion, workspace safety sectors, and basic manipulation; established an Isaac Sim-based sim-to-real development workflow." },
+      { "metric": "", "text": "Designed a robot-agnostic ROS 2/HAL architecture that decouples autonomy, interaction, simulation, and safety logic from robot-specific runtime adapters." },
+      { "metric": "", "text": "Implemented safety-oriented humanoid architecture: HARA, functional/technical safety concepts, safety wrappers, watchdogs, state estimation, command-rate adaptation, and risk-based emergency-stop logic." },
+      { "metric": "", "text": "Initiated SO101 arm development for synthetic-data generation, simulation-based collection, hardware calibration, and testing." },
+      { "metric": "", "text": "Building Physical AI workflows: multimodal demonstration collection, behavioral cloning, and ACT/SmolVLA training pipelines." }
     ],
-    "tags": ["Unitree G1", "Inspire Hand", "Sim-to-Real", "Locomotion Policies", "Safety Layer", "HAL", "Isaac Sim", "Physical AI"]
+    "tags": ["Unitree G1", "ROS 2", "HAL", "Functional Safety", "HARA", "Isaac Sim", "Digital Twin", "Sim-to-Real", "Physical AI", "Behavioral Cloning", "ACT", "SmolVLA"]
   },
   {
     "current": false,
@@ -22,10 +24,10 @@
     "period": "Sep 2023 – Nov 2025",
     "description": "Led software architecture, perception pipeline development, and technical team coordination for autonomous robotic waste management systems.",
     "achievements": [
-      { "metric": "40%", "text": "speed improvement by redesigning motion algorithms for 3-axis gantry, reducing inertial losses and improving cycle time precision" },
-      { "metric": "80%", "text": "computational reduction by refactoring Python to C++ for real-time processing loops" },
-      { "metric": "91%", "text": "throughput prediction using regression models on 10,000+ daily operations for data-driven optimization" },
-      { "metric": "99.2%", "text": "detection accuracy with sub-50ms latency in multi-stream video analytics pipeline" },
+      { "metric": "Up to 40%", "text": "cycle speed improvement by redesigning motion algorithms for 3-axis gantry with jerk-limited S-curves" },
+      { "metric": "Up to 80%", "text": "computational reduction by refactoring Python to multithreaded C++ and TensorRT on Jetson" },
+      { "metric": "91%", "text": "throughput prediction precision using regression models on 10,000+ daily sorting operations" },
+      { "metric": "99.2%", "text": "validation accuracy under controlled illumination in multi-stream edge video analytics pipeline" },
       { "metric": "30%", "text": "idle time reduction through custom multi-robot coordination algorithms" }
     ],
     "tags": ["Python", "C++", "ROS2", "YOLO", "DeepStream", "TensorRT", "Kafka", "PostgreSQL"]
@@ -38,7 +40,7 @@
     "period": "Aug 2022 – Sep 2023",
     "description": "Contributed to autonomous robotic systems for waste management, focusing on perception optimization and real-time processing.",
     "achievements": [
-      { "metric": "80%", "text": "reduction in computational overhead by refactoring performance-critical modules from Python to C++" },
+      { "metric": "Up to 80%", "text": "reduction in computational overhead by refactoring performance-critical modules from Python to C++" },
       { "metric": "2×", "text": "faster multi-model YOLO pipeline using NVIDIA DeepStream framework for waste object tracking" }
     ],
     "tags": ["Python", "C++", "YOLO", "DeepStream", "OpenCV", "Docker"]
@@ -52,7 +54,7 @@
     "description": "Developed exhibits for India's First Robotics Gallery at Gujarat Science City. Hands-on experience with 7+ diverse robotic platforms.",
     "achievements": [
       { "metric": "7+", "text": "robot platforms: Pepper Humanoid, UR10, Da Vinci, SCARA, NAO, Mobile Robots, Quadruped" },
-      { "metric": "60%", "text": "development cycle reduction through Gazebo simulation workflows" },
+      { "metric": "Up to 60%", "text": "development cycle reduction through Gazebo simulation workflows" },
       { "metric": "240fps", "text": "vision processing for air hockey robot with real-time trajectory prediction" }
     ],
     "tags": ["ROS", "MoveIt", "Gazebo", "OpenCV", "Python", "Arduino"]

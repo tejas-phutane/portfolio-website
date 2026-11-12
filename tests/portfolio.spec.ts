@@ -42,9 +42,32 @@ test.describe('Portfolio Website End-to-End Tests', () => {
     const heading = page.locator('h1');
     await expect(heading).toContainText(/Tejas/i);
 
+    // Check refreshed positioning title
+    const roleTitle = hero.locator('.hero-role-title');
+    await expect(roleTitle).toContainText(/Senior Robotics Engineer specializing in Humanoid Robotics, Physical AI, and Sim-to-Real Systems/i);
+
+    // Check updated subheading
+    const subheading = hero.locator('.hero-subheading');
+    await expect(subheading).toContainText(/Building robot-agnostic autonomy, safety-aware humanoid systems, digital twins, and Physical AI workflows/i);
+
+    // Check three concise proof points
+    const proofPoints = hero.locator('.proof-point-item');
+    await expect(proofPoints).toHaveCount(3);
+    await expect(hero).toContainText('Humanoid autonomy & safety');
+    await expect(hero).toContainText('Simulation-first development');
+    await expect(hero).toContainText('Physical AI data & training pipelines');
+
+    // Retain FEV India & Unitree G1 context
+    await expect(hero).toContainText('FEV India');
+    await expect(hero).toContainText('Unitree G1');
+
     // Check CTA buttons
     const projectsBtn = page.locator('a[href="#projects"]').first();
     await expect(projectsBtn).toBeVisible();
+
+    // Check resume CTA button opens the gated request modal
+    const resumeBtn = hero.locator('button:has-text("Request Resume")');
+    await expect(resumeBtn).toBeVisible();
 
     // Take screenshot of Hero
     await page.screenshot({ path: 'test-results/hero-screenshot.png' });
@@ -87,12 +110,61 @@ test.describe('Portfolio Website End-to-End Tests', () => {
     const modal = page.locator('.modal-overlay[role="dialog"]');
     await expect(modal).toBeVisible();
     await expect(modal).toContainText(/Problem/i);
-    await expect(modal).toContainText(/Approach/i);
+    await expect(modal).toContainText(/System Architecture|Approach/i);
     await expect(modal).toContainText(/Technology Stack/i);
+    await expect(modal).toContainText(/How measured/i);
 
     // Close the modal
     const closeBtn = modal.locator('button[aria-label="Close modal"]');
     await expect(closeBtn).toBeVisible();
+    await closeBtn.click();
+    await page.waitForTimeout(300);
+    await expect(modal).not.toBeVisible();
+  });
+
+  test('Humanoid Showroom Assistant case study displays 4-tier architecture and placeholders', async ({ page }) => {
+    const projectsSection = page.locator('#projects');
+    await projectsSection.scrollIntoViewIfNeeded();
+
+    // Click on "Humanoids & Physical AI" category
+    const categoryBtn = projectsSection.locator('.filter-btn:has-text("Humanoids & Physical AI")');
+    await expect(categoryBtn).toBeVisible();
+    await categoryBtn.click();
+    await page.waitForTimeout(300);
+
+    // Click the Humanoid Showroom Assistant project card
+    const card = projectsSection.locator('.project-card:has-text("Humanoid Showroom Assistant")').first();
+    await expect(card).toBeVisible();
+    await card.click();
+    await page.waitForTimeout(500);
+
+    const modal = page.locator('.modal-overlay[role="dialog"]');
+    await expect(modal).toBeVisible();
+
+    // Check case study sections
+    await expect(modal).toContainText('Problem');
+    await expect(modal).toContainText('System Architecture');
+    await expect(modal).toContainText('Safety Design');
+    await expect(modal).toContainText('Simulation & Validation');
+    await expect(modal).toContainText('Demo Capabilities');
+    await expect(modal).toContainText('Engineering Learnings');
+
+    // Check 4-tier diagram
+    const diagram = modal.locator('.humanoid-arch-diagram');
+    await expect(diagram).toBeVisible();
+    await expect(diagram).toContainText('Autonomy Applications');
+    await expect(diagram).toContainText('Digital Twin & Simulation');
+    await expect(diagram).toContainText('ROS 2 Middleware + HAL');
+    await expect(diagram).toContainText('Robot Backends');
+    await expect(diagram).toContainText('Unitree G1');
+
+    // Check visual placeholders
+    await expect(modal).toContainText('Visual Placeholders');
+    await expect(modal).toContainText('Placeholder 01');
+    await expect(modal).toContainText('Placeholder 04');
+
+    // Close modal
+    const closeBtn = modal.locator('button[aria-label="Close modal"]');
     await closeBtn.click();
     await page.waitForTimeout(300);
     await expect(modal).not.toBeVisible();
@@ -106,6 +178,14 @@ test.describe('Portfolio Website End-to-End Tests', () => {
     // Check for FEV India and Wastefull Insights
     await expect(expSection).toContainText(/FEV India/i);
     await expect(expSection).toContainText(/Wastefull Insights/i);
+
+    // Check upgraded FEV architecture bullets and tags
+    await expect(expSection).toContainText('Unitree G1');
+    await expect(expSection).toContainText('robot-agnostic ROS 2/HAL architecture');
+    await expect(expSection).toContainText('HARA');
+    await expect(expSection).toContainText('SO101 arm');
+    await expect(expSection).toContainText('SmolVLA');
+    await expect(expSection).toContainText('Behavioral Cloning');
   });
 
   test('Skills section displays core robotics competencies', async ({ page }) => {
@@ -114,6 +194,38 @@ test.describe('Portfolio Website End-to-End Tests', () => {
     await expect(skillsSection).toBeVisible();
 
     await expect(skillsSection).toContainText(/ROS|Robotics|Perception|C\+\+|Python/i);
+    await expect(skillsSection).toContainText('Physical AI & Robot Learning');
+    await expect(skillsSection).toContainText('ACT (Action Chunking)');
+    await expect(skillsSection).toContainText('SmolVLA');
+  });
+
+  test('About section displays Physical AI, Now Building roadmap, and Continuous Learning', async ({ page }) => {
+    const aboutSection = page.locator('#about');
+    await aboutSection.scrollIntoViewIfNeeded();
+    await expect(aboutSection).toBeVisible();
+
+    // Physical AI capability cards
+    await expect(aboutSection).toContainText('Physical AI & Robot Learning');
+    await expect(aboutSection).toContainText('Multimodal Demonstration Data');
+    await expect(aboutSection).toContainText('Imitation & Policy Training');
+    await expect(aboutSection).toContainText('Simulation & Evaluation');
+    await expect(aboutSection).toContainText('Sim-to-Real Validation');
+
+    // Task 9: Now Building roadmap
+    await expect(aboutSection).toContainText('Now Building');
+    await expect(aboutSection).toContainText('Advanced Robot Learning');
+    await expect(aboutSection).toContainText('Agentic AI & Embodied Autonomy');
+    await expect(aboutSection).toContainText('Humanoid Control & Safety Integration');
+
+    // Task 9: Continuous Learning
+    await expect(aboutSection).toContainText('Continuous Learning');
+    await expect(aboutSection).toContainText('LLM Engineering & Agentic AI Capabilities');
+    await expect(aboutSection).toContainText('Core Development Themes');
+
+    // Task 8: Metric evidence tooltips in tenets
+    const tenetEvidence = aboutSection.locator('.tenet-metric-callout .evidence-tooltip').first();
+    await expect(tenetEvidence).toBeAttached();
+    await expect(tenetEvidence).toContainText('How measured');
   });
 
   test('Contact section has operational form fields', async ({ page }) => {
@@ -155,5 +267,74 @@ test.describe('Portfolio Website End-to-End Tests', () => {
       const mobileNav = page.locator('div:has-text("About"):has-text("Projects")').first();
       await expect(mobileNav).toBeVisible();
     }
+  });
+
+  test('Gated resume modal opens, enforces validation, and protects contact details', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+
+    // Verify phone number is not exposed on page
+    const pageContent = await page.content();
+    expect(pageContent).not.toContain('8484016205');
+    expect(pageContent).not.toContain('/resume.pdf');
+
+    // Click "Request Resume" button in hero
+    const heroResumeBtn = page.locator('#hero button:has-text("Request Resume")');
+    await heroResumeBtn.click();
+
+    // Verify modal appears
+    const modal = page.locator('.resume-modal-box');
+    await expect(modal).toBeVisible();
+    await expect(modal).toContainText('Request Resume / CV');
+    await expect(modal).toContainText('Personal contact details and resume are shared only after a brief introduction request.');
+
+    // Check modal form fields
+    await expect(modal.locator('#req-name')).toBeVisible();
+    await expect(modal.locator('#req-email')).toBeVisible();
+    await expect(modal.locator('#req-company')).toBeVisible();
+    await expect(modal.locator('#req-purpose')).toBeVisible();
+
+    // Close modal
+    const closeBtn = modal.locator('button[aria-label="Close modal"]');
+    await closeBtn.click();
+    await expect(modal).not.toBeVisible();
+
+    // Verify Contact section contains Introduction / Resume CTA
+    const contactSection = page.locator('#contact');
+    await contactSection.scrollIntoViewIfNeeded();
+    await expect(contactSection.locator('button:has-text("Request Introduction / Resume")')).toBeVisible();
+    await expect(contactSection).toContainText('Personal contact details and resume are shared only after a brief introduction request.');
+
+    // Verify Footer contains Introduction / Resume CTA
+    const footer = page.locator('footer');
+    await footer.scrollIntoViewIfNeeded();
+    await expect(footer.locator('button:has-text("Request Introduction / Resume")')).toBeVisible();
+    await expect(footer).toContainText('Personal contact details and resume are shared only after a brief introduction request.');
+  });
+
+  test('Capture visual screenshots for user review', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 950 });
+    await page.goto('/', { waitUntil: 'networkidle' });
+
+    // Hero + Telemetry HUD
+    await page.screenshot({
+      path: '/home/tejas/.gemini/antigravity/brain/b30a8fca-7a6f-4e48-aada-a3039c629e0d/screenshot-hero-hud.png',
+      clip: { x: 0, y: 0, width: 1440, height: 950 }
+    });
+
+    // About & Bento Grids
+    const aboutSec = page.locator('#about');
+    await aboutSec.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(400);
+    await page.screenshot({
+      path: '/home/tejas/.gemini/antigravity/brain/b30a8fca-7a6f-4e48-aada-a3039c629e0d/screenshot-about-bento.png'
+    });
+
+    // Projects
+    const projSec = page.locator('#projects');
+    await projSec.scrollIntoViewIfNeeded();
+    await page.waitForTimeout(400);
+    await page.screenshot({
+      path: '/home/tejas/.gemini/antigravity/brain/b30a8fca-7a6f-4e48-aada-a3039c629e0d/screenshot-projects.png'
+    });
   });
 });

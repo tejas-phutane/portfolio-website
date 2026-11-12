@@ -10,6 +10,7 @@ import BlogsSection from "./components/BlogsSection";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import DigitalTwinChat from "./components/DigitalTwinChat";
+import ResumeRequestModal from "./components/ResumeRequestModal";
 
 export default function Home() {
   return (
@@ -31,6 +32,7 @@ export default function Home() {
       </main>
       <Footer />
       <DigitalTwinChat />
+      <ResumeRequestModal />
     </>
   );
 }

@@ -171,7 +171,7 @@ Mumbai, India (Open to global opportunities / relocation)
 
 ### Contact
 - **Email:** [tejasphutane.work@gmail.com](mailto:tejasphutane.work@gmail.com)
-- **Phone:** +91-8484016205
+- **Introduction & Resume:** Shared on request via portfolio form (contact details protected from automated scraping)
 - **LinkedIn:** [linkedin.com/in/tejas-phutane](https://linkedin.com/in/tejas-phutane)
 - **GitHub:** [github.com/TejasPhutane](https://github.com/TejasPhutane)
 

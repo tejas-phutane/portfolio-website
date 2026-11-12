@@ -16,39 +16,41 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tejas Phutane | Robotics & Computer Vision Engineer",
+  title: "Tejas Phutane | Senior Robotics Engineer: Humanoid Robotics & Physical AI",
   description:
-    "Portfolio of Tejas Phutane — Senior Robotics & Computer Vision Engineer specializing in ROS/ROS2, DeepStream, autonomous systems, real-time vision pipelines, and production robotics deployment.",
+    "Portfolio of Tejas Phutane, Senior Robotics Engineer specializing in Humanoid Robotics, Physical AI, and Sim-to-Real Systems. Building robot-agnostic autonomy, safety-aware humanoid systems, and digital twins.",
   keywords: [
     "Tejas Phutane",
     "Robotics Engineer",
-    "Computer Vision",
+    "Humanoid Robotics",
+    "Physical AI",
+    "Sim-to-Real",
+    "Unitree G1",
+    "Isaac Sim",
     "ROS2",
+    "Computer Vision",
     "DeepStream",
-    "NVIDIA",
     "Autonomous Systems",
     "Motion Planning",
-    "YOLO",
     "TensorRT",
-    "Industrial Automation",
     "Digital Twin",
   ],
   authors: [{ name: "Tejas Phutane" }],
   creator: "Tejas Phutane",
   robots: "index, follow",
   openGraph: {
-    title: "Tejas Phutane | Robotics & Computer Vision Engineer",
+    title: "Tejas Phutane | Senior Robotics Engineer: Humanoid Robotics & Physical AI",
     description:
-      "Senior Robotics Engineer with 4+ years building production-grade autonomous systems, real-time vision pipelines, and multi-robot coordination for industrial automation.",
+      "Senior Robotics Engineer specializing in Humanoid Robotics, Physical AI, and Sim-to-Real Systems. Building robot-agnostic autonomy, safety-aware humanoid systems, and digital twins.",
     url: "https://tejas-phutane-portfolio.web.app",
     siteName: "Tejas Phutane Portfolio",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tejas Phutane | Robotics & Computer Vision Engineer",
+    title: "Tejas Phutane | Senior Robotics Engineer: Humanoid Robotics & Physical AI",
     description:
-      "Senior Robotics Engineer — ROS2, DeepStream, TensorRT, Production Robotics",
+      "Senior Robotics Engineer specializing in Humanoid Robotics, Physical AI, and Sim-to-Real Systems.",
   },
 };
 

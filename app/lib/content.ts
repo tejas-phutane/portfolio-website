@@ -3,6 +3,22 @@ import experienceRaw from '../../content/data/experience.json';
 import servicesRaw from '../../content/data/services.json';
 import aboutRaw from '../../content/data/about.json';
 
+export interface VisualPlaceholder {
+  tag: string;
+  title: string;
+  caption: string;
+}
+
+export interface ProjectCaseStudy {
+  systemArchitecture: string;
+  safetyDesign: string;
+  simulationValidation: string;
+  demoCapabilities: string[];
+  engineeringLearnings: string[];
+  visualPlaceholders?: VisualPlaceholder[];
+  hasArchitectureDiagram?: boolean;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -15,9 +31,10 @@ export interface Project {
   problem: string;
   approach: string;
   implementation: string[];
-  results: { metric: string; description: string }[];
+  results: { metric: string; description: string; evidence?: string }[];
   stack: string[];
   githubUrl?: string;
+  caseStudy?: ProjectCaseStudy;
 }
 
 export interface ExperienceItem {
@@ -38,6 +55,27 @@ export interface ServiceItem {
   desc: string;
 }
 
+export interface NowBuildingItem {
+  title: string;
+  status: string;
+  desc: string;
+  tags: string[];
+  linkText?: string;
+  linkHref?: string;
+}
+
+export interface ContinuousLearningData {
+  llmTrack: {
+    title: string;
+    completed: string[];
+    inProgress: string[];
+  };
+  fevThemes: {
+    title: string;
+    themes: string[];
+  };
+}
+
 export interface AboutData {
   heading: string;
   paragraphs: string[];
@@ -52,12 +90,16 @@ export interface AboutData {
     tagline: string;
     body: string;
     metricCallout: string;
+    evidenceTooltip?: string;
   }>;
   exploring: Array<{
     iconName: string;
     title: string;
     desc: string;
+    status?: string;
   }>;
+  nowBuilding?: NowBuildingItem[];
+  continuousLearning?: ContinuousLearningData;
 }
 
 import blogsRaw from '../../content/data/blogs.json';

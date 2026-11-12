@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import ScrollReveal from "./ScrollReveal";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, FileText, MapPin } from "lucide-react";
+import { openResumeModal } from "./ResumeRequestModal";
 
 const GithubIcon = ({ size = 20 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -62,9 +63,8 @@ export default function Contact() {
         <div className="contact-wrapper">
           <ScrollReveal>
             <p className="contact-intro">
-              I&apos;m always excited to connect with fellow engineers, researchers, and innovators. Whether you have
-              questions about robotics, want to discuss potential collaborations, or just want to say hello —
-              I&apos;d love to hear from you!
+              I am always interested in discussing humanoid robotics, Physical AI pipelines,
+              robot-agnostic autonomy architectures, and engineering collaborations.
             </p>
           </ScrollReveal>
 
@@ -78,9 +78,15 @@ export default function Contact() {
             </ScrollReveal>
             <ScrollReveal delay={2}>
               <div className="contact-card">
-                <div className="contact-card-icon"><Phone size={20} /></div>
-                <h3>Phone</h3>
-                <a href="tel:+918484016205">+91-8484016205</a>
+                <div className="contact-card-icon"><FileText size={20} /></div>
+                <h3>Introduction &amp; Resume</h3>
+                <button
+                  type="button"
+                  onClick={openResumeModal}
+                  className="contact-resume-trigger"
+                >
+                  Request Introduction / Resume
+                </button>
               </div>
             </ScrollReveal>
             <ScrollReveal delay={3}>
@@ -106,6 +112,12 @@ export default function Contact() {
               </div>
             </ScrollReveal>
           </div>
+
+          <ScrollReveal delay={2}>
+            <div className="contact-privacy-callout">
+              <p>Personal contact details and resume are shared only after a brief introduction request.</p>
+            </div>
+          </ScrollReveal>
 
           {/* Contact Form */}
           <ScrollReveal>

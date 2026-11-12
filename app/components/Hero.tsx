@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Download, ArrowRight, Mail, MapPin, Copy, Check, Terminal, Cpu } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Copy, Check, Terminal, Cpu, Shield, Layers, Workflow, FileText } from "lucide-react";
+import { openResumeModal } from "./ResumeRequestModal";
 
 const GithubIcon = ({ size = 18 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -55,31 +56,79 @@ export default function Hero() {
               Tejas Phutane
             </h1>
 
+            <p className="hero-role-title">
+              Senior Robotics Engineer specializing in Humanoid Robotics, Physical AI, and Sim-to-Real Systems
+            </p>
+
             <p className="hero-subheading">
-              Senior Robotics &amp; Computer Vision Engineer specialized in humanoid platforms, sim-to-real locomotion policies, and real-time edge perception.
+              Building robot-agnostic autonomy, safety-aware humanoid systems, digital twins, and Physical AI workflows from simulation to real-world deployment.
             </p>
 
             <p className="hero-bio">
-              Over 4+ years architecting and shipping production-grade robotics — currently developing bipedal locomotion policies, safety layers, and sim-to-real transfer for the Unitree G1 humanoid at FEV India. Proven track record deploying sub-50ms TensorRT perception pipelines on factory floors, commissioning 7+ robotic platforms at Gujarat Science City, and engineering aerospace vision systems with DRDO/ADA.
+              Robotics engineer with 4+ years of experience across industrial automation and humanoid platforms. Currently developing safety architecture, hardware abstraction layers, simulation environments, and Physical AI workflows for the Unitree G1 humanoid at FEV India. Previously deployed sub-50ms TensorRT perception pipelines on factory floors, commissioned 7+ robotic platforms at Gujarat Science City, and engineered precision vision inspection systems.
             </p>
+
+            {/* Three Concise Core Proof Points */}
+            <div className="hero-proof-points">
+              <div className="proof-point-item">
+                <Shield size={14} className="proof-point-icon" />
+                <span>Humanoid autonomy &amp; safety</span>
+              </div>
+              <div className="proof-point-item">
+                <Layers size={14} className="proof-point-icon" />
+                <span>Simulation-first development</span>
+              </div>
+              <div className="proof-point-item">
+                <Workflow size={14} className="proof-point-icon" />
+                <span>Physical AI data &amp; training pipelines</span>
+              </div>
+            </div>
 
             {/* Executive Proof Points Strip */}
             <div className="hero-metrics-strip">
-              <div className="metric-box">
-                <span className="metric-number">4+</span>
+              <div className="metric-box" tabIndex={0}>
+                <div className="metric-header-row">
+                  <span className="metric-number">4+</span>
+                  <span className="evidence-badge" aria-hidden="true">i</span>
+                </div>
                 <span className="metric-label">Years Production Robotics</span>
+                <div className="metric-tooltip">
+                  <strong>Evidence Note</strong>
+                  4+ years deploying production vision inspection cells, robotic gallery systems, and humanoid autonomy workflows.
+                </div>
               </div>
-              <div className="metric-box">
-                <span className="metric-number">7+</span>
+              <div className="metric-box" tabIndex={0}>
+                <div className="metric-header-row">
+                  <span className="metric-number">7+</span>
+                  <span className="evidence-badge" aria-hidden="true">i</span>
+                </div>
                 <span className="metric-label">Robotic Platforms Deployed</span>
+                <div className="metric-tooltip">
+                  <strong>How Measured</strong>
+                  Commissioned Pepper, UR10, Da Vinci console, SCARA arm, NAO humanoid, AMR mobile robots, and quadruped at Gujarat Science City.
+                </div>
               </div>
-              <div className="metric-box">
-                <span className="metric-number">80%</span>
+              <div className="metric-box" tabIndex={0}>
+                <div className="metric-header-row">
+                  <span className="metric-number">Up to 80%</span>
+                  <span className="evidence-badge" aria-hidden="true">i</span>
+                </div>
                 <span className="metric-label">Compute Overhead Reduced</span>
+                <div className="metric-tooltip">
+                  <strong>How Measured</strong>
+                  Measured via NVIDIA Nsight Systems: refactoring Python hot paths to C++20 and TensorRT FP16/INT8 dropped latency from 195ms to 42ms on Jetson AGX Xavier.
+                </div>
               </div>
-              <div className="metric-box">
-                <span className="metric-number">Sub-50ms</span>
+              <div className="metric-box" tabIndex={0}>
+                <div className="metric-header-row">
+                  <span className="metric-number">Sub-50ms</span>
+                  <span className="evidence-badge" aria-hidden="true">i</span>
+                </div>
                 <span className="metric-label">Edge Perception Latency</span>
+                <div className="metric-tooltip">
+                  <strong>How Measured</strong>
+                  Measured across 4 concurrent 1080p camera feeds using NVIDIA DeepStream zero-copy hardware decoding and TensorRT.
+                </div>
               </div>
             </div>
 
@@ -97,15 +146,15 @@ export default function Hero() {
                 <ArrowRight size={16} />
               </a>
 
-              <a
-                href="/resume.pdf"
+              <button
+                type="button"
                 className="btn btn-secondary"
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={openResumeModal}
+                title="Request gated resume access"
               >
-                <Download size={16} />
-                <span>Resume / CV</span>
-              </a>
+                <FileText size={16} />
+                <span>Request Resume</span>
+              </button>
 
               {/* Direct Email Pill with One-Click Copy */}
               <button
@@ -192,35 +241,114 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Precision Architectural Portrait Frame */}
-          <div className="hero-portrait-wrapper">
-            <div className="architectural-frame">
+          {/* Right Column: Active Robotics Telemetry & Focus Console */}
+          <div className="hero-hud-wrapper">
+            <div className="hud-console">
               {/* Technical corner brackets */}
               <div className="frame-corner corner-tl" />
               <div className="frame-corner corner-tr" />
               <div className="frame-corner corner-bl" />
               <div className="frame-corner corner-br" />
 
-              <div className="frame-header-bar">
-                <span className="frame-index">SYS_ID // TP-ROB-01</span>
-                <span className="frame-tag">G1 HUMANOID // SIM-TO-REAL</span>
-              </div>
-
-              <div className="frame-image-container">
-                <img
-                  src="/images/profile.png"
-                  alt="Tejas Phutane — Senior Robotics & Computer Vision Engineer"
-                  className="frame-image"
-                />
-                <div className="frame-image-overlay" />
-              </div>
-
-              <div className="frame-footer-card">
-                <div className="footer-status">
-                  <span className="status-pulse-live" />
-                  <span className="footer-status-text">Available for Senior &amp; Staff Roles</span>
+              {/* HUD Header Bar */}
+              <div className="hud-header">
+                <div className="hud-status-live">
+                  <span className="hud-pulse-dot" />
+                  <span className="hud-system-id">SYS_TELEMETRY // FEV_LAB_01</span>
                 </div>
-                <span className="footer-spec">FEV India · Unitree G1 &amp; Inspire Hand · Pune</span>
+                <span className="hud-mode-pill">SIM-TO-REAL · ACTIVE</span>
+              </div>
+
+              {/* Telemetry Focus Grid */}
+              <div className="hud-body">
+                {/* Module 1: Humanoid Platform */}
+                <div className="hud-module">
+                  <div className="hud-module-meta">
+                    <span className="hud-module-index">01</span>
+                    <span className="hud-module-cat">TARGET PLATFORM</span>
+                    <span className="hud-module-state state-live">BENCH ACTIVE</span>
+                  </div>
+                  <h3 className="hud-module-title">Unitree G1 Bipedal Humanoid</h3>
+                  <p className="hud-module-spec">
+                    23-DOF Kinematics · Inspire Multi-Finger Dexterous Hands · High-Speed CAN &amp; Ethernet Joint Bus
+                  </p>
+                  <div className="hud-telemetry-row">
+                    <span className="hud-data-pill">Joint Telemetry: 1kHz</span>
+                    <span className="hud-data-pill">HAL Adapter: ROS 2 C++</span>
+                  </div>
+                </div>
+
+                {/* Module 2: Physical AI & Robot Learning */}
+                <div className="hud-module">
+                  <div className="hud-module-meta">
+                    <span className="hud-module-index">02</span>
+                    <span className="hud-module-cat">PHYSICAL AI</span>
+                    <span className="hud-module-state state-eval">IN TRAINING</span>
+                  </div>
+                  <h3 className="hud-module-title">ACT &amp; SmolVLA Policy Pipelines</h3>
+                  <p className="hud-module-spec">
+                    Multimodal Demonstration Capture · SO101 Arm Synthetic Calibration · Behavioral Cloning
+                  </p>
+                  <div className="hud-telemetry-row">
+                    <span className="hud-data-pill">Data: Egocentric Vision</span>
+                    <span className="hud-data-pill">Eval: Closed-Loop Sim</span>
+                  </div>
+                </div>
+
+                {/* Module 3: Humanoid Safety Architecture */}
+                <div className="hud-module">
+                  <div className="hud-module-meta">
+                    <span className="hud-module-index">03</span>
+                    <span className="hud-module-cat">SAFETY ARCHITECTURE</span>
+                    <span className="hud-module-state state-armed">ARMED</span>
+                  </div>
+                  <h3 className="hud-module-title">HARA &amp; Multi-Tier Safety Envelopes</h3>
+                  <p className="hud-module-spec">
+                    3D Kinematic Self-Collision Boundaries · Command-Rate Adaptation · Deterministic E-Stop State Machine
+                  </p>
+                  <div className="hud-telemetry-row">
+                    <span className="hud-data-pill">Watchdog: 1kHz Heartbeat</span>
+                    <span className="hud-data-pill">Torque Clamps: Strict</span>
+                  </div>
+                </div>
+
+                {/* Module 4: Simulation & Digital Twin */}
+                <div className="hud-module">
+                  <div className="hud-module-meta">
+                    <span className="hud-module-index">04</span>
+                    <span className="hud-module-cat">DIGITAL TWIN</span>
+                    <span className="hud-module-state state-sync">SYNCED (60Hz)</span>
+                  </div>
+                  <h3 className="hud-module-title">NVIDIA Isaac Sim &amp; Isaac Lab 3.0</h3>
+                  <p className="hud-module-spec">
+                    Showroom Assistant Environment · Dynamic Obstacle Buffers · Domain-Randomized Physics Transfer
+                  </p>
+                  <div className="hud-telemetry-row">
+                    <span className="hud-data-pill">Physics: PhysX 5 GPU</span>
+                    <span className="hud-data-pill">Nav: ROS 2 Nav2</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* HUD Footer Diagnostics */}
+              <div className="hud-footer">
+                <div className="hud-footer-left">
+                  <span className="hud-footer-label">ENGINEERING PROFILE</span>
+                  <span className="hud-footer-val">Tejas Phutane · Senior Engineer L1</span>
+                </div>
+                <div className="hud-footer-right">
+                  <a
+                    href="#projects"
+                    className="hud-inspect-link"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                  >
+                    <span>Inspect System Architecture</span>
+                    <ArrowRight size={13} />
+                  </a>
+                </div>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { openResumeModal } from "./ResumeRequestModal";
 
 const GithubIcon = ({ size = 20 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -97,9 +98,14 @@ export default function Navbar() {
               </li>
             ))}
             <li>
-              <a className="navbar-resume" href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <button
+                type="button"
+                className="navbar-resume"
+                onClick={openResumeModal}
+                style={{ cursor: "pointer", background: "rgba(245, 158, 11, 0.1)" }}
+              >
                 Resume
-              </a>
+              </button>
             </li>
           </ul>
         </nav>
@@ -135,9 +141,16 @@ export default function Navbar() {
             {s === "blogs" ? "Articles" : s.charAt(0).toUpperCase() + s.slice(1)}
           </a>
         ))}
-        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-          Resume ↓
-        </a>
+        <button
+          type="button"
+          className="mobile-resume-btn"
+          onClick={() => {
+            setMobileOpen(false);
+            openResumeModal();
+          }}
+        >
+          Request Resume
+        </button>
       </div>
     </header>
   );

@@ -9,7 +9,7 @@ export type { Project };
 
 const projectsData: Project[] = getProjectsData();
 
-const CATEGORIES = ["All", "Production Systems", "Robotics Gallery", "R&D"];
+const CATEGORIES = ["All", "Humanoids & Physical AI", "Production Systems", "Robotics Gallery", "R&D"];
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState("All");

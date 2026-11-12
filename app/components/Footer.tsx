@@ -1,4 +1,5 @@
 "use client";
+import { openResumeModal } from "./ResumeRequestModal";
 
 const GithubIcon = ({ size = 18 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -34,6 +35,18 @@ export default function Footer() {
               </svg>
             </a>
           </div>
+          <div className="footer-links">
+            <button
+              type="button"
+              className="footer-resume-btn"
+              onClick={openResumeModal}
+            >
+              Request Introduction / Resume
+            </button>
+          </div>
+          <p className="footer-privacy-note">
+            Personal contact details and resume are shared only after a brief introduction request.
+          </p>
           <p className="footer-copy">
             © {new Date().getFullYear()} Tejas Phutane · Robotics &amp; Computer Vision Engineer
           </p>

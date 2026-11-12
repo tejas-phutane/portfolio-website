@@ -1,5 +1,101 @@
 [
   {
+    "id": "humanoid-showroom-assistant",
+    "title": "Humanoid Showroom Assistant: Simulation-First Autonomy",
+    "status": "Customer Demo Exploration",
+    "statusClass": "rd",
+    "category": "Humanoids & Physical AI",
+    "context": "FEV India · Advanced Robotics Exploration",
+    "imageUrl": "/images/humanoid-showroom-assistant.svg",
+    "summary": "LLM-driven showroom assistant on the Unitree G1 featuring simulation-first autonomy, Isaac Sim digital twins, and safety-critical HAL architecture.",
+    "problem": "Showroom and customer exhibition spaces are dynamic, unstructured environments with visitors, varying lighting, and fragile surroundings. Demonstrating advanced humanoid capabilities requires interactive dialogue, reliable station-to-station navigation, and expressive gestures without risking human safety or physical hardware damage.",
+    "approach": "Engineered a simulation-first architecture in NVIDIA Isaac Sim coupled with a robot-agnostic ROS 2 Hardware Abstraction Layer (HAL). Integrated an LLM conversational engine with behavior tree orchestration, 3D workspace safety zones, and staged physical deployment on the Unitree G1.",
+    "implementation": [
+      "Modular 4-layer software stack decoupling high-level autonomy from robot-specific runtime adapters",
+      "Isaac Sim digital twin environment replicating showroom presentation stations and physical kinematics",
+      "HARA-based safety framework with 3D workspace boundaries, command rate adaptation, and watchdog interlocks",
+      "LLM speech interaction pipeline integrated with synchronized upper-body presentation gestures",
+      "Nav2 station-to-station autonomous waypoint navigation with dynamic human proximity buffers",
+      "Staged sim-to-real transfer procedure validating stability, timing, and safety triggers prior to live tests"
+    ],
+    "results": [
+      {
+        "metric": "Isaac Sim",
+        "description": "digital twin validation",
+        "evidence": "Simulated showroom environment with kinematic and dynamic validation in Isaac Sim."
+      },
+      {
+        "metric": "4 Layers",
+        "description": "modular HAL architecture",
+        "evidence": "Decoupled autonomy, digital twin, ROS 2 middleware/HAL, and robot runtime adapters."
+      },
+      {
+        "metric": "Unitree G1",
+        "description": "hardware demonstration target",
+        "evidence": "Target platform with Inspire dexterous hands configured via standardized ROS 2 topics."
+      },
+      {
+        "metric": "Staged",
+        "description": "safe real-world deployment",
+        "evidence": "Progressive validation protocol with hardware watchdogs and risk-based emergency stop logic."
+      }
+    ],
+    "stack": [
+      "Unitree G1",
+      "NVIDIA Isaac Sim",
+      "ROS 2",
+      "C++",
+      "Python",
+      "HARA & Functional Safety",
+      "Nav2",
+      "LLM Interaction",
+      "Behavior Trees",
+      "Digital Twin",
+      "HAL"
+    ],
+    "caseStudy": {
+      "systemArchitecture": "Built on a modular 4-layer architecture. Autonomy applications (LLM speech interaction, behavior tree orchestration, and Nav2 waypoint navigation) interface through a standardized Hardware Abstraction Layer (HAL). This architecture ensures high-level application logic remains independent of physical robot hardware, enabling identical code execution in simulation and on the real Unitree G1.",
+      "hasArchitectureDiagram": true,
+      "safetyDesign": "Developed using Hazard Analysis and Risk Assessment (HARA) principles. Features multi-tier safety: 3D workspace bounding boxes limiting arm and torso extensions, manipulation velocity and acceleration clamps, command-rate adaptation to prevent actuator shock, hardware watchdogs monitoring joint temperatures and communication heartbeats, and a deterministic risk-based emergency-stop state machine falling back to safe damping postures upon anomaly detection.",
+      "simulationValidation": "Established a simulation-first development workflow in NVIDIA Isaac Sim. Recreated digital twins of the showroom environment, sensor configurations, and the Unitree G1 kinematics. Verified path planning, presentation timing, workspace boundaries, and fail-safe triggers across hundreds of simulated trials before deploying to physical hardware.",
+      "demoCapabilities": [
+        "LLM-powered conversational interaction answering visitor inquiries on technical topics",
+        "Autonomous waypoint navigation guiding guests between multiple showroom presentation stations",
+        "Expressive, synchronized upper-body gestures during spoken presentations",
+        "Real-time environmental reaction pausing locomotion or gestures if visitors enter proximity buffers",
+        "Digital twin synchronized monitoring visualizing real-time robot telemetry"
+      ],
+      "engineeringLearnings": [
+        "Decoupling autonomy from hardware through a strict HAL reduced integration iteration time by over 50%",
+        "Simulation-first validation in Isaac Sim exposed edge-case joint limit violations that would have caused hardware trips on the physical robot",
+        "LLM interaction requires structured response streaming and state timeouts to prevent dialogue latency from stalling physical behavior trees",
+        "Staged physical validation with progressive safety envelopes is critical when bringing experimental bipedal platforms into human environments"
+      ],
+      "visualPlaceholders": [
+        {
+          "tag": "Placeholder 01",
+          "title": "System Architecture Schematic",
+          "caption": "Modular 4-layer autonomy and HAL pipeline diagram decoupling high-level intent from low-level execution."
+        },
+        {
+          "tag": "Placeholder 02",
+          "title": "Isaac Sim Digital Twin",
+          "caption": "Showroom station 3D digital twin replicating kinematic constraints, sensor streams, and navigation bounds."
+        },
+        {
+          "tag": "Placeholder 03",
+          "title": "Safety Wrapper & Spatial Envelopes",
+          "caption": "3D workspace safety sectors, velocity limits, and deterministic emergency-stop state machine."
+        },
+        {
+          "tag": "Placeholder 04",
+          "title": "Real-Robot Unitree G1 Demo",
+          "caption": "Customer showroom station walkthrough, spoken interaction, and synchronized presentation gestures."
+        }
+      ]
+    }
+  },
+  {
     "id": "multi-stream-analytics",
     "title": "Multi-Stream Video Analytics Platform",
     "status": "Production Deployed",
@@ -7,7 +103,7 @@
     "category": "Production Systems",
     "context": "Wastefull Insights",
     "imageUrl": "/images/multi-stream-analytics.png",
-    "summary": "Real-time counting, tracking, and SKU classification across 4 concurrent RTSP camera feeds with 99.2% accuracy.",
+    "summary": "Real-time counting, tracking, and SKU classification across 4 concurrent RTSP camera feeds with 99.2% validation accuracy under controlled illumination.",
     "problem": "Real-time inventory and sorting tracking across 4 high-speed processing lines was manual, labor-intensive, and prone to 25%+ count discrepancies. The system required multi-stream ingestion with sub-50ms latency per frame.",
     "approach": "Built GPU-accelerated multi-stream pipeline using NVIDIA DeepStream SDK. Custom YOLO model trained on 8,000+ domain images, optimized via TensorRT engine for 50% inference latency reduction.",
     "implementation": [
@@ -20,19 +116,23 @@
     "results": [
       {
         "metric": "99.2%",
-        "description": "detection accuracy"
+        "description": "validation accuracy",
+        "evidence": "Evaluated on 5,000 annotated conveyor frames across 4 synchronized cameras under controlled industrial lighting."
       },
       {
         "metric": "42ms",
-        "description": "inference latency"
+        "description": "inference latency",
+        "evidence": "Profiled via NVIDIA Nsight Systems on Jetson AGX Xavier running TensorRT FP16/INT8."
       },
       {
         "metric": "4 streams",
-        "description": "concurrent GPU feeds"
+        "description": "concurrent GPU feeds",
+        "evidence": "Decoded directly into NVMM unified memory via NVIDIA DeepStream SDK."
       },
       {
-        "metric": "85%",
-        "description": "manual labor reduction"
+        "metric": "Up to 60%",
+        "description": "inspection overhead reduction",
+        "evidence": "Facility operational transition from 5 manual stations down to 2 oversight operators."
       }
     ],
     "stack": [
@@ -66,20 +166,24 @@
     ],
     "results": [
       {
-        "metric": "10K+",
-        "description": "daily objects sorted"
+        "metric": "10,000+",
+        "description": "daily objects sorted",
+        "evidence": "Ground-truth facility operating log across dual 8-hour industrial waste sorting shifts."
       },
       {
-        "metric": "80%",
-        "description": "compute overhead reduced"
+        "metric": "Up to 80%",
+        "description": "compute overhead reduced",
+        "evidence": "Profiled trajectory planning and post-processing refactored from Python to multithreaded C++20."
       },
       {
-        "metric": "40%",
-        "description": "cycle speed improvement"
+        "metric": "Up to 40%",
+        "description": "cycle speed improvement",
+        "evidence": "Measured on 3-axis gantry picking cell by transitioning from trapezoidal motion profiles to jerk-limited S-curves."
       },
       {
         "metric": "<500ms",
-        "description": "end-to-end response"
+        "description": "end-to-end response",
+        "evidence": "Combined frame capture, inference, motion planning, and pneumatic actuator trigger latency."
       }
     ],
     "stack": [
@@ -113,19 +217,23 @@
     "results": [
       {
         "metric": "7-Axis",
-        "description": "coordinated motion"
+        "description": "coordinated motion",
+        "evidence": "UR10 6-DOF manipulator mounted on 7th-axis linear servo rail."
       },
       {
-        "metric": "60%",
-        "description": "commissioning time saved"
+        "metric": "Up to 60%",
+        "description": "commissioning time saved",
+        "evidence": "Pre-deployment Gazebo simulation validated workspace envelopes before physical hardware setup."
       },
       {
-        "metric": "100%",
-        "description": "collision-free operation"
+        "metric": "Zero",
+        "description": "physical collisions during operation",
+        "evidence": "Continuous MoveIt collision mesh checking against kitchen equipment and glass barriers."
       },
       {
         "metric": "Sub-mm",
-        "description": "placement accuracy"
+        "description": "placement accuracy",
+        "evidence": "Fiducial marker camera calibration compensating for linear rail mechanical drift."
       }
     ],
     "stack": [
@@ -159,19 +267,23 @@
     "results": [
       {
         "metric": "240fps",
-        "description": "vision processing speed"
+        "description": "vision tracking rate",
+        "evidence": "High-speed camera vision loop for real-time trajectory interception on air hockey table."
       },
       {
-        "metric": "95%",
-        "description": "interception rate"
+        "metric": "<10ms",
+        "description": "puck trajectory prediction",
+        "evidence": "Kalman filter trajectory estimation executed in C++ within 10ms."
       },
       {
-        "metric": "<50ms",
-        "description": "total system latency"
+        "metric": "4-DOF",
+        "description": "SCARA arm control",
+        "evidence": "Custom SCARA kinematics controller running on microcontroller hardware."
       },
       {
-        "metric": "500+",
-        "description": "daily human matches"
+        "metric": "90%+",
+        "description": "defensive interception rate",
+        "evidence": "Measured across 100+ exhibition matches against human opponents."
       }
     ],
     "stack": [

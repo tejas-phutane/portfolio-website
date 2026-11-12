@@ -13,7 +13,7 @@ export default function Experience() {
           <p className="eyebrow">Experience</p>
           <h2>Career <span className="gradient-text">Journey</span></h2>
           <p className="section-lead">
-            From college robotics clubs to production factory floors — each role shaped how I build reliable autonomous systems.
+            From college robotics clubs to production factory floors, each role shaped how I build reliable autonomous systems.
           </p>
         </ScrollReveal>
 
@@ -35,7 +35,8 @@ export default function Experience() {
                       <ul className="impact-list">
                         {exp.achievements.map((a, j) => (
                           <li key={j}>
-                            <strong>{a.metric}</strong> {a.text}
+                            {a.metric ? <strong>{a.metric} </strong> : null}
+                            {a.text}
                           </li>
                         ))}
                       </ul>

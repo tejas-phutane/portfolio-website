@@ -1,18 +1,24 @@
 "use client";
 import ScrollReveal from "./ScrollReveal";
-import { Cog, Eye, Code, Database, Cpu, Users, Boxes, Network, Shield, Radar, Rocket, RefreshCw } from "lucide-react";
+import { Cog, Eye, Code, Database, Cpu, Users, Boxes, Network, Shield, Radar, Rocket, RefreshCw, Brain } from "lucide-react";
 
 const skillGroups = [
   {
     icon: <Cog size={20} />,
     title: "Robotics & Control",
-    skills: ["ROS/ROS2", "Isaac Sim / Lab", "MoveIt", "Gazebo", "Sim-to-Real", "Locomotion Policies", "Safety Layer & HAL", "Motion Planning", "Trajectory Control", "Sensor Fusion", "SLAM", "URDF/Xacro"],
+    skills: ["ROS/ROS2", "Isaac Sim", "MoveIt", "Gazebo", "Sim-to-Real", "Locomotion Exploration", "Safety Architecture & HAL", "Motion Planning", "Trajectory Control", "Sensor Fusion", "SLAM", "URDF/Xacro"],
     note: "Platforms: Unitree G1, Inspire Hand, Pepper, UR10, NAO, Da Vinci, SCARA, AMRs, Quadrupeds",
+  },
+  {
+    icon: <Brain size={20} />,
+    title: "Physical AI & Robot Learning",
+    skills: ["ACT (Action Chunking)", "SmolVLA", "Behavioral Cloning", "Isaac Lab", "MuJoCo", "MJLab", "RoboSuite", "RoboMimic", "Multimodal Demo Collection", "Sim-to-Real Validation", "Digital Twins"],
+    note: "Focus: Reproducible demonstration data, policy training, and staged sim-to-real validation",
   },
   {
     icon: <Eye size={20} />,
     title: "Computer Vision & AI",
-    skills: ["YOLO (v3–v11)", "OpenCV", "TensorFlow", "PyTorch", "TensorRT", "DeepStream", "Triton Inference", "Object Detection", "Semantic Segmentation", "Anomalib"],
+    skills: ["YOLO (v3-v11)", "OpenCV", "TensorFlow", "PyTorch", "TensorRT", "DeepStream", "Triton Inference", "Object Detection", "Semantic Segmentation", "Anomalib"],
   },
   {
     icon: <Code size={20} />,
