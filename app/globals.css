@@ -28,7 +28,7 @@
   /* Text */
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
-  --text-muted: #64748b;
+  --text-muted: #94a3b8;
   --text-accent: var(--accent-primary);
 
   /* Borders */
@@ -3501,7 +3501,7 @@ textarea:focus-visible {
 
 .twin-message-time {
   font-size: 0.68rem;
-  color: #64748b;
+  color: #94a3b8;
   margin-top: 6px;
   text-align: right;
   font-family: var(--font-mono);
@@ -3617,7 +3617,7 @@ textarea:focus-visible {
 }
 
 .twin-input::placeholder {
-  color: #64748b;
+  color: #94a3b8;
   font-size: 0.88rem;
 }
 
@@ -4442,7 +4442,7 @@ textarea:focus-visible {
 .toc-index {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  color: #64748b;
+  color: #94a3b8;
   min-width: 24px;
 }
 
@@ -4589,10 +4589,10 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 0;
+  padding: 6px 0;
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  color: #64748b;
+  color: #94a3b8;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -4602,7 +4602,7 @@ textarea:focus-visible {
   content: "";
   height: 1px;
   flex: 1;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.08);
   margin: 0 12px;
 }
 
@@ -4657,7 +4657,7 @@ textarea:focus-visible {
   justify-content: center;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: #64748b;
+  color: #94a3b8;
   margin-top: 4px;
 }
 
@@ -4670,7 +4670,35 @@ textarea:focus-visible {
     border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     padding: var(--space-3);
   }
+  .layer-blocks {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+  .arch-block {
+    padding: 10px 12px;
+  }
+  .block-name {
+    font-size: 0.85rem;
+  }
+  .block-detail {
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
   .visual-placeholders-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .humanoid-arch-diagram {
+    padding: var(--space-3);
+  }
+  .diagram-header h4 {
+    font-size: 0.95rem;
+  }
+  .layer-flow-indicator {
+    font-size: 0.62rem;
+    text-align: center;
   }
 }

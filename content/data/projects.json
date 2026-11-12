@@ -103,7 +103,7 @@
     "category": "Production Systems",
     "context": "Wastefull Insights",
     "imageUrl": "/images/multi-stream-analytics.png",
-    "summary": "Real-time counting, tracking, and SKU classification across 4 concurrent RTSP camera feeds with 99.2% validation accuracy under controlled illumination.",
+    "summary": "Real-time counting, tracking, and SKU classification across 4 concurrent RTSP camera feeds with 99.2% defect recall (<0.4% FAR) under controlled illumination.",
     "problem": "Real-time inventory and sorting tracking across 4 high-speed processing lines was manual, labor-intensive, and prone to 25%+ count discrepancies. The system required multi-stream ingestion with sub-50ms latency per frame.",
     "approach": "Built GPU-accelerated multi-stream pipeline using NVIDIA DeepStream SDK. Custom YOLO model trained on 8,000+ domain images, optimized via TensorRT engine for 50% inference latency reduction.",
     "implementation": [
@@ -116,8 +116,8 @@
     "results": [
       {
         "metric": "99.2%",
-        "description": "validation accuracy",
-        "evidence": "Evaluated on 5,000 annotated conveyor frames across 4 synchronized cameras under controlled industrial lighting."
+        "description": "defect recall (<0.4% FAR)",
+        "evidence": "Evaluated on 5,000 annotated conveyor frames across 4 synchronized cameras under controlled industrial lighting, yielding <0.4% false acceptance rate."
       },
       {
         "metric": "42ms",

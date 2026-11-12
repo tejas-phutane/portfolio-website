@@ -45,7 +45,22 @@ export default function ProjectModal({ project, onClose }: Props) {
 
         {project.imageUrl && (
           <div className="modal-hero-media">
-            <img src={project.imageUrl} alt={project.title} />
+            {project.imageUrl.endsWith(".gif") ? (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster={project.imageUrl}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              >
+                <source src={project.imageUrl.replace(".gif", ".webm")} type="video/webm" />
+                <source src={project.imageUrl.replace(".gif", ".mp4")} type="video/mp4" />
+                <img src={project.imageUrl} alt={project.title} />
+              </video>
+            ) : (
+              <img src={project.imageUrl} alt={project.title} />
+            )}
           </div>
         )}
 

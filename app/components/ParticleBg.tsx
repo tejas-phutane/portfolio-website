@@ -10,6 +10,9 @@ export default function ParticleBg() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let prefersReducedMotion = mediaQuery.matches;
+
     let animationId: number;
     let particles: { x: number; y: number; vx: number; vy: number; r: number; opacity: number }[] = [];
 
@@ -30,16 +33,18 @@ export default function ParticleBg() {
       }));
     };
 
-    const draw = () => {
+    const drawFrame = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
+        if (!prefersReducedMotion) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+        }
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -64,20 +69,44 @@ export default function ParticleBg() {
         }
       }
 
-      animationId = requestAnimationFrame(draw);
+      if (!prefersReducedMotion) {
+        animationId = requestAnimationFrame(drawFrame);
+      }
+    };
+
+    const handleMotionPreferenceChange = (e: MediaQueryListEvent) => {
+      prefersReducedMotion = e.matches;
+      if (!prefersReducedMotion) {
+        animationId = requestAnimationFrame(drawFrame);
+      } else {
+        cancelAnimationFrame(animationId);
+        drawFrame(); // Draw static frame once
+      }
     };
 
     resize();
     createParticles();
-    draw();
+    drawFrame();
 
     window.addEventListener("resize", () => {
       resize();
       createParticles();
+      drawFrame();
     });
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener("change", handleMotionPreferenceChange);
+    } else {
+      mediaQuery.addListener(handleMotionPreferenceChange);
+    }
 
     return () => {
       cancelAnimationFrame(animationId);
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener("change", handleMotionPreferenceChange);
+      } else {
+        mediaQuery.removeListener(handleMotionPreferenceChange);
+      }
     };
   }, []);
 

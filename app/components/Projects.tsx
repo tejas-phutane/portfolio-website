@@ -71,12 +71,32 @@ export default function Projects() {
                 onClick={() => setActiveProject(project)}
               >
                 <div className="project-media-wrapper">
-                  <img
-                    src={project.imageUrl}
-                    alt={project.title}
-                    className="project-img"
-                    loading="lazy"
-                  />
+                  {project.imageUrl?.endsWith(".gif") ? (
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="project-img"
+                      poster={project.imageUrl}
+                    >
+                      <source src={project.imageUrl.replace(".gif", ".webm")} type="video/webm" />
+                      <source src={project.imageUrl.replace(".gif", ".mp4")} type="video/mp4" />
+                      <img
+                        src={project.imageUrl}
+                        alt={project.title}
+                        className="project-img"
+                        loading="lazy"
+                      />
+                    </video>
+                  ) : (
+                    <img
+                      src={project.imageUrl}
+                      alt={project.title}
+                      className="project-img"
+                      loading="lazy"
+                    />
+                  )}
                   <div className="project-media-gradient" />
                   <span className={`status-badge ${project.statusClass}`}>
                     {project.status}

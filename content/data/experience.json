@@ -27,7 +27,7 @@
       { "metric": "Up to 40%", "text": "cycle speed improvement by redesigning motion algorithms for 3-axis gantry with jerk-limited S-curves" },
       { "metric": "Up to 80%", "text": "computational reduction by refactoring Python to multithreaded C++ and TensorRT on Jetson" },
       { "metric": "91%", "text": "throughput prediction precision using regression models on 10,000+ daily sorting operations" },
-      { "metric": "99.2%", "text": "validation accuracy under controlled illumination in multi-stream edge video analytics pipeline" },
+      { "metric": "99.2%", "text": "defect recall at <0.4% FAR under controlled illumination in multi-stream edge video analytics pipeline" },
       { "metric": "30%", "text": "idle time reduction through custom multi-robot coordination algorithms" }
     ],
     "tags": ["Python", "C++", "ROS2", "YOLO", "DeepStream", "TensorRT", "Kafka", "PostgreSQL"]
