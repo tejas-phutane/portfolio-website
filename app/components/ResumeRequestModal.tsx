@@ -101,7 +101,7 @@ export default function ResumeRequestModal() {
             Request Resume / CV
           </h2>
           <p className="resume-modal-subtitle">
-            Personal contact details and resume are shared only after a brief introduction request.
+            Verified engineering history, platform technical stacks, and quantified production deliverables.
           </p>
         </div>
 

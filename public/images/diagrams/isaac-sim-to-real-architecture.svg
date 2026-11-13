@@ -1,0 +1,130 @@
+<svg viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NVIDIA Isaac Lab to Unitree G1 Sim-to-Real Architecture Diagram">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#080c14" />
+      <stop offset="100%" stop-color="#05080e" />
+    </linearGradient>
+    <linearGradient id="nvidiaGreen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#34d399" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.8" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="480" fill="url(#bgGrad)" />
+  <rect width="960" height="480" fill="url(#grid)" />
+
+  <!-- Frame Header -->
+  <rect x="20" y="16" width="920" height="44" rx="6" fill="rgba(15, 23, 42, 0.6)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+  <circle cx="42" cy="38" r="4" fill="#10b981" />
+  <text x="56" y="42" fill="#f8fafc" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="1">SYSTEM ARCHITECTURE // SIM-TO-REAL CLOSED-LOOP PIPELINE</text>
+  <rect x="740" y="27" width="180" height="22" rx="4" fill="rgba(16, 185, 129, 0.12)" stroke="rgba(16, 185, 129, 0.4)" stroke-width="1" />
+  <text x="830" y="42" text-anchor="middle" fill="#34d399" font-family="monospace" font-size="10" font-weight="bold">60Hz PhysX 5 to 1kHz RT-Preempt</text>
+
+  <!-- Stage 1: Isaac Lab Simulation -->
+  <g transform="translate(30, 80)">
+    <rect width="260" height="360" rx="8" fill="#0c1322" stroke="#38bdf8" stroke-width="1.5" />
+    <rect width="260" height="34" rx="8" fill="rgba(56, 189, 248, 0.15)" />
+    <text x="14" y="22" fill="#38bdf8" font-family="monospace" font-size="11" font-weight="bold">01 // ISAAC LAB SIMULATION</text>
+    <text x="14" y="60" fill="#94a3b8" font-family="monospace" font-size="10" font-weight="bold">GPU-PARALLEL ENVIRONMENT</text>
+    
+    <!-- Sub-block: 4096 Envs -->
+    <rect x="14" y="74" width="232" height="64" rx="5" fill="#080d18" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <text x="24" y="96" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold">4,096 Parallel Instances</text>
+    <text x="24" y="116" fill="#94a3b8" font-family="monospace" font-size="9.5">NVIDIA PhysX 5 · Tensor APIs · RTX</text>
+    <text x="24" y="128" fill="#38bdf8" font-family="monospace" font-size="9">Batch Step Rate: 120,000 SPS</text>
+
+    <!-- Sub-block: Domain Randomization -->
+    <rect x="14" y="148" width="232" height="114" rx="5" fill="#080d18" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <text x="24" y="170" fill="#f8fafc" font-family="sans-serif" font-size="11.5" font-weight="bold">Domain Randomization Vector</text>
+    <text x="24" y="190" fill="#cbd5e1" font-family="monospace" font-size="9.5">• Friction Coeff: Uniform [0.35, 1.25]</text>
+    <text x="24" y="208" fill="#cbd5e1" font-family="monospace" font-size="9.5">• CoM Displacement: +/- 35mm</text>
+    <text x="24" y="226" fill="#cbd5e1" font-family="monospace" font-size="9.5">• Added Base Mass: +/- 2.5 kg</text>
+    <text x="24" y="244" fill="#cbd5e1" font-family="monospace" font-size="9.5">• Injected Bus Jitter: 10ms - 35ms</text>
+
+    <!-- Sub-block: Observation Spec -->
+    <rect x="14" y="272" width="232" height="72" rx="5" fill="#080d18" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <text x="24" y="294" fill="#38bdf8" font-family="sans-serif" font-size="11" font-weight="bold">State Observation Tensor (48D)</text>
+    <text x="24" y="312" fill="#94a3b8" font-family="monospace" font-size="9">Joint Angles &amp; Vels (23-DOF)</text>
+    <text x="24" y="328" fill="#94a3b8" font-family="monospace" font-size="9">Base IMU Angular Vel + Gravity Vector</text>
+  </g>
+
+  <!-- Flow Arrow 1 to 2 -->
+  <path d="M 290 260 L 340 260" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 3" fill="none" />
+  <polygon points="340,256 348,260 340,264" fill="#38bdf8" />
+  <text x="315" y="248" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="9">PyTorch</text>
+
+  <!-- Stage 2: Actor-Critic Neural Policy -->
+  <g transform="translate(350, 80)">
+    <rect width="250" height="360" rx="8" fill="#0c1322" stroke="#10b981" stroke-width="1.5" />
+    <rect width="250" height="34" rx="8" fill="rgba(16, 185, 129, 0.15)" />
+    <text x="14" y="22" fill="#34d399" font-family="monospace" font-size="11" font-weight="bold">02 // EMBODIED POLICY CORE</text>
+    <text x="14" y="60" fill="#94a3b8" font-family="monospace" font-size="10" font-weight="bold">ASYNCHRONOUS RL AGENT</text>
+
+    <!-- Sub-block: PPO Network -->
+    <rect x="14" y="74" width="222" height="84" rx="5" fill="#080d18" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <text x="24" y="96" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold">Multi-Layer MLP / Transformer</text>
+    <text x="24" y="116" fill="#94a3b8" font-family="monospace" font-size="9.5">Hidden Layers: [512, 256, 128] ELU</text>
+    <text x="24" y="132" fill="#10b981" font-family="monospace" font-size="9.5">Action Chunking / ACT Compatible</text>
+    <text x="24" y="146" fill="#94a3b8" font-family="monospace" font-size="9">Inference Deadline: &lt; 5.0ms</text>
+
+    <!-- Sub-block: Output Actions -->
+    <rect x="14" y="168" width="222" height="80" rx="5" fill="#080d18" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <text x="24" y="190" fill="#f8fafc" font-family="sans-serif" font-size="11.5" font-weight="bold">Action Target Generation</text>
+    <text x="24" y="210" fill="#cbd5e1" font-family="monospace" font-size="9.5">Joint Position Deltas (23-DOF)</text>
+    <text x="24" y="228" fill="#10b981" font-family="monospace" font-size="9.5">Nominal PD Setpoints @ 50Hz</text>
+    <text x="24" y="242" fill="#94a3b8" font-family="monospace" font-size="8.5">Smooth S-Curve Interpolation</text>
+
+    <!-- Sub-block: TensorRT Export -->
+    <rect x="14" y="258" width="222" height="86" rx="5" fill="#080d18" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <text x="24" y="280" fill="#34d399" font-family="sans-serif" font-size="11" font-weight="bold">ONNX to TensorRT FP16</text>
+    <text x="24" y="298" fill="#94a3b8" font-family="monospace" font-size="9.5">Zero CUDA kernel launch stalls</text>
+    <text x="24" y="316" fill="#cbd5e1" font-family="monospace" font-size="9">Jetson AGX Orin DLA Engine</text>
+    <text x="24" y="332" fill="#10b981" font-family="monospace" font-size="9">VRAM Consumption: &lt; 140 MB</text>
+  </g>
+
+  <!-- Flow Arrow 2 to 3 -->
+  <path d="M 600 260 L 650 260" stroke="#10b981" stroke-width="2" stroke-dasharray="4 3" fill="none" />
+  <polygon points="650,256 658,260 650,264" fill="#10b981" />
+  <text x="625" y="248" text-anchor="middle" fill="#10b981" font-family="monospace" font-size="9">Zero-Copy</text>
+
+  <!-- Stage 3: Real-Time Interceptor & Hardware Execution -->
+  <g transform="translate(660, 80)">
+    <rect width="270" height="360" rx="8" fill="#0c1322" stroke="#f59e0b" stroke-width="1.5" />
+    <rect width="270" height="34" rx="8" fill="rgba(245, 158, 11, 0.15)" />
+    <text x="14" y="22" fill="#f59e0b" font-family="monospace" font-size="11" font-weight="bold">03 // RT-PREEMPT &amp; G1 CHASSIS</text>
+    <text x="14" y="60" fill="#94a3b8" font-family="monospace" font-size="10" font-weight="bold">SAFETY ENVELOPE INTERCEPTOR</text>
+
+    <!-- Sub-block: 1kHz Safety Wrapper -->
+    <rect x="14" y="74" width="242" height="96" rx="5" fill="#080d18" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <text x="24" y="96" fill="#f59e0b" font-family="sans-serif" font-size="12" font-weight="bold">1kHz Deterministic Watchdog</text>
+    <text x="24" y="116" fill="#cbd5e1" font-family="monospace" font-size="9.5">• Self-collision kinematic bounds</text>
+    <text x="24" y="132" fill="#cbd5e1" font-family="monospace" font-size="9.5">• Dynamic torque ceiling: 85% rated</text>
+    <text x="24" y="148" fill="#cbd5e1" font-family="monospace" font-size="9.5">• Pitch/roll divergence &gt; 28° squat-reflex</text>
+    <text x="24" y="162" fill="#38bdf8" font-family="monospace" font-size="8.5">Loop Jitter: &lt; 0.25ms (SCHED_FIFO)</text>
+
+    <!-- Sub-block: CAN-FD Bus -->
+    <rect x="14" y="180" width="242" height="74" rx="5" fill="#080d18" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <text x="24" y="202" fill="#f8fafc" font-family="sans-serif" font-size="11.5" font-weight="bold">Isolated Dual CAN-FD Buses</text>
+    <text x="24" y="220" fill="#94a3b8" font-family="monospace" font-size="9.5">Bus 1: 12-DOF Upper Torso &amp; Hands</text>
+    <text x="24" y="238" fill="#94a3b8" font-family="monospace" font-size="9.5">Bus 2: 12-DOF Bipedal Leg Actuators</text>
+
+    <!-- Sub-block: Physical Hardware -->
+    <rect x="14" y="264" width="242" height="80" rx="5" fill="#080d18" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <text x="24" y="286" fill="#f8fafc" font-family="sans-serif" font-size="11.5" font-weight="bold">Unitree G1 Physical Hardware</text>
+    <text x="24" y="304" fill="#34d399" font-family="monospace" font-size="9.5">Verified zero-shot push recovery</text>
+    <text x="24" y="322" fill="#f59e0b" font-family="monospace" font-size="9.5">Impulse Rejection: 0.6 m/s impulse</text>
+    <text x="24" y="336" fill="#94a3b8" font-family="monospace" font-size="8.5">Dynamic Terrain Adaptation: Vinyl to Rug</text>
+  </g>
+</svg>

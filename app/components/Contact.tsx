@@ -113,12 +113,6 @@ export default function Contact() {
             </ScrollReveal>
           </div>
 
-          <ScrollReveal delay={2}>
-            <div className="contact-privacy-callout">
-              <p>Personal contact details and resume are shared only after a brief introduction request.</p>
-            </div>
-          </ScrollReveal>
-
           {/* Contact Form */}
           <ScrollReveal>
             <div className="contact-form-container">

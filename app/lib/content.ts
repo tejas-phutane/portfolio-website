@@ -7,6 +7,7 @@ export interface VisualPlaceholder {
   tag: string;
   title: string;
   caption: string;
+  imageUrl?: string;
 }
 
 export interface ProjectCaseStudy {
@@ -53,6 +54,11 @@ export interface ServiceItem {
   iconName: string;
   title: string;
   desc: string;
+  category?: string;
+  badge?: string;
+  engagement?: string;
+  deliverables?: string[];
+  tools?: string[];
 }
 
 export interface NowBuildingItem {
@@ -116,6 +122,8 @@ export interface BlogItem {
   tags: string[];
   featured?: boolean;
   contentMarkdown: string;
+  heroImage?: string;
+  diagramImage?: string;
 }
 
 export function getProjectsData(): Project[] {

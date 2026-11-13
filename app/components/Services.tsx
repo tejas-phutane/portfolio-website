@@ -34,7 +34,7 @@ export default function Services() {
 
         <div className="services-grid">
           {services.map((s, i) => (
-            <ScrollReveal key={s.id || i} delay={(i % 3) + 1}>
+            <ScrollReveal key={s.id || i} delay={(i % 4) + 1} className="service-card-wrapper">
               <div className="service-card">
                 <div className="service-icon">{ICON_MAP[s.iconName] || <Cog size={24} />}</div>
                 <h3>{s.title}</h3>

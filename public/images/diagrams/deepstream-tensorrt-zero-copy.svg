@@ -1,0 +1,127 @@
+<svg viewBox="0 0 960 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NVIDIA DeepStream and TensorRT Zero-Copy Pipeline Architecture Diagram">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#080c14" />
+      <stop offset="100%" stop-color="#05080e" />
+    </linearGradient>
+    <pattern id="grid2" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.8" />
+    </pattern>
+  </defs>
+
+  <rect width="960" height="480" fill="url(#bgGrad2)" />
+  <rect width="960" height="480" fill="url(#grid2)" />
+
+  <!-- Header -->
+  <rect x="20" y="16" width="920" height="44" rx="6" fill="rgba(15, 23, 42, 0.6)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+  <circle cx="42" cy="38" r="4" fill="#38bdf8" />
+  <text x="56" y="42" fill="#f8fafc" font-family="monospace" font-size="12" font-weight="bold" letter-spacing="1">EDGE PERCEPTION ARCHITECTURE // ZERO-COPY NVMM PIPELINE</text>
+  <rect x="730" y="27" width="190" height="22" rx="4" fill="rgba(56, 189, 248, 0.12)" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1" />
+  <text x="825" y="42" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="10" font-weight="bold">Latency: 195ms to 42ms (-78.5%)</text>
+
+  <!-- Left: 4x RTSP Ingestion -->
+  <g transform="translate(30, 80)">
+    <rect width="190" height="360" rx="8" fill="#0c1322" stroke="#38bdf8" stroke-width="1.5" />
+    <rect width="190" height="34" rx="8" fill="rgba(56, 189, 248, 0.15)" />
+    <text x="14" y="22" fill="#38bdf8" font-family="monospace" font-size="10.5" font-weight="bold">01 // RTSP INGESTION</text>
+    
+    <rect x="14" y="60" width="162" height="56" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="24" y="82" fill="#f8fafc" font-family="sans-serif" font-size="11" font-weight="bold">Camera 01 &amp; 02</text>
+    <text x="24" y="100" fill="#94a3b8" font-family="monospace" font-size="9">1080p @ 30 FPS H.264</text>
+
+    <rect x="14" y="130" width="162" height="56" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="24" y="152" fill="#f8fafc" font-family="sans-serif" font-size="11" font-weight="bold">Camera 03 &amp; 04</text>
+    <text x="24" y="170" fill="#94a3b8" font-family="monospace" font-size="9">1080p @ 30 FPS H.264</text>
+
+    <rect x="14" y="210" width="162" height="110" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="24" y="232" fill="#38bdf8" font-family="sans-serif" font-size="11" font-weight="bold">GigE Industrial Network</text>
+    <text x="24" y="252" fill="#cbd5e1" font-family="monospace" font-size="9">• Jumbo Frames (9000 MTU)</text>
+    <text x="24" y="270" fill="#cbd5e1" font-family="monospace" font-size="9">• Zero packet drop</text>
+    <text x="24" y="288" fill="#cbd5e1" font-family="monospace" font-size="9">• PTP Hardware Timestamping</text>
+    <text x="24" y="306" fill="#10b981" font-family="monospace" font-size="8.5">Input Ingestion: &lt; 2.5ms</text>
+  </g>
+
+  <!-- Flow 1 to 2 -->
+  <path d="M 220 260 L 260 260" stroke="#38bdf8" stroke-width="2" fill="none" />
+  <polygon points="260,256 268,260 260,264" fill="#38bdf8" />
+
+  <!-- Middle 1: NVDEC & NVMM Unified VRAM -->
+  <g transform="translate(268, 80)">
+    <rect width="210" height="360" rx="8" fill="#0c1322" stroke="#10b981" stroke-width="1.5" />
+    <rect width="210" height="34" rx="8" fill="rgba(16, 185, 129, 0.15)" />
+    <text x="14" y="22" fill="#34d399" font-family="monospace" font-size="10.5" font-weight="bold">02 // NVDEC &amp; NVMM BUFFER</text>
+
+    <rect x="14" y="60" width="182" height="74" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="24" y="82" fill="#34d399" font-family="sans-serif" font-size="11.5" font-weight="bold">NVDEC Silicon Decoder</text>
+    <text x="24" y="100" fill="#94a3b8" font-family="monospace" font-size="9">Dedicated Hardware ASIC</text>
+    <text x="24" y="118" fill="#cbd5e1" font-family="monospace" font-size="9">CPU Load: Dropped from 95% to 18%</text>
+
+    <rect x="14" y="148" width="182" height="100" rx="4" fill="#080d18" stroke="rgba(16, 185, 129, 0.3)" />
+    <text x="24" y="170" fill="#f8fafc" font-family="sans-serif" font-size="11.5" font-weight="bold">Zero-Copy NVMM Memory</text>
+    <text x="24" y="190" fill="#10b981" font-family="monospace" font-size="9">• Zero CPU-GPU cudaMemcpy</text>
+    <text x="24" y="208" fill="#10b981" font-family="monospace" font-size="9">• Hardware RGBA Scaling</text>
+    <text x="24" y="226" fill="#10b981" font-family="monospace" font-size="9">• Batch Tensor Assembly</text>
+    <text x="24" y="240" fill="#34d399" font-family="monospace" font-size="8.5">Saved Time: 48ms overhead eliminated</text>
+
+    <rect x="14" y="262" width="182" height="68" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="24" y="284" fill="#38bdf8" font-family="sans-serif" font-size="11" font-weight="bold">DeepStream Pipeline Bus</text>
+    <text x="24" y="302" fill="#94a3b8" font-family="monospace" font-size="9">GStreamer Hardware Elements</text>
+    <text x="24" y="318" fill="#38bdf8" font-family="monospace" font-size="8.5">Latency: &lt; 2.0ms decode step</text>
+  </g>
+
+  <!-- Flow 2 to 3 -->
+  <path d="M 478 260 L 518 260" stroke="#10b981" stroke-width="2" fill="none" />
+  <polygon points="518,256 526,260 518,264" fill="#10b981" />
+
+  <!-- Middle 2: TensorRT FP16 / INT8 Engine -->
+  <g transform="translate(526, 80)">
+    <rect width="200" height="360" rx="8" fill="#0c1322" stroke="#a855f7" stroke-width="1.5" />
+    <rect width="200" height="34" rx="8" fill="rgba(168, 85, 247, 0.15)" />
+    <text x="14" y="22" fill="#c084fc" font-family="monospace" font-size="10.5" font-weight="bold">03 // TENSORRT ENGINE</text>
+
+    <rect x="14" y="60" width="172" height="84" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="24" y="82" fill="#f8fafc" font-family="sans-serif" font-size="11.5" font-weight="bold">YOLOv5 / v11 Detector</text>
+    <text x="24" y="100" fill="#94a3b8" font-family="monospace" font-size="9">Layer Fusion &amp; Calibration</text>
+    <text x="24" y="118" fill="#c084fc" font-family="monospace" font-size="9">FP16 / INT8 Quantized</text>
+    <text x="24" y="132" fill="#34d399" font-family="monospace" font-size="8.5">Inference: 80ms to 33ms</text>
+
+    <rect x="14" y="158" width="172" height="90" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="24" y="180" fill="#f8fafc" font-family="sans-serif" font-size="11" font-weight="bold">Async Double-Buffer</text>
+    <text x="24" y="200" fill="#cbd5e1" font-family="monospace" font-size="9">• CUDA Streams overlap</text>
+    <text x="24" y="218" fill="#cbd5e1" font-family="monospace" font-size="9">• Frame N+1 capture</text>
+    <text x="24" y="234" fill="#cbd5e1" font-family="monospace" font-size="9">• Concurrent with Frame N</text>
+
+    <rect x="14" y="262" width="172" height="68" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="24" y="284" fill="#c084fc" font-family="sans-serif" font-size="11" font-weight="bold">Jetson AGX Xavier Silicon</text>
+    <text x="24" y="302" fill="#94a3b8" font-family="monospace" font-size="9">32GB Shared Unified VRAM</text>
+    <text x="24" y="318" fill="#34d399" font-family="monospace" font-size="8.5">Thermal Headroom: &lt; 62°C</text>
+  </g>
+
+  <!-- Flow 3 to 4 -->
+  <path d="M 726 260 L 758 260" stroke="#a855f7" stroke-width="2" fill="none" />
+  <polygon points="758,256 766,260 758,264" fill="#a855f7" />
+
+  <!-- Right: Multithreaded C++20 Core & Actuation -->
+  <g transform="translate(766, 80)">
+    <rect width="164" height="360" rx="8" fill="#0c1322" stroke="#f59e0b" stroke-width="1.5" />
+    <rect width="164" height="34" rx="8" fill="rgba(245, 158, 11, 0.15)" />
+    <text x="12" y="22" fill="#f59e0b" font-family="monospace" font-size="10" font-weight="bold">04 // C++20 KERNEL</text>
+
+    <rect x="10" y="60" width="144" height="84" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="18" y="82" fill="#f8fafc" font-family="sans-serif" font-size="11" font-weight="bold">Lock-Free Queue</text>
+    <text x="18" y="100" fill="#94a3b8" font-family="monospace" font-size="9">std::atomic metadata</text>
+    <text x="18" y="118" fill="#f59e0b" font-family="monospace" font-size="9">Zero GIL Lock-in</text>
+    <text x="18" y="132" fill="#34d399" font-family="monospace" font-size="8.5">Time: 60ms to 4.5ms</text>
+
+    <rect x="10" y="158" width="144" height="90" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="18" y="180" fill="#f8fafc" font-family="sans-serif" font-size="11" font-weight="bold">SIMD Polygon NMS</text>
+    <text x="18" y="200" fill="#cbd5e1" font-family="monospace" font-size="8.5">Vectorized intersection</text>
+    <text x="18" y="216" fill="#cbd5e1" font-family="monospace" font-size="8.5">Overlapping waste</text>
+    <text x="18" y="232" fill="#cbd5e1" font-family="monospace" font-size="8.5">Sorting decision bus</text>
+
+    <rect x="10" y="262" width="144" height="68" rx="4" fill="#080d18" stroke="rgba(255,255,255,0.08)" />
+    <text x="18" y="284" fill="#34d399" font-family="sans-serif" font-size="11" font-weight="bold">CAN Actuation</text>
+    <text x="18" y="302" fill="#94a3b8" font-family="monospace" font-size="8.5">Dual delta pickers</text>
+    <text x="18" y="318" fill="#10b981" font-family="monospace" font-size="8.5">Total Loop: 42ms</text>
+  </g>
+</svg>

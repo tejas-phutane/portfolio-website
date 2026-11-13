@@ -44,39 +44,51 @@ export default function BlogIndexPage() {
           <div className="blog-index-list">
             {blogs.map((blog) => (
               <article key={blog.id} className="blog-index-card">
-                <div className="blog-index-card-header">
-                  <span className="blog-category-badge">{blog.category}</span>
-                  <div className="blog-meta-inline">
-                    <span className="blog-meta-item">
-                      <Calendar size={13} />
-                      <span>{blog.date}</span>
-                    </span>
-                    <span className="blog-meta-item">
-                      <Clock size={13} />
-                      <span>{blog.readTime}</span>
-                    </span>
-                  </div>
-                </div>
-
-                <h2 className="blog-index-card-title">
-                  <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
-                </h2>
-
-                <p className="blog-index-card-summary">{blog.summary}</p>
-
-                <div className="blog-index-card-footer">
-                  <div className="blog-tag-list">
-                    {blog.tags.map((tag, idx) => (
-                      <span key={idx} className="blog-tag-pill">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <Link href={`/blog/${blog.slug}`} className="blog-cta-link">
-                    <span>Read Deep Dive</span>
-                    <ArrowRight size={14} />
+                {blog.heroImage && (
+                  <Link href={`/blog/${blog.slug}`} className="blog-index-media-link" tabIndex={-1}>
+                    <img
+                      src={blog.heroImage}
+                      alt={blog.title}
+                      className="blog-index-media-img"
+                      loading="lazy"
+                    />
                   </Link>
+                )}
+                <div className="blog-index-card-content">
+                  <div className="blog-index-card-header">
+                    <span className="blog-category-badge">{blog.category}</span>
+                    <div className="blog-meta-inline">
+                      <span className="blog-meta-item">
+                        <Calendar size={13} />
+                        <span>{blog.date}</span>
+                      </span>
+                      <span className="blog-meta-item">
+                        <Clock size={13} />
+                        <span>{blog.readTime}</span>
+                      </span>
+                    </div>
+                  </div>
+
+                  <h2 className="blog-index-card-title">
+                    <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
+                  </h2>
+
+                  <p className="blog-index-card-summary">{blog.summary}</p>
+
+                  <div className="blog-index-card-footer">
+                    <div className="blog-tag-list">
+                      {blog.tags.map((tag, idx) => (
+                        <span key={idx} className="blog-tag-pill">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link href={`/blog/${blog.slug}`} className="blog-cta-link">
+                      <span>Read Deep Dive</span>
+                      <ArrowRight size={14} />
+                    </Link>
+                  </div>
                 </div>
               </article>
             ))}

@@ -44,9 +44,6 @@ export default function Footer() {
               Request Introduction / Resume
             </button>
           </div>
-          <p className="footer-privacy-note">
-            Personal contact details and resume are shared only after a brief introduction request.
-          </p>
           <p className="footer-copy">
             © {new Date().getFullYear()} Tejas Phutane · Robotics &amp; Computer Vision Engineer
           </p>

@@ -128,6 +128,21 @@ function renderArticleContent(markdown: string) {
       elements.push(flushTable(i));
     }
 
+    // Markdown Image parsing: ![Alt text](url)
+    const imgMatch = line.trim().match(/^!\[(.*?)\]\((.*?)\)$/);
+    if (imgMatch) {
+      if (inTable) elements.push(flushTable(i));
+      const alt = imgMatch[1];
+      const src = imgMatch[2];
+      elements.push(
+        <figure key={`img-${i}`} className="article-figure">
+          <img src={src} alt={alt} className="article-img" loading="lazy" />
+          {alt && <figcaption className="article-figcaption">{alt}</figcaption>}
+        </figure>
+      );
+      continue;
+    }
+
     // Horizontal Rule
     if (line.trim() === "---") {
       elements.push(<hr key={i} className="article-divider" />);
@@ -292,6 +307,31 @@ export default async function BlogPostPage({ params }: PageProps) {
               ))}
             </div>
           </header>
+
+          {/* Article Unique Hero Banner */}
+          {blog.heroImage && (
+            <div className="article-hero-banner-container">
+              <div className="article-hero-banner-frame">
+                <img
+                  src={blog.heroImage}
+                  alt={`${blog.title} Primary Hardware Platform`}
+                  className="article-hero-banner-image"
+                />
+                <div className="article-hero-banner-gradient" />
+                <div className="article-hero-banner-overlay">
+                  <div className="article-hero-badge">
+                    <span className="hero-status-beacon" />
+                    <span>FIELD RESEARCH // HARDWARE VERIFIED</span>
+                  </div>
+                  <span className="article-hero-caption-tag">{blog.category}</span>
+                </div>
+              </div>
+              <div className="article-hero-caption-bar">
+                <span className="caption-label">FIGURE 0.1 // PRIMARY SYSTEM</span>
+                <span className="caption-text">{blog.title}</span>
+              </div>
+            </div>
+          )}
 
           <hr className="article-header-divider" />
 

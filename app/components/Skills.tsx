@@ -146,11 +146,130 @@ const BUS_STATIONS: BusStation[] = [
   },
 ];
 
+interface G1HardwarePart {
+  id: string;
+  name: string;
+  partNumber: string;
+  tabLabel: string;
+  tierId: string;
+  badge: string;
+  subTitle: string;
+  macroImage: string;
+  hotspot: { top: string; left: string };
+  specs: { label: string; value: string }[];
+  components: string[];
+  software: string[];
+  description: string;
+}
+
+const G1_PARTS: G1HardwarePart[] = [
+  {
+    id: "head-pod",
+    name: "Visuomotor Perception Pod",
+    partNumber: "01",
+    tabLabel: "01 Vision",
+    tierId: "perception",
+    badge: "3D LIDAR + RGB-D",
+    subTitle: "Livox Mid-360 LiDAR & Intel RealSense D435i",
+    macroImage: "/images/g1-parts/g1-head-pod.png",
+    hotspot: { top: "20%", left: "51%" },
+    specs: [
+      { label: "LiDAR FOV", value: "360 deg Omnidirectional, 40m range" },
+      { label: "Stereo Depth", value: "Intel RealSense D435i @ 60 FPS" },
+      { label: "Audio Sensor", value: "8-Channel Far-Field Microphone Array" },
+      { label: "Pipeline", value: "Sub-45ms RTSP Streaming to Jetson" },
+    ],
+    components: ["Livox Mid-360 3D LiDAR", "Intel RealSense D435i Depth Camera", "Array Microphone", "Low-Latency NVMM Encoder"],
+    software: ["TensorRT FP16/INT8", "NVIDIA DeepStream", "YOLOv11 Detection", "Spatial SLAM"],
+    description: "Frontal sensory array integrating 360-degree LiDAR and stereoscopic RGB-D depth vision for spatial mapping, obstacle avoidance, and egocentric teleoperation.",
+  },
+  {
+    id: "torso-carrier",
+    name: "Torso Compute & Power Core",
+    partNumber: "02",
+    tabLabel: "02 Compute",
+    tierId: "middleware",
+    badge: "275 TOPS SILICON",
+    subTitle: "NVIDIA Jetson AGX Silicon & Dual CAN-FD Buses",
+    macroImage: "/images/g1-parts/g1-torso-carrier.png",
+    hotspot: { top: "37%", left: "51%" },
+    specs: [
+      { label: "Edge Silicon", value: "NVIDIA Jetson AGX Orin (275 TOPS)" },
+      { label: "Bus Protocol", value: "Dual Isolated High-Speed CAN-FD" },
+      { label: "Battery Unit", value: "Quick-Release 9000mAh Lithium Pack" },
+      { label: "Watchdog", value: "1kHz Real-Time Deterministic E-Stop" },
+    ],
+    components: ["NVIDIA Jetson AGX Silicon Carrier", "Isolated CAN-FD Transceivers", "Power Conditioning Hub", "1kHz Hardware Watchdog"],
+    software: ["ROS 2 Humble / Iron", "C++20 RT-Preempt", "MoveIt 2", "Deterministic Safety State Machine"],
+    description: "Central processing core coordinating real-time motor actuation, kinematic boundary clamps, zero-copy neural acceleration, and hardware interlocks.",
+  },
+  {
+    id: "dexterous-hand",
+    name: "5-Finger Dexterous Tactile Hand",
+    partNumber: "03",
+    tabLabel: "03 Hands",
+    tierId: "physical-ai",
+    badge: "TACTILE MANIPULATION",
+    subTitle: "Inspire 5-Finger Hand with Tactile Array",
+    macroImage: "/images/g1-parts/g1-dexterous-hand.png",
+    hotspot: { top: "56%", left: "41%" },
+    specs: [
+      { label: "Degrees of Freedom", value: "5 Active Multi-Joint Fingers" },
+      { label: "Sensing", value: "Fingertip Pressure Matrix & Torque" },
+      { label: "Control", value: "Hybrid Current/Position Trajectories" },
+      { label: "Continuous Payload", value: "Up to 2.0 kg per End-Effector" },
+    ],
+    components: ["Micro-DC Precision Servos", "Fingertip Pressure Matrix", "Tendon Wire Couplers", "Quick-Release Wrist Collar"],
+    software: ["SmolVLA / ACT Policy Learning", "HuggingFace LeRobot", "Egocentric Teleoperation", "Bimanual Trajectories"],
+    description: "High-dexterity robotic hand for fine manipulation, contact-rich insertion, and imitation learning workflows driven by multimodal demonstration data.",
+  },
+  {
+    id: "leg-actuator",
+    name: "23-DOF Bipedal Leg Actuators",
+    partNumber: "04",
+    tabLabel: "04 Legs",
+    tierId: "simulation",
+    badge: "HIGH-TORQUE PLANETARY",
+    subTitle: "Dynamic Planetary Gearbox Joint Actuators",
+    macroImage: "/images/g1-parts/g1-leg-actuator.png",
+    hotspot: { top: "76%", left: "48%" },
+    specs: [
+      { label: "Kinematic DOF", value: "23 to 43 Degrees of Freedom" },
+      { label: "Peak Joint Torque", value: "Up to 120 N.m Planetary Units" },
+      { label: "Sim-to-Real Engine", value: "Isaac Sim 4.0 PhysX 5 & MuJoCo" },
+      { label: "Dynamic Speed", value: "Up to 2.0 m/s Locomotion Velocity" },
+    ],
+    components: ["Planetary Gearbox Actuators", "Absolute Optical Encoders", "Carbon-Fiber Leg Spars", "Dual-Axis Contact Feet"],
+    software: ["Isaac Lab 3.0", "MuJoCo Dynamics", "Whole-Body Model Predictive Control", "Domain Randomization"],
+    description: "High-torque, high-bandwidth planetary actuators providing rugged compliance and dynamic balance for simulated-to-real bipedal locomotion policies.",
+  },
+];
+
 export default function Skills() {
   const [activeTierId, setActiveTierId] = useState<string | null>(null);
+  const [activePartId, setActivePartId] = useState<string>("head-pod");
   const [selectedStation, setSelectedStation] = useState<number>(0);
 
   const activeTier = SUBSYSTEM_TIERS.find((t) => t.id === activeTierId);
+  const activePart = G1_PARTS.find((p) => p.id === activePartId) || G1_PARTS[0];
+
+  const handleSelectPart = (partId: string) => {
+    setActivePartId(partId);
+    const part = G1_PARTS.find((p) => p.id === partId);
+    if (part) {
+      setActiveTierId(part.tierId);
+    }
+  };
+
+  const handleTierHover = (tierId: string | null) => {
+    setActiveTierId(tierId);
+    if (tierId) {
+      const matchingPart = G1_PARTS.find((p) => p.tierId === tierId);
+      if (matchingPart) {
+        setActivePartId(matchingPart.id);
+      }
+    }
+  };
 
   return (
     <section id="skills" className="section skills-section">
@@ -165,198 +284,122 @@ export default function Skills() {
           </div>
         </ScrollReveal>
 
-        {/* Dual-Panel Command Station: Exploded Subsystem Blueprint + Layered Architecture Stack */}
+        {/* Dual-Panel Command Station: Unitree G1 Hardware Explorer + Layered Architecture Stack */}
         <div className="arsenal-command-station">
-          {/* Left Panel: Exploded Robotic Subsystem Blueprint */}
-          <div className="blueprint-panel">
-            <div className="blueprint-header">
-              <div className="blueprint-status">
-                <span className="blueprint-indicator" />
-                <span className="blueprint-sys-id">Humanoid Subsystem Architecture</span>
+          {/* Left Panel: Unitree G1 Humanoid Hardware Explorer */}
+          <div className="hardware-explorer-panel">
+            <div className="hardware-explorer-header">
+              <div className="hardware-status">
+                <span className="hardware-indicator" />
+                <span className="hardware-sys-id">Unitree G1 Humanoid Hardware Explorer</span>
               </div>
-              <span className="blueprint-mode-tag">Interactive Explorer</span>
+              <span className="hardware-mode-tag">Interactive Architecture</span>
             </div>
 
-            {/* Exploded Humanoid Wireframe Blueprint SVG */}
-            <div className="blueprint-viewport">
-              <svg
-                viewBox="0 0 460 520"
-                className="blueprint-svg"
-                xmlns="http://www.w3.org/2000/svg"
-                role="img"
-                aria-label="Exploded Humanoid Subsystem Architecture Blueprint"
-              >
-                <defs>
-                  <pattern id="blueprintGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-                    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="0.8" />
-                  </pattern>
-                </defs>
-
-                {/* Blueprint Background Grid */}
-                <rect width="460" height="520" fill="#080c14" />
-                <rect width="460" height="520" fill="url(#blueprintGrid)" />
-
-                {/* Technical Corner Brackets */}
-                <path d="M 12 28 L 12 12 L 28 12" stroke="#f59e0b" strokeWidth="1.5" fill="none" opacity="0.7" />
-                <path d="M 448 28 L 448 12 L 432 12" stroke="#f59e0b" strokeWidth="1.5" fill="none" opacity="0.7" />
-                <path d="M 12 492 L 12 508 L 28 508" stroke="#f59e0b" strokeWidth="1.5" fill="none" opacity="0.7" />
-                <path d="M 448 492 L 448 508 L 432 508" stroke="#f59e0b" strokeWidth="1.5" fill="none" opacity="0.7" />
-
-                {/* Central Datum Axis Line */}
-                <line x1="230" y1="20" x2="230" y2="500" stroke="rgba(56, 189, 248, 0.15)" strokeWidth="1" strokeDasharray="3 3" />
-
-                {/* ─── Exploded Module 05: Policy & Vision Head Pod ─── */}
-                <g
-                  className={`blueprint-group ${activeTierId === "physical-ai" ? "active" : ""}`}
-                  onMouseEnter={() => setActiveTierId("physical-ai")}
-                  onClick={() => setActiveTierId(activeTierId === "physical-ai" ? null : "physical-ai")}
-                  tabIndex={0}
-                  role="button"
-                  aria-label="Head Sensor and Policy Module"
+            {/* Sub-Assembly Tab Buttons */}
+            <div className="subassembly-tabs-bar" role="tablist" aria-label="Unitree G1 Sub-assemblies">
+              {G1_PARTS.map((part) => (
+                <button
+                  key={part.id}
+                  className={`subassembly-tab-btn ${activePartId === part.id ? "active" : ""}`}
+                  onClick={() => handleSelectPart(part.id)}
+                  role="tab"
+                  aria-selected={activePartId === part.id}
                 >
-                  {/* Vision sensor cone */}
-                  <polygon points="230,55 170,18 290,18" fill="rgba(245, 158, 11, 0.05)" stroke="rgba(245, 158, 11, 0.3)" strokeWidth="1" strokeDasharray="2 2" />
-                  {/* Head Chassis */}
-                  <rect x="200" y="55" width="60" height="42" rx="8" fill="#0f172a" stroke="#f59e0b" strokeWidth="1.5" />
-                  {/* Stereo camera lens indicators */}
-                  <circle cx="216" cy="74" r="5" fill="#f59e0b" opacity="0.8" />
-                  <circle cx="244" cy="74" r="5" fill="#f59e0b" opacity="0.8" />
-                  <line x1="222" y1="84" x2="238" y2="84" stroke="#94a3b8" strokeWidth="1" />
-                  {/* Callout Line & Tag */}
-                  <path d="M 260 74 L 330 74 L 350 54" stroke="#f59e0b" strokeWidth="1.2" fill="none" />
-                  <circle cx="350" cy="54" r="3" fill="#f59e0b" />
-                  <text x="358" y="50" fill="#f59e0b" fontFamily="var(--font-mono)" fontSize="10" fontWeight="bold">05 // VISUOMOTOR HEAD</text>
-                  <text x="358" y="63" fill="#94a3b8" fontFamily="var(--font-mono)" fontSize="8.5">RGB-D · Egocentric Teleop</text>
-                </g>
+                  <span className="subassembly-tab-name">{part.tabLabel}</span>
+                </button>
+              ))}
+            </div>
 
-                {/* Exploded Neck Separation Datum */}
-                <line x1="210" y1="106" x2="250" y2="106" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2 2" />
+            {/* Interactive Robot Chassis Stage */}
+            <div className="robot-chassis-stage">
+              <div className="robot-chassis-viewport">
+                <img
+                  src="/images/g1-parts/g1-full-robot.jpg"
+                  alt="Unitree G1 Humanoid Robot Hardware Platform"
+                  className="robot-chassis-img"
+                  loading="lazy"
+                />
 
-                {/* ─── Exploded Module 04 / 02: Torso Compute & HAL Core ─── */}
-                <g
-                  className={`blueprint-group ${activeTierId === "middleware" ? "active" : ""}`}
-                  onMouseEnter={() => setActiveTierId("middleware")}
-                  onClick={() => setActiveTierId(activeTierId === "middleware" ? null : "middleware")}
-                  tabIndex={0}
-                  role="button"
-                  aria-label="Torso Compute and Real-time Core"
-                >
-                  <rect x="185" y="116" width="90" height="95" rx="8" fill="#0d1424" stroke="#10b981" strokeWidth="1.5" />
-                  {/* Jetson Compute Carrier Box */}
-                  <rect x="198" y="130" width="64" height="42" rx="4" fill="#060911" stroke="rgba(16, 185, 129, 0.4)" strokeWidth="1" />
-                  <text x="230" y="148" textAnchor="middle" fill="#10b981" fontFamily="var(--font-mono)" fontSize="9" fontWeight="bold">JETSON AGX</text>
-                  <text x="230" y="160" textAnchor="middle" fill="#94a3b8" fontFamily="var(--font-mono)" fontSize="7.5">1kHz RT-HAL</text>
-                  {/* Heatsink fin slats */}
-                  <line x1="202" y1="182" x2="258" y2="182" stroke="#10b981" strokeWidth="1" opacity="0.6" />
-                  <line x1="202" y1="188" x2="258" y2="188" stroke="#10b981" strokeWidth="1" opacity="0.6" />
-                  <line x1="202" y1="194" x2="258" y2="194" stroke="#10b981" strokeWidth="1" opacity="0.6" />
-                  {/* Callout Line & Tag */}
-                  <path d="M 185 155 L 115 155 L 95 135" stroke="#10b981" strokeWidth="1.2" fill="none" />
-                  <circle cx="95" cy="135" r="3" fill="#10b981" />
-                  <text x="90" y="130" textAnchor="end" fill="#10b981" fontFamily="var(--font-mono)" fontSize="10" fontWeight="bold">02 // RT-HAL &amp; SAFETY</text>
-                  <text x="90" y="143" textAnchor="end" fill="#94a3b8" fontFamily="var(--font-mono)" fontSize="8.5">C++20 · Watchdogs · CAN</text>
-                </g>
+                {/* Hotspot Radar Pins */}
+                {G1_PARTS.map((part) => {
+                  const isSelected = activePartId === part.id;
+                  return (
+                    <button
+                      key={part.id}
+                      className={`hardware-hotspot ${isSelected ? "active" : ""}`}
+                      style={{ top: part.hotspot.top, left: part.hotspot.left }}
+                      onClick={() => handleSelectPart(part.id)}
+                      onMouseEnter={() => handleSelectPart(part.id)}
+                      aria-label={`Inspect ${part.name}`}
+                      title={part.name}
+                    >
+                      <span className="hotspot-pulse" />
+                      <span className="hotspot-core">{part.partNumber}</span>
+                      <span className="hotspot-tooltip">{part.name}</span>
+                    </button>
+                  );
+                })}
+              </div>
 
-                {/* ─── Exploded Module 03: Perception & Edge Vision Engine ─── */}
-                <g
-                  className={`blueprint-group ${activeTierId === "perception" ? "active" : ""}`}
-                  onMouseEnter={() => setActiveTierId("perception")}
-                  onClick={() => setActiveTierId(activeTierId === "perception" ? null : "perception")}
-                  tabIndex={0}
-                  role="button"
-                  aria-label="Perception and DeepStream Engine"
-                >
-                  {/* Shoulder Vision Turret / Collar */}
-                  <path d="M 160 120 L 185 120 L 185 136 L 160 136 Z" fill="#1e1b4b" stroke="#a855f7" strokeWidth="1.2" />
-                  <path d="M 275 120 L 300 120 L 300 136 L 275 136 Z" fill="#1e1b4b" stroke="#a855f7" strokeWidth="1.2" />
-                  <circle cx="172" cy="128" r="3" fill="#a855f7" />
-                  <circle cx="288" cy="128" r="3" fill="#a855f7" />
-                  {/* Callout Line & Tag */}
-                  <path d="M 300 128 L 350 128 L 370 148" stroke="#a855f7" strokeWidth="1.2" fill="none" />
-                  <circle cx="370" cy="148" r="3" fill="#a855f7" />
-                  <text x="378" y="146" fill="#a855f7" fontFamily="var(--font-mono)" fontSize="10" fontWeight="bold">03 // VISION &amp; TENSORRT</text>
-                  <text x="378" y="159" fill="#94a3b8" fontFamily="var(--font-mono)" fontSize="8.5">DeepStream · Zero-Copy</text>
-                </g>
+              <div className="chassis-stage-footer">
+                <span className="chassis-stage-hint">
+                  Click or hover any hotspot pin to inspect sub-assembly telemetry
+                </span>
+              </div>
+            </div>
 
-                {/* ─── Exploded Module 01: Arms & Dexterous Manipulation Hands ─── */}
-                <g
-                  className={`blueprint-group ${activeTierId === "hardware" ? "active" : ""}`}
-                  onMouseEnter={() => setActiveTierId("hardware")}
-                  onClick={() => setActiveTierId(activeTierId === "hardware" ? null : "hardware")}
-                  tabIndex={0}
-                  role="button"
-                  aria-label="Dexterous Hand and Arm Actuation"
-                >
-                  {/* Left Arm Assembly */}
-                  <path d="M 160 135 L 140 185 L 128 235" stroke="#f97316" strokeWidth="4" strokeLinecap="round" fill="none" opacity="0.85" />
-                  <circle cx="140" cy="185" r="5" fill="#080c14" stroke="#f97316" strokeWidth="1.5" />
-                  {/* Left Hand: Multi-Finger Stylization */}
-                  <rect x="114" y="235" width="22" height="26" rx="4" fill="#0f172a" stroke="#f97316" strokeWidth="1.2" />
-                  <line x1="119" y1="261" x2="119" y2="272" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" />
-                  <line x1="125" y1="261" x2="125" y2="274" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" />
-                  <line x1="131" y1="261" x2="131" y2="272" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" />
+            {/* Sub-Assembly Macro Telemetry Drawer */}
+            <div className="subassembly-macro-drawer">
+              <div className="macro-drawer-header">
+                <div className="macro-img-wrap">
+                  <img
+                    src={activePart.macroImage}
+                    alt={activePart.name}
+                    className="macro-part-thumb"
+                  />
+                </div>
+                <div className="macro-meta-wrap">
+                  <div className="macro-badge-row">
+                    <span className="macro-part-num">PART {activePart.partNumber}</span>
+                    <span className="macro-part-badge">{activePart.badge}</span>
+                  </div>
+                  <h3 className="macro-part-title">{activePart.name}</h3>
+                  <p className="macro-part-sub">{activePart.subTitle}</p>
+                </div>
+              </div>
 
-                  {/* Right Arm Assembly */}
-                  <path d="M 300 135 L 320 185 L 332 235" stroke="#f97316" strokeWidth="4" strokeLinecap="round" fill="none" opacity="0.85" />
-                  <circle cx="320" cy="185" r="5" fill="#080c14" stroke="#f97316" strokeWidth="1.5" />
-                  {/* Right Hand */}
-                  <rect x="324" y="235" width="22" height="26" rx="4" fill="#0f172a" stroke="#f97316" strokeWidth="1.2" />
-                  <line x1="329" y1="261" x2="329" y2="272" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" />
-                  <line x1="335" y1="261" x2="335" y2="274" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" />
-                  <line x1="341" y1="261" x2="341" y2="272" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" />
+              <p className="macro-part-desc">{activePart.description}</p>
 
-                  {/* Callout Line & Tag */}
-                  <path d="M 114 250 L 60 250 L 40 230" stroke="#f97316" strokeWidth="1.2" fill="none" />
-                  <circle cx="40" cy="230" r="3" fill="#f97316" />
-                  <text x="35" y="226" textAnchor="end" fill="#f97316" fontFamily="var(--font-mono)" fontSize="10" fontWeight="bold">01 // DEXTEROUS HANDS</text>
-                  <text x="35" y="239" textAnchor="end" fill="#94a3b8" fontFamily="var(--font-mono)" fontSize="8.5">Inspire 6-Finger · Tactile</text>
-                </g>
+              {/* Physical Specifications Grid */}
+              <div className="macro-specs-grid">
+                {activePart.specs.map((spec, i) => (
+                  <div key={i} className="macro-spec-item">
+                    <span className="macro-spec-label">{spec.label}</span>
+                    <span className="macro-spec-value">{spec.value}</span>
+                  </div>
+                ))}
+              </div>
 
-                {/* Exploded Waist Separation Datum */}
-                <line x1="200" y1="222" x2="260" y2="222" stroke="rgba(255,255,255,0.2)" strokeWidth="1" strokeDasharray="2 2" />
+              {/* Integrated Components and Software Tags */}
+              <div className="macro-tags-section">
+                <div className="macro-tags-group">
+                  <span className="macro-tags-label">HARDWARE MODULES:</span>
+                  <div className="macro-pills-row">
+                    {activePart.components.map((comp) => (
+                      <span key={comp} className="macro-hardware-pill">{comp}</span>
+                    ))}
+                  </div>
+                </div>
 
-                {/* ─── Exploded Module 04 / 01: Bipedal Pelvis & 23-DOF Actuators ─── */}
-                <g
-                  className={`blueprint-group ${activeTierId === "simulation" ? "active" : ""}`}
-                  onMouseEnter={() => setActiveTierId("simulation")}
-                  onClick={() => setActiveTierId(activeTierId === "simulation" ? null : "simulation")}
-                  tabIndex={0}
-                  role="button"
-                  aria-label="Simulation and Bipedal Kinematic Chain"
-                >
-                  {/* Pelvis Box */}
-                  <polygon points="195,228 265,228 250,265 210,265" fill="#0c1829" stroke="#38bdf8" strokeWidth="1.5" />
-                  <circle cx="230" cy="245" r="7" fill="none" stroke="#38bdf8" strokeWidth="1.5" />
-                  <circle cx="230" cy="245" r="3" fill="#38bdf8" />
-
-                  {/* Left Leg Kinematic Strut */}
-                  <path d="M 210 265 L 195 350 L 190 445" stroke="#38bdf8" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.8" />
-                  <circle cx="195" cy="350" r="6" fill="#080c14" stroke="#38bdf8" strokeWidth="1.8" />
-                  {/* Left Foot */}
-                  <rect x="175" y="445" width="34" height="12" rx="3" fill="#0f172a" stroke="#38bdf8" strokeWidth="1.5" />
-
-                  {/* Right Leg Kinematic Strut */}
-                  <path d="M 250 265 L 265 350 L 270 445" stroke="#38bdf8" strokeWidth="4.5" strokeLinecap="round" fill="none" opacity="0.8" />
-                  <circle cx="265" cy="350" r="6" fill="#080c14" stroke="#38bdf8" strokeWidth="1.8" />
-                  {/* Right Foot */}
-                  <rect x="252" y="445" width="34" height="12" rx="3" fill="#0f172a" stroke="#38bdf8" strokeWidth="1.5" />
-
-                  {/* Callout Line & Tag */}
-                  <path d="M 270 350 L 335 350 L 355 330" stroke="#38bdf8" strokeWidth="1.2" fill="none" />
-                  <circle cx="355" cy="330" r="3" fill="#38bdf8" />
-                  <text x="362" y="326" fill="#38bdf8" fontFamily="var(--font-mono)" fontSize="10" fontWeight="bold">04 // SIM-TO-REAL BIPED</text>
-                  <text x="362" y="339" fill="#94a3b8" fontFamily="var(--font-mono)" fontSize="8.5">23-DOF · Isaac Sim 4.0 PhysX</text>
-                </g>
-
-                {/* Ground Contact Plane */}
-                <line x1="140" y1="465" x2="320" y2="465" stroke="rgba(245, 158, 11, 0.4)" strokeWidth="1" strokeDasharray="4 3" />
-                <text x="230" y="482" textAnchor="middle" fill="#94a3b8" fontFamily="var(--font-mono)" fontSize="8" letterSpacing="1">
-                  GROUND CONTACT &amp; DYNAMICS DATUM
-                </text>
-              </svg>
-
-              <div className="blueprint-legend">
-                <span className="legend-label">Hover or select subsystems to inspect architecture tiers</span>
+                <div className="macro-tags-group">
+                  <span className="macro-tags-label">LINKED SOFTWARE &amp; POLICIES:</span>
+                  <div className="macro-pills-row">
+                    {activePart.software.map((sw) => (
+                      <span key={sw} className="macro-software-pill">{sw}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -364,7 +407,7 @@ export default function Skills() {
           {/* Right Panel: Layered Architectural Chassis Stack */}
           <div className="arsenal-stack-panel">
             <div className="stack-panel-header">
-              <span className="stack-panel-eyebrow">SYSTEM TIERS (POLICIES → HARDWARE)</span>
+              <span className="stack-panel-eyebrow">SYSTEM TIERS (POLICIES TO HARDWARE)</span>
               {activeTier ? (
                 <span className="active-tier-pill" style={{ borderColor: activeTier.accentColor, color: activeTier.accentColor }}>
                   FOCUSED: TIER {activeTier.tierNumber} · {activeTier.title}
@@ -384,8 +427,8 @@ export default function Skills() {
                     key={tier.id}
                     className={`subsystem-tier-row ${isSelected ? "selected-tier" : ""}`}
                     style={{ borderLeftColor: tier.accentColor }}
-                    onMouseEnter={() => setActiveTierId(tier.id)}
-                    onClick={() => setActiveTierId(isSelected ? null : tier.id)}
+                    onMouseEnter={() => handleTierHover(tier.id)}
+                    onClick={() => handleTierHover(isSelected ? null : tier.id)}
                   >
                     <div className="tier-meta-bar">
                       <div className="tier-id-group">

@@ -6,7 +6,7 @@
     "statusClass": "rd",
     "category": "Humanoids & Physical AI",
     "context": "FEV India · Advanced Robotics Exploration",
-    "imageUrl": "/images/humanoid-showroom-assistant.svg",
+    "imageUrl": "/images/unitree-g1-interaction.jpg",
     "summary": "LLM-driven showroom assistant on the Unitree G1 featuring simulation-first autonomy, Isaac Sim digital twins, and safety-critical HAL architecture.",
     "problem": "Showroom and customer exhibition spaces are dynamic, unstructured environments with visitors, varying lighting, and fragile surroundings. Demonstrating advanced humanoid capabilities requires interactive dialogue, reliable station-to-station navigation, and expressive gestures without risking human safety or physical hardware damage.",
     "approach": "Engineered a simulation-first architecture in NVIDIA Isaac Sim coupled with a robot-agnostic ROS 2 Hardware Abstraction Layer (HAL). Integrated an LLM conversational engine with behavior tree orchestration, 3D workspace safety zones, and staged physical deployment on the Unitree G1.",
@@ -73,24 +73,28 @@
       ],
       "visualPlaceholders": [
         {
-          "tag": "Placeholder 01",
-          "title": "System Architecture Schematic",
-          "caption": "Modular 4-layer autonomy and HAL pipeline diagram decoupling high-level intent from low-level execution."
+          "tag": "Artifact 01",
+          "title": "Subsystem & Motor Distribution",
+          "caption": "Unitree G1 kinematic joint motor distribution, 3D LiDAR perception pod, and RT-HAL joint interface.",
+          "imageUrl": "/images/unitree-g1-schematic.png"
         },
         {
-          "tag": "Placeholder 02",
-          "title": "Isaac Sim Digital Twin",
-          "caption": "Showroom station 3D digital twin replicating kinematic constraints, sensor streams, and navigation bounds."
+          "tag": "Artifact 02",
+          "title": "Showroom Digital Twin & Visitor Dialogue",
+          "caption": "3D automotive showroom digital twin validating customer dialogue triggers, Nav2 station waypoints, and proximity limits.",
+          "imageUrl": "/images/unitree-g1-showroom-sim.jpg"
         },
         {
-          "tag": "Placeholder 03",
-          "title": "Safety Wrapper & Spatial Envelopes",
-          "caption": "3D workspace safety sectors, velocity limits, and deterministic emergency-stop state machine."
+          "tag": "Artifact 03",
+          "title": "Isaac Lab Bipedal Physics & Terrain Adaptation",
+          "caption": "NVIDIA Isaac Lab digital twin validating dynamic stability, joint torque limits, and multi-robot domain randomization.",
+          "imageUrl": "/images/unitree-isaac-lab-sim.jpg"
         },
         {
-          "tag": "Placeholder 04",
-          "title": "Real-Robot Unitree G1 Demo",
-          "caption": "Customer showroom station walkthrough, spoken interaction, and synchronized presentation gestures."
+          "tag": "Artifact 04",
+          "title": "Physical Human-Robot Interaction & Greeting",
+          "caption": "Real-world Unitree G1 executing compliant handshakes, speech dialogue, and upper-body gestures with visitors.",
+          "imageUrl": "/images/unitree-g1-interaction.jpg"
         }
       ]
     }
@@ -520,7 +524,7 @@
   },
   {
     "id": "da-vinci-robot",
-    "title": "Da Vinci Surgical Robot — Gesture Teleoperation",
+    "title": "Da Vinci Surgical Robot : Gesture Teleoperation",
     "status": "Production Gallery",
     "statusClass": "completed",
     "category": "Robotics Gallery",

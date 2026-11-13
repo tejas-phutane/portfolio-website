@@ -19,6 +19,11 @@ export default function Projects() {
     ? projectsData
     : projectsData.filter((p) => p.category === activeCategory);
 
+  const getCategoryCount = (cat: string) => {
+    if (cat === "All") return projectsData.length;
+    return projectsData.filter((p) => p.category === cat).length;
+  };
+
   // Lock scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = activeProject ? "hidden" : "";
@@ -56,7 +61,8 @@ export default function Projects() {
                 className={`filter-btn ${activeCategory === cat ? "active" : ""}`}
                 onClick={() => setActiveCategory(cat)}
               >
-                {cat}
+                <span className="filter-label">{cat}</span>
+                <span className="filter-count-chip">{getCategoryCount(cat)}</span>
               </button>
             ))}
           </div>
@@ -65,7 +71,11 @@ export default function Projects() {
         {/* Project Grid */}
         <div className="projects-grid">
           {filteredProjects.map((project, i) => (
-            <ScrollReveal key={project.id} delay={(i % 3) + 1}>
+            <div
+              key={`${activeCategory}-${project.id}`}
+              className="project-card-wrapper"
+              style={{ animationDelay: `${(i % 3) * 0.08}s` }}
+            >
               <div
                 className="project-card"
                 onClick={() => setActiveProject(project)}
@@ -98,9 +108,6 @@ export default function Projects() {
                     />
                   )}
                   <div className="project-media-gradient" />
-                  <span className={`status-badge ${project.statusClass}`}>
-                    {project.status}
-                  </span>
                 </div>
 
                 <div className="project-content">
@@ -111,6 +118,13 @@ export default function Projects() {
 
                   <h3 className="project-name">{project.title}</h3>
                   <p className="project-desc">{project.summary}</p>
+
+                  <div className="project-status-row">
+                    <span className={`status-badge-inline ${project.statusClass}`}>
+                      <span className="status-indicator-dot" />
+                      <span>{project.status}</span>
+                    </span>
+                  </div>
 
                   {project.results.length > 0 && (
                     <div className="project-metric-chips">
@@ -159,7 +173,7 @@ export default function Projects() {
                   </div>
                 </div>
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </div>

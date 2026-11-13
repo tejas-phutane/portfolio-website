@@ -109,16 +109,27 @@ export default function ProjectModal({ project, onClose }: Props) {
 
             {project.caseStudy.visualPlaceholders && project.caseStudy.visualPlaceholders.length > 0 && (
               <div className="modal-section">
-                <h3>Visual Placeholders</h3>
+                <h3>Technical Artifacts &amp; Field Visuals</h3>
                 <div className="visual-placeholders-grid">
                   {project.caseStudy.visualPlaceholders.map((ph, i) => (
                     <div className="visual-placeholder-card" key={i}>
                       <span className="placeholder-tag">{ph.tag}</span>
                       <h4 className="placeholder-title">{ph.title}</h4>
                       <p className="placeholder-caption">{ph.caption}</p>
-                      <div className="placeholder-frame-box">
-                        <span>TECHNICAL SCHEMATIC PLACEHOLDER</span>
-                      </div>
+                      {ph.imageUrl ? (
+                        <div className="placeholder-image-box">
+                          <img
+                            src={ph.imageUrl}
+                            alt={ph.title}
+                            className="artifact-real-img"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : (
+                        <div className="placeholder-frame-box">
+                          <span>TECHNICAL ARTIFACT</span>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

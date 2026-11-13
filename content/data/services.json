@@ -1,9 +1,15 @@
 [
   {
+    "id": "physical-ai-humanoid",
+    "iconName": "Bot",
+    "title": "Physical AI & Humanoid Systems",
+    "desc": "End-to-end deployment of reinforcement learning locomotion policies, sim-to-real transfer, and whole-body control architectures for bipedal and dexterous mobile platforms."
+  },
+  {
     "id": "robotics-consulting",
     "iconName": "Cog",
     "title": "Robotics Engineering Consulting",
-    "desc": "End-to-end design and development of autonomous robotic systems for industrial applications — motion planning, control systems, hardware integration, and production deployment."
+    "desc": "System architecture and control engineering for industrial autonomous systems: motion planning, trajectory tracking, motor firmware, and production bringup."
   },
   {
     "id": "computer-vision-ai",
