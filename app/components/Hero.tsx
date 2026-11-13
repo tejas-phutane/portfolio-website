@@ -259,19 +259,6 @@ export default function Hero() {
                     width={480}
                     height={480}
                   />
-                  <div className="portrait-gradient-overlay" />
-
-                  {/* Floating Status Pill: Top Right */}
-                  <div className="portrait-floating-badge badge-top-right">
-                    <span className="status-indicator-dot" />
-                    <span>Unitree G1 · Sim-to-Real</span>
-                  </div>
-
-                  {/* Floating Focus Pill: Bottom Left */}
-                  <div className="portrait-floating-badge badge-bottom-left">
-                    <Cpu size={12} className="badge-icon" />
-                    <span>Physical AI &amp; Embodied Autonomy</span>
-                  </div>
                 </div>
               </div>
 

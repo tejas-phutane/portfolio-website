@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import ScrollReveal from "./ScrollReveal";
 import {
   Brain,
@@ -172,9 +173,9 @@ export default function Skills() {
             <div className="blueprint-header">
               <div className="blueprint-status">
                 <span className="blueprint-indicator" />
-                <span className="blueprint-sys-id">Humanoid Subsystem Architecture</span>
+                <span className="blueprint-sys-id">Unitree G1 · 23-DOF Humanoid</span>
               </div>
-              <span className="blueprint-mode-tag">Interactive Explorer</span>
+              <span className="blueprint-mode-tag">Physical Platform</span>
             </div>
 
             {/* Exploded Humanoid Wireframe Blueprint SVG */}
@@ -355,8 +356,19 @@ export default function Skills() {
                 </text>
               </svg>
 
-              <div className="blueprint-legend">
-                <span className="legend-label">Hover or select subsystems to inspect architecture tiers</span>
+              <div className="g1-product-visual">
+                <Image
+                  src="/images/unitree-g1.jpg"
+                  alt="Unitree G1 humanoid robot with its onboard perception and motion systems"
+                  className="g1-product-image"
+                  width={3840}
+                  height={3600}
+                  sizes="(max-width: 900px) 100vw, 50vw"
+                />
+                <div className="g1-product-caption">
+                  <span>UNITREE G1</span>
+                  <span>HUMANOID ROBOT PLATFORM</span>
+                </div>
               </div>
             </div>
           </div>
