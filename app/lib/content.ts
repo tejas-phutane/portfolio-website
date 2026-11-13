@@ -97,6 +97,7 @@ export interface AboutData {
     title: string;
     desc: string;
     status?: string;
+    tags?: string[];
   }>;
   nowBuilding?: NowBuildingItem[];
   continuousLearning?: ContinuousLearningData;

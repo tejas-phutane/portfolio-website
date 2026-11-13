@@ -8,17 +8,19 @@
   ],
   "highlights": [
     {
-      "title": "Education",
-      "lines": [
-        "B.E. Electronics & Telecommunication",
-        "RGIT Mumbai (2017-2021) · CGPA: 7.04"
-      ]
-    },
-    {
       "title": "Currently",
       "lines": [
         "Senior Engineer L1 at FEV India Pvt Ltd",
-        "Unitree G1 Humanoid & Inspire Hand"
+        "Unitree G1 Humanoid & Inspire Dexterous Hand",
+        "Developing ROS 2 HAL, Isaac Sim digital twins, and staged Sim-to-Real policy validation"
+      ]
+    },
+    {
+      "title": "Education",
+      "lines": [
+        "B.E. Electronics & Telecommunication",
+        "RGIT Mumbai (2017-2021) · CGPA: 7.04",
+        "Simulation Head at RGIT Robotics Club (mentored 50+ students in ROS, Gazebo & kinematics)"
       ]
     },
     {
@@ -70,25 +72,29 @@
       "iconName": "Eye",
       "title": "Multimodal Demonstration Data",
       "status": "Active development",
-      "desc": "Egocentric, simulated, and mimic-generated data collection for manipulation and humanoid learning."
+      "desc": "Egocentric, simulated, and mimic-generated data collection for manipulation and humanoid learning.",
+      "tags": ["Egocentric Vision", "MimicGen", "LeRobot", "SO100"]
     },
     {
       "iconName": "Brain",
       "title": "Imitation & Policy Training",
       "status": "Active development",
-      "desc": "Behavioral-cloning workflows and training pipelines for ACT and SmolVLA."
+      "desc": "Behavioral-cloning workflows and training pipelines for ACT and SmolVLA.",
+      "tags": ["ACT", "SmolVLA", "Behavioral Cloning", "PyTorch"]
     },
     {
       "iconName": "Layers",
       "title": "Simulation & Evaluation",
       "status": "Exploring",
-      "desc": "MuJoCo, MJLab, RoboSuite, RoboMimic, Isaac Lab 3.0, Genesis, RoboLab, Newton, and GenieSim exploration for physical-AI evaluation."
+      "desc": "MuJoCo, MJLab, RoboSuite, RoboMimic, Isaac Lab 3.0, Genesis, RoboLab, Newton, and GenieSim exploration for physical-AI evaluation.",
+      "tags": ["Isaac Lab 3.0", "MuJoCo", "RoboSuite", "Genesis", "RoboMimic"]
     },
     {
       "iconName": "ShieldCheck",
       "title": "Sim-to-Real Validation",
       "status": "Capability building",
-      "desc": "Digital twins, safety boundaries, diagnostic checks, and staged validation before physical humanoid deployment."
+      "desc": "Digital twins, safety boundaries, diagnostic checks, and staged validation before physical humanoid deployment.",
+      "tags": ["Unitree G1", "Digital Twins", "Safety Envelopes", "Torque Clamps"]
     }
   ],
   "nowBuilding": [

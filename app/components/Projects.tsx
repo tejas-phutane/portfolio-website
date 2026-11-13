@@ -42,7 +42,7 @@ export default function Projects() {
             <span className="section-eyebrow">Engineering Portfolio</span>
             <h2 className="section-title">Selected Robotics Projects</h2>
             <p className="section-subtitle">
-              Production systems, national science exhibits, and defence R&amp;D — complete with verified problem formulations, architectures, and quantified outcomes.
+              Production systems, national science exhibits, and defence R&amp;D with verified problem formulations, architectures, and quantified outcomes.
             </p>
           </div>
         </ScrollReveal>
@@ -140,7 +140,7 @@ export default function Projects() {
                         setActiveProject(project);
                       }}
                     >
-                      <span>Read Technical Case Study</span>
+                      <span>View Case Study</span>
                       <ArrowRight size={14} />
                     </span>
 

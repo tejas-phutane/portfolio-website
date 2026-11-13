@@ -56,7 +56,7 @@ export default function Contact() {
     <section id="contact" className="section">
       <div className="container">
         <ScrollReveal>
-          <p className="eyebrow">Contact</p>
+          <p className="eyebrow">Get In Touch</p>
           <h2>Let&apos;s <span className="gradient-text">Connect</span></h2>
         </ScrollReveal>
 
@@ -85,7 +85,7 @@ export default function Contact() {
                   onClick={openResumeModal}
                   className="contact-resume-trigger"
                 >
-                  Request Introduction / Resume
+                  Request Resume
                 </button>
               </div>
             </ScrollReveal>

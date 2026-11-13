@@ -10,10 +10,10 @@ export default function Experience() {
     <section id="experience" className="section">
       <div className="container">
         <ScrollReveal>
-          <p className="eyebrow">Experience</p>
-          <h2>Career <span className="gradient-text">Journey</span></h2>
+          <p className="eyebrow">Career History</p>
+          <h2>Professional <span className="gradient-text">Experience</span></h2>
           <p className="section-lead">
-            From college robotics clubs to production factory floors, each role shaped how I build reliable autonomous systems.
+            From robotics research to production factory floors, each role shaped how I engineer reliable autonomous systems.
           </p>
         </ScrollReveal>
 

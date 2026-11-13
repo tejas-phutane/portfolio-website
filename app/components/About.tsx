@@ -15,14 +15,43 @@ const ABOUT_ICON_MAP: Record<string, React.ReactNode> = {
   Layers: <Layers size={22} />,
 };
 
+function parseMetric(item: string) {
+  const match = item.match(/^(Up to \d+%|\d+×|\d+(\.\d+)?%|\d+\+?)\s+(.*)$/i);
+  if (match) {
+    const val = match[1];
+    const rest = match[3];
+    const paren = rest.match(/^(.*?)\s*\((.*?)\)(.*)$/);
+    if (paren) {
+      return {
+        val,
+        heading: paren[1].trim(),
+        sub: paren[2].trim() + (paren[3] ? " " + paren[3].trim() : ""),
+      };
+    }
+    return {
+      val,
+      heading: rest,
+      sub: "",
+    };
+  }
+  return {
+    val: "",
+    heading: item,
+    sub: "",
+  };
+}
+
 export default function About() {
   const about: AboutData = getAboutData();
+  const currentlyItem = about.highlights.find((h) => h.title.toLowerCase().includes("current"));
+  const educationItem = about.highlights.find((h) => h.title.toLowerCase().includes("education"));
+  const achievementsItem = about.highlights.find((h) => h.title.toLowerCase().includes("achievement"));
 
   return (
     <section id="about" className="section">
       <div className="container">
         <ScrollReveal>
-          <p className="eyebrow">About</p>
+          <p className="eyebrow">Background &amp; Journey</p>
           <h2>{about.heading.split("Production")[0]}<span className="gradient-text">Production Floors</span></h2>
         </ScrollReveal>
 
@@ -36,58 +65,120 @@ export default function About() {
           </div>
         </ScrollReveal>
 
-        {/* Key highlights */}
-        <div className="about-highlights">
-          {about.highlights.map((h, i) => (
-            <ScrollReveal key={i} delay={i + 1}>
-              <div className="highlight-card">
-                <h3>{h.title}</h3>
-                {h.lines?.map((line, j) => (
-                  <p key={j}>{line}</p>
-                ))}
-                {h.items && (
-                  <ul>
-                    {h.items.map((item, j) => (
-                      <li key={j}>{item}</li>
-                    ))}
-                  </ul>
-                )}
+        {/* Bento Highlights (Option 1): Left Stacked Context vs Right Metric Grid */}
+        <div className="about-bento-grid">
+          {/* Left Column: Stacked Context (Currently + Education) */}
+          <div className="bento-context-column">
+            {currentlyItem && (
+              <ScrollReveal delay={1}>
+                <div className="bento-card bento-card-focus">
+                  <div className="bento-card-header">
+                    <div className="bento-header-badge">
+                      <span className="status-indicator-dot" />
+                      <span>Active Engagement</span>
+                    </div>
+                    <span className="bento-category-tag">FEV India · Pune</span>
+                  </div>
+                  <h3 className="bento-card-title">{currentlyItem.lines?.[0] || "Senior Engineer L1"}</h3>
+                  <p className="bento-card-lead">{currentlyItem.lines?.[1] || "Unitree G1 Humanoid & Inspire Hand"}</p>
+                  <p className="bento-card-desc">
+                    {currentlyItem.lines?.[2] || "Developing ROS 2 HAL, Isaac Sim digital twins, and staged Sim-to-Real policy validation."}
+                  </p>
+                  <div className="bento-tags-row">
+                    <span className="bento-tag">Unitree G1</span>
+                    <span className="bento-tag">ROS 2 C++</span>
+                    <span className="bento-tag">Isaac Sim</span>
+                    <span className="bento-tag">Safety Wrappers</span>
+                  </div>
+                </div>
+              </ScrollReveal>
+            )}
+
+            {educationItem && (
+              <ScrollReveal delay={2}>
+                <div className="bento-card bento-card-edu">
+                  <div className="bento-card-header">
+                    <span className="bento-category-tag">Academic Foundations</span>
+                    <span className="bento-category-tag">Mumbai University</span>
+                  </div>
+                  <h3 className="bento-card-title">{educationItem.lines?.[0] || "B.E. Electronics & Telecommunication"}</h3>
+                  <p className="bento-card-lead">{educationItem.lines?.[1] || "RGIT Mumbai (2017-2021) · CGPA: 7.04"}</p>
+                  <p className="bento-card-desc">
+                    {educationItem.lines?.[2] || "Simulation Head at RGIT Robotics Club (mentored 50+ students in ROS, Gazebo & kinematics)."}
+                  </p>
+                </div>
+              </ScrollReveal>
+            )}
+          </div>
+
+          {/* Right Column: Key Achievements 2x2 Grid */}
+          {achievementsItem && achievementsItem.items && (
+            <ScrollReveal delay={3}>
+              <div className="bento-card bento-card-achievements">
+                <div className="bento-card-header">
+                  <div>
+                    <span className="bento-category-tag">Quantified Track Record</span>
+                    <h3 className="bento-card-title" style={{ marginTop: "4px" }}>Key Production Achievements</h3>
+                  </div>
+                  <span className="bento-proof-badge">Field Verified</span>
+                </div>
+                <p className="bento-card-desc" style={{ marginBottom: "var(--space-4)" }}>
+                  Empirically profiled and verified across industrial automation facilities and edge compute deployments.
+                </p>
+
+                <div className="bento-metrics-grid">
+                  {achievementsItem.items.map((item, idx) => {
+                    const parsed = parseMetric(item);
+                    return (
+                      <div className="bento-metric-tile" key={idx}>
+                        <span className="bento-metric-val">{parsed.val}</span>
+                        <span className="bento-metric-heading">{parsed.heading}</span>
+                        {parsed.sub && <p className="bento-metric-sub">{parsed.sub}</p>}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </ScrollReveal>
-          ))}
+          )}
         </div>
 
         {/* Delivering Real-World Engineering Value */}
         <ScrollReveal>
           <div className="tenets-section">
-            <p className="eyebrow">Engineering Tenets</p>
-            <h3>Delivering <span className="gradient-text">Real-World Value</span> vs Conceptual Demos</h3>
+            <p className="eyebrow">Engineering Principles</p>
+            <h3>Delivering <span className="gradient-text">Real-World Value</span> on Production Floors</h3>
             <p className="section-lead">
-              Moving robotics from fragile Jupyter notebook prototypes into 24/7 industrial factory deployment requires solving the messy realities of hardware, compute, and physical environments.
+              Moving robotics from research prototypes to 24/7 industrial deployment requires solving hardware latency, sensor noise, and physical safety.
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="tenets-grid">
+        <div className="tenets-spec-list">
           {about.tenets.map((t, i) => (
             <ScrollReveal key={i} delay={i + 1}>
-              <div className="tenet-card">
-                <div className="tenet-header">
-                  <div className="tenet-icon">{ABOUT_ICON_MAP[t.iconName] || <Zap size={20} />}</div>
-                  <div>
-                    <h4 className="tenet-title">{t.title}</h4>
-                    <span className="tenet-tagline">{t.tagline}</span>
+              <div className="tenet-spec-row">
+                <div className="tenet-spec-left">
+                  <span className="tenet-spec-index">0{i + 1}</span>
+                  <div className="tenet-spec-icon">{ABOUT_ICON_MAP[t.iconName] || <Zap size={20} />}</div>
+                  <div className="tenet-spec-titles">
+                    <h4 className="tenet-spec-title">{t.title}</h4>
+                    <span className="tenet-spec-tagline">{t.tagline}</span>
                   </div>
                 </div>
-                <p className="tenet-body">{t.body}</p>
-                <div className="tenet-metric-callout evidence-hoverable" tabIndex={0}>
-                  <span>{t.metricCallout}</span>
-                  {t.evidenceTooltip && (
-                    <div className="evidence-tooltip">
-                      <strong>How measured</strong>
-                      <p>{t.evidenceTooltip}</p>
-                    </div>
-                  )}
+                <div className="tenet-spec-body">
+                  <p>{t.body}</p>
+                </div>
+                <div className="tenet-spec-metric">
+                  <div className="tenet-metric-callout evidence-hoverable" tabIndex={0}>
+                    <span>{t.metricCallout}</span>
+                    {t.evidenceTooltip && (
+                      <div className="evidence-tooltip">
+                        <strong>How measured</strong>
+                        <p>{t.evidenceTooltip}</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </ScrollReveal>
@@ -96,33 +187,48 @@ export default function About() {
 
         {/* Physical AI & Robot Learning */}
         <ScrollReveal>
-          <div style={{ marginTop: "4.5rem" }}>
-            <p className="eyebrow">Physical AI &amp; Robot Learning</p>
+          <div style={{ marginTop: "5rem" }}>
+            <p className="eyebrow">Embodied Intelligence</p>
             <h3 style={{ marginBottom: "0.75rem" }}>
               Physical AI <span className="gradient-text">&amp; Robot Learning</span>
             </h3>
             <p className="section-lead">
-              Focus is centered on building reproducible demonstration data, policy training, simulation evaluation, and sim-to-real workflows for embodied AI.
+              Focused on reproducible demonstration data, policy training, simulation evaluation, and sim-to-real workflows for humanoid manipulation.
             </p>
           </div>
         </ScrollReveal>
 
-        <div className="exploring-grid">
+        <div className="physical-ai-bento-grid">
           {about.exploring.map((exp, i) => (
             <ScrollReveal key={i} delay={i + 1}>
-              <div className="exploring-card">
-                <div className="exploring-icon">{ABOUT_ICON_MAP[exp.iconName] || <Cpu size={22} />}</div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "10px", marginBottom: "var(--space-2)", flexWrap: "wrap" }}>
-                    <h4 style={{ margin: 0 }}>{exp.title}</h4>
-                    {exp.status && (
-                      <span className={`status-pill status-${exp.status.toLowerCase().replace(/\s+/g, '-')}`}>
-                        {exp.status}
-                      </span>
-                    )}
+              <div className="pai-bento-card">
+                <div className="pai-bento-header">
+                  <div className="pai-bento-category">
+                    <span className="pai-bento-index">0{i + 1}</span>
+                    <span className="pai-bento-tag">Track 0{i + 1}</span>
                   </div>
-                  <p>{exp.desc}</p>
+                  {exp.status && (
+                    <span className={`status-pill status-${exp.status.toLowerCase().replace(/\s+/g, '-')}`}>
+                      <span className="status-indicator-dot" />
+                      <span>{exp.status}</span>
+                    </span>
+                  )}
                 </div>
+
+                <div className="pai-bento-title-row">
+                  <div className="pai-bento-icon">{ABOUT_ICON_MAP[exp.iconName] || <Cpu size={20} />}</div>
+                  <h4 className="pai-bento-title">{exp.title}</h4>
+                </div>
+
+                <p className="pai-bento-desc">{exp.desc}</p>
+
+                {exp.tags && exp.tags.length > 0 && (
+                  <div className="pai-bento-tags">
+                    {exp.tags.map((tag, j) => (
+                      <span key={j} className="pai-bento-tag-pill">{tag}</span>
+                    ))}
+                  </div>
+                )}
               </div>
             </ScrollReveal>
           ))}
@@ -133,7 +239,7 @@ export default function About() {
           <>
             <ScrollReveal>
               <div className="now-building-section">
-                <p className="eyebrow">Active Roadmap</p>
+                <p className="eyebrow">Technical Roadmap</p>
                 <h3>Now <span className="gradient-text">Building</span></h3>
                 <p className="section-lead">
                   Current six-month technical focus areas across advanced robot learning, humanoid control, and embodied AI systems.
@@ -166,77 +272,6 @@ export default function About() {
                   </div>
                 </ScrollReveal>
               ))}
-            </div>
-          </>
-        )}
-
-        {/* Continuous Learning & Development */}
-        {about.continuousLearning && (
-          <>
-            <ScrollReveal>
-              <div className="continuous-learning-section">
-                <p className="eyebrow">Capability Development</p>
-                <h3>Continuous <span className="gradient-text">Learning</span></h3>
-                <p className="section-lead">
-                  Structured capability building spanning modern AI engineering frameworks and advanced robotics engineering disciplines.
-                </p>
-              </div>
-            </ScrollReveal>
-
-            <div className="learning-tracks-grid">
-              <ScrollReveal delay={1}>
-                <div className="learning-track-card">
-                  <div className="learning-track-header">
-                    <div className="learning-track-icon"><Brain size={20} /></div>
-                    <h4 className="learning-track-title">{about.continuousLearning.llmTrack.title}</h4>
-                  </div>
-
-                  <div className="learning-subtrack">
-                    <span className="learning-subtrack-title">Completed Capabilities</span>
-                    <ul className="learning-list">
-                      {about.continuousLearning.llmTrack.completed.map((c, i) => (
-                        <li key={i} className="learning-list-item">
-                          <span className="learning-item-dot completed" aria-hidden="true" />
-                          <span>{c}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div className="learning-subtrack" style={{ marginTop: "var(--space-2)" }}>
-                    <span className="learning-subtrack-title">In Progress Tracks</span>
-                    <ul className="learning-list">
-                      {about.continuousLearning.llmTrack.inProgress.map((p, i) => (
-                        <li key={i} className="learning-list-item">
-                          <span className="learning-item-dot in-progress" aria-hidden="true" />
-                          <span>{p}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal delay={2}>
-                <div className="learning-track-card">
-                  <div className="learning-track-header">
-                    <div className="learning-track-icon"><Layers size={20} /></div>
-                    <h4 className="learning-track-title">{about.continuousLearning.fevThemes.title}</h4>
-                  </div>
-
-                  <div className="learning-subtrack">
-                    <span className="learning-subtrack-title">Core Development Themes</span>
-                    <ul className="learning-list">
-                      {about.continuousLearning.fevThemes.themes.map((t, i) => (
-                        <li key={i} className="learning-list-item">
-                          <span className="learning-item-dot focus" aria-hidden="true" />
-                          <span>{t}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </ScrollReveal>
             </div>
           </>
         )}

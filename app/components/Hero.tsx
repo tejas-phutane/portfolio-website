@@ -57,15 +57,11 @@ export default function Hero() {
             </h1>
 
             <p className="hero-role-title">
-              Senior Robotics Engineer specializing in Humanoid Robotics, Physical AI, and Sim-to-Real Systems
-            </p>
-
-            <p className="hero-subheading">
-              Building robot-agnostic autonomy, safety-aware humanoid systems, digital twins, and Physical AI workflows from simulation to real-world deployment.
+              Senior Robotics Engineer · Humanoid Robotics &amp; Physical AI
             </p>
 
             <p className="hero-bio">
-              Robotics engineer with 4+ years of experience across industrial automation and humanoid platforms. Currently developing safety architecture, hardware abstraction layers, simulation environments, and Physical AI workflows for the Unitree G1 humanoid at FEV India. Previously deployed sub-50ms TensorRT perception pipelines on factory floors, commissioned 7+ robotic platforms at Gujarat Science City, and engineered precision vision inspection systems.
+              Senior Robotics Engineer with 4+ years of experience engineering autonomous systems from physics simulation to factory floors. Currently developing safety architectures, ROS 2 C++ hardware abstraction layers (HAL), and Physical AI workflows for the Unitree G1 humanoid at FEV India. Previously commissioned 7+ robotic platforms at Gujarat Science City and deployed sub-50ms edge perception systems for industrial automation.
             </p>
 
             {/* Three Concise Core Proof Points */}
@@ -133,93 +129,102 @@ export default function Hero() {
             </div>
 
             {/* Actions & Verified Direct Contact Channels */}
-            <div className="hero-actions-row">
-              <a
-                href="#projects"
-                className="btn btn-primary"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
-                <span>View Engineering Projects</span>
-                <ArrowRight size={16} />
-              </a>
+            <div className="hero-actions-container">
+              <div className="hero-actions-primary">
+                <a
+                  href="#projects"
+                  className="btn btn-primary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  <span>Explore Projects</span>
+                  <ArrowRight size={16} />
+                </a>
 
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={openResumeModal}
-                title="Request gated resume access"
-              >
-                <FileText size={16} />
-                <span>Request Resume</span>
-              </button>
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={openResumeModal}
+                  title="Request gated resume access"
+                >
+                  <FileText size={16} />
+                  <span>Request Resume</span>
+                </button>
 
-              {/* Direct Email Pill with One-Click Copy */}
-              <button
-                type="button"
-                className="hero-email-pill"
-                onClick={handleCopyEmail}
-                title="Click to copy email address"
-                aria-label="Copy email address"
-              >
-                <Mail size={15} />
-                <span className="email-text">tejasphutane.work@gmail.com</span>
-                {copiedEmail ? (
-                  <span className="copy-state copied">
-                    <Check size={13} />
-                    <span>Copied</span>
+                <a
+                  href="#contact"
+                  className="btn btn-tertiary"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  <Mail size={15} />
+                  <span>Get in Touch</span>
+                </a>
+              </div>
+
+              {/* Verified Direct Channels: Copy Email & Professional Profiles */}
+              <div className="hero-actions-channels">
+                <button
+                  type="button"
+                  className="hero-email-pill"
+                  onClick={handleCopyEmail}
+                  title="Click to copy email address"
+                  aria-label="Copy email address"
+                >
+                  <Mail size={14} />
+                  <span className="email-text">tejasphutane.work@gmail.com</span>
+                  {copiedEmail ? (
+                    <span className="copy-state copied">
+                      <Check size={13} />
+                      <span>Copied</span>
+                    </span>
+                  ) : (
+                    <span className="copy-state">
+                      <Copy size={13} />
+                      <span>Copy</span>
+                    </span>
+                  )}
+                  <span className="sr-only" aria-live="polite">
+                    {copiedEmail ? "Email address copied to clipboard" : ""}
                   </span>
-                ) : (
-                  <span className="copy-state">
-                    <Copy size={13} />
-                  </span>
-                )}
-                <span className="sr-only" aria-live="polite">
-                  {copiedEmail ? "Email address copied to clipboard" : ""}
-                </span>
-              </button>
+                </button>
 
-              <div className="hero-social-links">
-                <a
-                  href="https://github.com/tejas-phutane"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-btn"
-                  aria-label="GitHub Profile"
-                  title="GitHub"
-                >
-                  <GithubIcon size={18} />
-                </a>
-                <a
-                  href="https://linkedin.com/in/tejas-phutane"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-btn"
-                  aria-label="LinkedIn Profile"
-                  title="LinkedIn"
-                >
-                  <LinkedinIcon size={18} />
-                </a>
-                <a
-                  href="https://x.com/tejas_phutane"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-btn"
-                  aria-label="X / Twitter Profile"
-                  title="X (Twitter)"
-                >
-                  <XTwitterIcon size={17} />
-                </a>
-                <a
-                  href="mailto:tejasphutane.work@gmail.com"
-                  className="social-btn"
-                  aria-label="Send direct email"
-                  title="Direct Email"
-                >
-                  <Mail size={18} />
-                </a>
+                <div className="hero-social-links">
+                  <a
+                    href="https://github.com/tejas-phutane"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                    aria-label="GitHub Profile"
+                    title="GitHub"
+                  >
+                    <GithubIcon size={17} />
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/tejas-phutane"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                    aria-label="LinkedIn Profile"
+                    title="LinkedIn"
+                  >
+                    <LinkedinIcon size={17} />
+                  </a>
+                  <a
+                    href="https://x.com/tejas_phutane"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                    aria-label="X / Twitter Profile"
+                    title="X (Twitter)"
+                  >
+                    <XTwitterIcon size={16} />
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -241,113 +246,44 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right Column: Active Robotics Telemetry & Focus Console */}
-          <div className="hero-hud-wrapper">
-            <div className="hud-console">
-              {/* Technical corner brackets */}
-              <div className="frame-corner corner-tl" />
-              <div className="frame-corner corner-tr" />
-              <div className="frame-corner corner-bl" />
-              <div className="frame-corner corner-br" />
+          {/* Right Column: Profile Showcase & Robotics Philosophy */}
+          <div className="hero-showcase-wrapper">
+            <div className="hero-showcase-card">
+              {/* Profile Image Frame */}
+              <div className="hero-portrait-frame">
+                <div className="portrait-image-container">
+                  <img
+                    src="/images/profile.png"
+                    alt="Tejas Phutane - Senior Robotics Engineer"
+                    className="portrait-image"
+                    width={480}
+                    height={480}
+                  />
+                  <div className="portrait-gradient-overlay" />
 
-              {/* HUD Header Bar */}
-              <div className="hud-header">
-                <div className="hud-status-live">
-                  <span className="hud-pulse-dot" />
-                  <span className="hud-system-id">SYS_TELEMETRY // FEV_LAB_01</span>
-                </div>
-                <span className="hud-mode-pill">SIM-TO-REAL · ACTIVE</span>
-              </div>
+                  {/* Floating Status Pill: Top Right */}
+                  <div className="portrait-floating-badge badge-top-right">
+                    <span className="status-indicator-dot" />
+                    <span>Unitree G1 · Sim-to-Real</span>
+                  </div>
 
-              {/* Telemetry Focus Grid */}
-              <div className="hud-body">
-                {/* Module 1: Humanoid Platform */}
-                <div className="hud-module">
-                  <div className="hud-module-meta">
-                    <span className="hud-module-index">01</span>
-                    <span className="hud-module-cat">TARGET PLATFORM</span>
-                    <span className="hud-module-state state-live">BENCH ACTIVE</span>
-                  </div>
-                  <h3 className="hud-module-title">Unitree G1 Bipedal Humanoid</h3>
-                  <p className="hud-module-spec">
-                    23-DOF Kinematics · Inspire Multi-Finger Dexterous Hands · High-Speed CAN &amp; Ethernet Joint Bus
-                  </p>
-                  <div className="hud-telemetry-row">
-                    <span className="hud-data-pill">Joint Telemetry: 1kHz</span>
-                    <span className="hud-data-pill">HAL Adapter: ROS 2 C++</span>
-                  </div>
-                </div>
-
-                {/* Module 2: Physical AI & Robot Learning */}
-                <div className="hud-module">
-                  <div className="hud-module-meta">
-                    <span className="hud-module-index">02</span>
-                    <span className="hud-module-cat">PHYSICAL AI</span>
-                    <span className="hud-module-state state-eval">IN TRAINING</span>
-                  </div>
-                  <h3 className="hud-module-title">ACT &amp; SmolVLA Policy Pipelines</h3>
-                  <p className="hud-module-spec">
-                    Multimodal Demonstration Capture · SO101 Arm Synthetic Calibration · Behavioral Cloning
-                  </p>
-                  <div className="hud-telemetry-row">
-                    <span className="hud-data-pill">Data: Egocentric Vision</span>
-                    <span className="hud-data-pill">Eval: Closed-Loop Sim</span>
-                  </div>
-                </div>
-
-                {/* Module 3: Humanoid Safety Architecture */}
-                <div className="hud-module">
-                  <div className="hud-module-meta">
-                    <span className="hud-module-index">03</span>
-                    <span className="hud-module-cat">SAFETY ARCHITECTURE</span>
-                    <span className="hud-module-state state-armed">ARMED</span>
-                  </div>
-                  <h3 className="hud-module-title">HARA &amp; Multi-Tier Safety Envelopes</h3>
-                  <p className="hud-module-spec">
-                    3D Kinematic Self-Collision Boundaries · Command-Rate Adaptation · Deterministic E-Stop State Machine
-                  </p>
-                  <div className="hud-telemetry-row">
-                    <span className="hud-data-pill">Watchdog: 1kHz Heartbeat</span>
-                    <span className="hud-data-pill">Torque Clamps: Strict</span>
-                  </div>
-                </div>
-
-                {/* Module 4: Simulation & Digital Twin */}
-                <div className="hud-module">
-                  <div className="hud-module-meta">
-                    <span className="hud-module-index">04</span>
-                    <span className="hud-module-cat">DIGITAL TWIN</span>
-                    <span className="hud-module-state state-sync">SYNCED (60Hz)</span>
-                  </div>
-                  <h3 className="hud-module-title">NVIDIA Isaac Sim &amp; Isaac Lab 3.0</h3>
-                  <p className="hud-module-spec">
-                    Showroom Assistant Environment · Dynamic Obstacle Buffers · Domain-Randomized Physics Transfer
-                  </p>
-                  <div className="hud-telemetry-row">
-                    <span className="hud-data-pill">Physics: PhysX 5 GPU</span>
-                    <span className="hud-data-pill">Nav: ROS 2 Nav2</span>
+                  {/* Floating Focus Pill: Bottom Left */}
+                  <div className="portrait-floating-badge badge-bottom-left">
+                    <Cpu size={12} className="badge-icon" />
+                    <span>Physical AI &amp; Embodied Autonomy</span>
                   </div>
                 </div>
               </div>
 
-              {/* HUD Footer Diagnostics */}
-              <div className="hud-footer">
-                <div className="hud-footer-left">
-                  <span className="hud-footer-label">ENGINEERING PROFILE</span>
-                  <span className="hud-footer-val">Tejas Phutane · Senior Engineer L1</span>
-                </div>
-                <div className="hud-footer-right">
-                  <a
-                    href="#projects"
-                    className="hud-inspect-link"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
-                    }}
-                  >
-                    <span>Inspect System Architecture</span>
-                    <ArrowRight size={13} />
-                  </a>
+              {/* Robotics Engineering Philosophy Quote */}
+              <div className="hero-quote-box">
+                <div className="quote-mark-icon" aria-hidden="true">&ldquo;</div>
+                <blockquote className="quote-statement">
+                  I build robots that quietly do their job so humans can focus on work that actually needs a human brain.
+                </blockquote>
+                <div className="quote-meta-row">
+                  <div className="quote-author-line" />
+                  <span className="quote-author-tag">Engineering Philosophy · Production &amp; Sim-to-Real</span>
                 </div>
               </div>
             </div>
