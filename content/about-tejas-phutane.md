@@ -16,6 +16,7 @@ I'm passionate about **leveraging GPT and advanced tech to streamline developmen
 - 📄 Resume & Direct Contact: Available on request via introduction form
 - 💼 LinkedIn: [linkedin.com/in/tejas-phutane](https://linkedin.com/in/tejas-phutane)
 - 💻 GitHub: [github.com/TejasPhutane](https://github.com/tejas-phutane)
+- X: [x.com/PhutaneTejas](https://x.com/PhutaneTejas)
 - 📍 Location: Mumbai, Maharashtra, India
 
 ---
@@ -502,6 +503,7 @@ I'm always interested in discussing:
 - Email: tejasphutane.work@gmail.com
 - LinkedIn: [linkedin.com/in/tejas-phutane](https://linkedin.com/in/tejas-phutane)
 - GitHub: [github.com/TejasPhutane](https://github.com/tejas-phutane)
+- X: [x.com/PhutaneTejas](https://x.com/PhutaneTejas)
 - Direct Contact: Available upon introduction request
 
 **Available for:**

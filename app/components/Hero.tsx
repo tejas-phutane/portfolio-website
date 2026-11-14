@@ -215,7 +215,7 @@ export default function Hero() {
                     <LinkedinIcon size={17} />
                   </a>
                   <a
-                    href="https://x.com/tejas_phutane"
+                    href="https://x.com/PhutaneTejas"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="social-btn"

@@ -55,6 +55,8 @@ export const metadata: Metadata = {
     title: "Tejas Phutane | Senior Robotics Engineer: Humanoid Robotics & Physical AI",
     description:
       "Senior Robotics Engineer specializing in Humanoid Robotics, Physical AI, and Sim-to-Real Systems.",
+    creator: "@PhutaneTejas",
+    site: "@PhutaneTejas",
   },
 };
 
@@ -84,8 +86,9 @@ const jsonLd = {
   ],
   url: "https://www.tejasphutane.com",
   sameAs: [
-    "https://github.com/tejasphutane",
-    "https://linkedin.com/in/tejasphutane",
+    "https://github.com/tejas-phutane",
+    "https://linkedin.com/in/tejas-phutane",
+    "https://x.com/PhutaneTejas",
   ],
 };
 
